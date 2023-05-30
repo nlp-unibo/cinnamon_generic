@@ -1,0 +1,3 @@
+hyperopt==0.2.7
+setuptools==67.1.0
+cinnamon_core==0.1
