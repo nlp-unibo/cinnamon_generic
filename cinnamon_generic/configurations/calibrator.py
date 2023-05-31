@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import multiprocessing as mp
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Type
 
 from cinnamon_core.core.configuration import supports_variants, Configuration, C
 from cinnamon_core.core.registry import RegistrationKey, Registry, register
@@ -26,7 +26,7 @@ class TunableConfiguration(Configuration):
 
     @classmethod
     def get_default(
-            cls: type[C]
+            cls: Type[C]
     ) -> C:
         config = super().get_default()
         config.add_short(name='calibration_config',
