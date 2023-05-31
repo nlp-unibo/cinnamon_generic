@@ -6,6 +6,7 @@ from cinnamon_core.core.registry import RegistrationKey, Registry, Registration,
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
 from cinnamon_core.utility.python_utility import get_function_signature
+from cinnamon_core.utility.path_utility import clear_folder
 from tqdm import tqdm
 
 from cinnamon_generic.components.file_manager import FileManager
@@ -59,13 +60,13 @@ def setup_registry(
 
     directory = Path(directory).resolve() if type(directory) != Path else directory
     if Registry.is_custom_module(module_path=directory):
-        Registry.load_custom_module(module_path=directory)
+        Registry.load_registrations(directory_path=directory)
 
     if module_directories is not None:
         for mod_dir in module_directories:
             mod_dir = Path(mod_dir).resolve() if type(directory) != Path else mod_dir
             for module_name in find_modules(root=mod_dir):
-                Registry.load_custom_module(module_path=module_name)
+                Registry.load_registrations(directory_path=module_name)
 
     if file_manager_registration_key is None:
         file_manager_registration_key = RegistrationKey(name='file_manager',
@@ -112,6 +113,10 @@ def list_registrations(
                                 f'Namespaces: {os.linesep}'
                                 f'{namespaces}')
     registration_directory = file_manager.run(filepath=file_manager.registrations_directory)
+
+    if registration_directory.exists():
+        clear_folder(registration_directory)
+
     for namespace in tqdm(namespaces):
         namespace_registration_path = registration_directory.joinpath(namespace)
 

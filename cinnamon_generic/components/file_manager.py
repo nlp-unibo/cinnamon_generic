@@ -51,7 +51,7 @@ class FileManager(Component):
             self.runs_registry[run_path] = run_path.with_name(replacement_name)
 
         if create_path and not run_path.is_dir():
-            run_path.mkdir()
+            run_path.mkdir(parents=True)
         return run_path
 
     def track_run(
