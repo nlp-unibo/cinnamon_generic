@@ -188,15 +188,15 @@ class TokenizerProcessor(Processor):
             The input data with text fields processed by the internal tokenizer.
         """
 
-        text_fields = data.get_by_tag(tags='text')
-        for field in text_fields:
+        text_fields = data.search_by_tag(tags='text')
+        for field_name, field_value in text_fields.items():
             if tokenize:
-                value = self.tokenize(text=field.value,
+                value = self.tokenize(text=field_value,
                                       remove_special_tokens=remove_special_tokens)
             else:
-                value = self.detokenize(ids=field.value,
+                value = self.detokenize(ids=field_value,
                                         remove_special_tokens=remove_special_tokens)
-            data[field.name] = value
+            data[field_name] = value
         return data
 
     def run(

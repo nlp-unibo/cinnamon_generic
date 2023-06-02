@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import AnyStr, List, Union, Optional, Callable, Dict
+from typing import AnyStr, List, Union, Optional, Callable, Dict, Any
 
 from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag
 from cinnamon_core.utility import logging_utility
@@ -68,6 +68,8 @@ def setup_registry(
             for module_name in find_modules(root=mod_dir):
                 Registry.load_registrations(directory_path=module_name)
 
+    Registry.register_and_bind_queued_variants()
+
     if file_manager_registration_key is None:
         file_manager_registration_key = RegistrationKey(name='file_manager',
                                                         tags={'default'},
@@ -133,7 +135,7 @@ def run_component_from_key(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-):
+) -> Any:
     logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{config_registration_key}')
 
     component = Registry.build_component_from_key(config_registration_key=config_registration_key)
@@ -148,7 +150,7 @@ def run_component_from_key(
     run_args = run_args if run_args is not None else {}
     if 'serialization_path' in get_function_signature(component.run):
         run_args['serialization_path'] = serialization_path
-    component.run(**run_args)
+    run_result = component.run(**run_args)
 
     if serialize:
         logging_utility.logger.info(f'Serializing Component state to: {serialization_path}')
@@ -168,6 +170,8 @@ def run_component_from_key(
         file_manager.track_run(registration_key=config_registration_key,
                                serialization_path=serialization_path)
 
+    return run_result
+
 
 def run_component(
         name: str,
@@ -176,11 +180,11 @@ def run_component(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-):
+) -> Any:
     key = RegistrationKey(name=name,
                           tags=tags,
                           namespace=namespace)
-    run_component_from_key(config_registration_key=key,
+    return run_component_from_key(config_registration_key=key,
                            serialize=serialize,
                            run_name=run_name,
                            run_args=run_args)

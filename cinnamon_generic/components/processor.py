@@ -62,6 +62,8 @@ class ProcessorPipeline(Processor):
             data: Optional[FieldDict] = None,
             is_training_data: bool = False
     ) -> Optional[FieldDict]:
+        processor = self.config.search_by_tag()
+
         for processor in self.processors:
             data = processor.run(data=data,
                                  is_training_data=is_training_data)

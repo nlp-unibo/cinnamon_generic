@@ -44,8 +44,7 @@ class TokenizerProcessorConfig(TunableConfiguration):
                          value=50,
                          affects_serialization=True,
                          type_hint=int,
-                         description='Embedding dimension for text conversion',
-                         variants=[50, 100, 200, 300])
+                         description='Embedding dimension for text conversion')
         config.add_short(name='embedding_type',
                          affects_serialization=True,
                          type_hint=Optional[str],

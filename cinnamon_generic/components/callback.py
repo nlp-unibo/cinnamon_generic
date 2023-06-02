@@ -55,30 +55,6 @@ class Callback(Component):
             hookpoint_method(logs=logs)
 
 
-class CallbackPipeline(Callback):
-    """
-    A pipeline ``Callback`` ``Component`` that executes multiple ``Callback`` in a sequential fashion.
-
-    """
-
-    def run(self,
-            hookpoint: Optional[str] = None,
-            logs: Dict[str, Any] = None
-            ):
-        """
-        Runs each ``Callback``'s specific hookpoint.
-        If a ``Callback`` doesn't have the specified hookpoint, nothing happens.
-
-        Args:
-            hookpoint: name of the hookpoint method to invoke
-            logs: optional arguments for the hookpoint
-        """
-
-        for callback in self.callbacks:
-            callback.run(hookpoint=hookpoint,
-                         logs=logs)
-
-
 def hookpoint_guard(
         func,
         hookpoint='on_fit'

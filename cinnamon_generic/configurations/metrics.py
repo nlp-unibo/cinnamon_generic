@@ -40,23 +40,3 @@ class LambdaMetricConfig(MetricConfig):
                          type_hint=Optional[Dict[str, Any]],
                          description="Additional method arguments")
         return config
-
-
-class MetricPipelineConfig(Configuration):
-
-    @classmethod
-    def get_default(
-            cls
-    ):
-        config = super(MetricPipelineConfig, cls).get_default()
-        config.add_short(name='label_metrics_map',
-                         type_hint=Optional[Dict[str, Set[str]]],
-                         description="label to metrics mapping.")
-        config.add_short(name='metrics',
-                         type_hint=List[RegistrationKey],
-                         build_type_hint=List[Metric],
-                         description="List of metric configuration registration keys pointing to"
-                                     " metric components to be executed in pipeline",
-                         is_registration=True)
-
-        return config
