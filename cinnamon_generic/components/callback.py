@@ -1,6 +1,6 @@
 from functools import partial
 from pathlib import Path
-from typing import Any, Dict, cast, Optional
+from typing import Any, Dict, cast, Optional, Callable
 
 from cinnamon_core.core.component import Component
 
@@ -56,8 +56,8 @@ class Callback(Component):
 
 
 def hookpoint_guard(
-        func,
-        hookpoint='on_fit'
+        func: Callable,
+        hookpoint: Optional[str] = None
 ):
     """
     A decorator to enable ``Callback``'s hookpointing
@@ -77,6 +77,7 @@ def hookpoint_guard(
         The decorated method with specified ``Callback``'s hookpoint.
     """
 
+    hookpoint = hookpoint if hookpoint is not None else func.__name__
     start_hookpoint = f'{hookpoint}_begin'
     end_hookpoint = f'{hookpoint}_end'
 
@@ -84,10 +85,7 @@ def hookpoint_guard(
             *args,
             **kwargs
     ):
-        callbacks = None
-        if 'callbacks' in kwargs:
-            callbacks = kwargs['callbacks']
-            callbacks = cast(CallbackPipeline, callbacks)
+        callbacks = kwargs.get('callbacks', None)
 
         if callbacks is not None:
             callbacks.run(hookpoint=start_hookpoint)
@@ -95,8 +93,7 @@ def hookpoint_guard(
         res = func(*args, **kwargs)
 
         if callbacks is not None:
-            callbacks.run(hookpoint=end_hookpoint,
-                          logs=res)
+            callbacks.run(hookpoint=end_hookpoint, logs=res)
 
         return res
 
@@ -104,7 +101,7 @@ def hookpoint_guard(
 
 
 def guard(
-        hookpoint='on_fit'
+        hookpoint: Optional[str] = None
 ):
     """
     A decorator to mark a ``Callback`` hookpoints.
@@ -127,4 +124,4 @@ def guard(
     return partial(hookpoint_guard, hookpoint=hookpoint)
 
 
-__all__ = ['Callback', 'CallbackPipeline', 'guard']
+__all__ = ['Callback', 'guard']

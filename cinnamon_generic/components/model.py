@@ -1,6 +1,6 @@
 import abc
 from pathlib import Path
-from typing import AnyStr, Any, Optional, Union
+from typing import AnyStr, Any, Optional, Union, Dict
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
@@ -164,7 +164,6 @@ class Model(Component):
         Returns:
             A ``FieldDict`` storing training information
         """
-
         pass
 
     @abc.abstractmethod
@@ -233,6 +232,7 @@ class Model(Component):
 
         pass
 
+    # TODO: this should be removed -> a separate processor handles this
     @abc.abstractmethod
     def get_model_data(
             self,
@@ -279,7 +279,7 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes the training loss of the neural network
@@ -300,7 +300,7 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes a training step given input data.
@@ -322,7 +322,7 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes a batch fitting step given input batch
@@ -342,7 +342,7 @@ class Network(Model):
     def batch_predict(
             self,
             batch_x: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ):
         """
         Computes model predictions for the given input batch.
@@ -363,7 +363,7 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ):
         """
         Computes training loss for the given input batch without a issuing a gradient step.
@@ -385,7 +385,7 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[FieldDict] = None
+            batch_args: Optional[Dict] = None
     ):
         """
         Computes training loss and model predictions for the given input batch without a issuing a gradient step.
