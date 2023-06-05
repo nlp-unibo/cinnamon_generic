@@ -143,9 +143,13 @@ def run_component_from_key(
     file_manager = FileManager.retrieve_built_component(name='file_manager',
                                                         namespace='generic',
                                                         is_default=True)
-    serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
-                                                                  create_path=serialize)
-    logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
+
+    if serialize:
+        serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
+                                                                      create_path=serialize)
+        logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
+    else:
+        serialization_path = None
 
     run_args = run_args if run_args is not None else {}
     if 'serialization_path' in get_function_signature(component.run):
@@ -185,9 +189,9 @@ def run_component(
                           tags=tags,
                           namespace=namespace)
     return run_component_from_key(config_registration_key=key,
-                           serialize=serialize,
-                           run_name=run_name,
-                           run_args=run_args)
+                                  serialize=serialize,
+                                  run_name=run_name,
+                                  run_args=run_args)
 
 
 def routine_train(

@@ -211,7 +211,7 @@ class TrainAndTestRoutine(Routine):
             if type(serialization_path) != Path and serialization_path is not None \
             else serialization_path
 
-        routine_name = '_'.join([str(suffix) for suffix in step_info.values()])
+        routine_name = '_'.join([f'{key}-{value}' for key, value in step_info.to_value_dict().items()])
         routine_path = serialization_path.joinpath(routine_name) if serialization_path is not None else None
         if routine_path is not None and not routine_path.is_dir():
             routine_path.mkdir()
@@ -236,7 +236,7 @@ class TrainAndTestRoutine(Routine):
             callbacks = None
 
         model = Model.build_component_from_key(config_registration_key=self.model)
-        model.build_model(processor_state=pre_processor.state,
+        model.build_model(processor=pre_processor,
                           callbacks=callbacks)
 
         # Training
@@ -812,7 +812,7 @@ class PrebuiltCVSplitter(CVSplitter):
 
         self.folds = load_json(self.folds_path)
         self.n_splits = len(self.folds)
-        key_path = self.folds_path.parent / (self.folds_path.name + '_listing.json')
+        key_path = self.folds_path.parent / (self.folds_path.stem + '_listing.json')
         self.key_listing = load_json(key_path)
         self.key_listing = np.array(self.key_listing)
 
@@ -872,10 +872,7 @@ class PrebuiltCVSplitter(CVSplitter):
 
             train_indexes = self.key_listing[self.folds[fold]['train']]
 
-            if self.return_val_indexes:
-                yield train_indexes, val_indexes, test_indexes
-            else:
-                yield train_indexes, test_indexes
+            yield train_indexes, val_indexes, test_indexes
 
     def run(
             self,

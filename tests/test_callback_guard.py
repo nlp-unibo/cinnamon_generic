@@ -14,21 +14,21 @@ class MyCallback(Callback):
         print('On fit end')
 
 
-@guard(hookpoint='on_pred')
-def pred_function(callbacks: Optional[MyCallback] = None):
+@guard()
+def pred(callbacks: Optional[MyCallback] = None):
     print('doing prediction')
 
 
-@guard(hookpoint='on_fit')
-def fit_function(callbacks: Optional[MyCallback] = None):
+@guard()
+def fit(callbacks: Optional[MyCallback] = None):
     print('doing fitting')
 
 
 def test_decorated_function(capsys):
-    pred_function(callbacks=MyCallback(config=Configuration()))
+    pred(callbacks=MyCallback(config=Configuration()))
     captured_stdout = capsys.readouterr()
     assert captured_stdout.out == "doing prediction\n"
 
-    fit_function(callbacks=MyCallback(config=Configuration()))
+    fit(callbacks=MyCallback(config=Configuration()))
     captured_stdout = capsys.readouterr()
     assert captured_stdout.out == "On fit begin\ndoing fitting\nOn fit end\n"

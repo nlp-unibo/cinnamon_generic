@@ -78,8 +78,8 @@ def hookpoint_guard(
     """
 
     hookpoint = hookpoint if hookpoint is not None else func.__name__
-    start_hookpoint = f'{hookpoint}_begin'
-    end_hookpoint = f'{hookpoint}_end'
+    start_hookpoint = f'on_{hookpoint}_begin'
+    end_hookpoint = f'on_{hookpoint}_end'
 
     def func_wrap(
             *args,

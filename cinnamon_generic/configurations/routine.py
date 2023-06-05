@@ -129,6 +129,7 @@ class CVRoutineConfig(RoutineConfig):
                          type_hint=RegistrationKey,
                          build_type_hint=CVSplitter,
                          description="The splitter component for cross-validation folds computation",
+                         is_registration=True,
                          is_required=True)
         config.add_short(name='split_key',
                          type_hint=Any,
@@ -208,6 +209,7 @@ class PrebuiltCVSplitterConfig(PrebuiltSplitterConfig):
         config = super().get_default()
 
         config.add_short(name='n_splits',
+                         value=5,
                          type_hint=int,
                          description="Number of splits to perform to build folds",
                          is_required=True)

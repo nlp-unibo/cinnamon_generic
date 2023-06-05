@@ -1,13 +1,12 @@
 import abc
 from pathlib import Path
-from typing import AnyStr, Any, Optional, Union, Dict
+from typing import AnyStr, Any, Optional, Union
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
-from dotmap import DotMap
-
 from cinnamon_generic.components.callback import Callback, guard
 from cinnamon_generic.components.metrics import Metric
+from cinnamon_generic.components.processor import Processor
 
 
 # TODO: check whether to split training/inference APIs into a Trainer/Predictor dedicated component.
@@ -85,9 +84,8 @@ class Model(Component):
     @property
     def state(
             self
-    ) -> DotMap:
-        return_dict = {key: value for key, value in self.__dict__.items() if key != 'model'}
-        return DotMap(return_dict)
+    ) -> FieldDict:
+        return FieldDict({key: value for key, value in self.__dict__.items() if key != 'model'})
 
     def prepare_for_training(
             self,
@@ -129,14 +127,14 @@ class Model(Component):
     @abc.abstractmethod
     def build_model(
             self,
-            processor_state: FieldDict,
+            processor: Processor,
             callbacks: Optional[Callback] = None
     ):
         """
         Builds the internal model.
 
         Args:
-            processor_state: a ``FieldDict`` storing all previous components' relevant information for
+            processor: a ``FieldDict`` storing all previous components' relevant information for
              building the model.
             callbacks: an optional ``Callback`` component.
         """
@@ -144,7 +142,7 @@ class Model(Component):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_fit')
+    @guard()
     def fit(
             self,
             train_data: FieldDict,
@@ -167,7 +165,7 @@ class Model(Component):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_evaluate')
+    @guard()
     def evaluate(
             self,
             data: FieldDict,
@@ -189,7 +187,7 @@ class Model(Component):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_evaluate_and_predict')
+    @guard()
     def evaluate_and_predict(
             self,
             data: FieldDict,
@@ -211,7 +209,7 @@ class Model(Component):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_predict')
+    @guard()
     def predict(
             self,
             data: FieldDict,
@@ -228,26 +226,6 @@ class Model(Component):
 
         Returns:
             A ``FieldDict`` storing prediction information
-        """
-
-        pass
-
-    # TODO: this should be removed -> a separate processor handles this
-    @abc.abstractmethod
-    def get_model_data(
-            self,
-            data: FieldDict,
-            with_labels: bool = False
-    ) -> Any:
-        """
-        Generic entrypoint to define data iterators depending on the internal model APIs.
-
-        Args:
-            data: data to feed to the model
-            with_labels: if True, ground-truth information is considered (i.e., the model is in training mode)
-
-        Returns:
-            Data formatted to be compliant with the internal model APIs.
         """
 
         pass
@@ -279,7 +257,6 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes the training loss of the neural network
@@ -287,7 +264,6 @@ class Network(Model):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
-            batch_args: additional information for the specific step.
 
         Returns:
             The computed training loss for the current step
@@ -300,7 +276,6 @@ class Network(Model):
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes a training step given input data.
@@ -308,7 +283,6 @@ class Network(Model):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
-            batch_args: additional information for the specific step.
 
         Returns:
             The computed training information for the current step (e.g., loss value and gradients)
@@ -317,12 +291,10 @@ class Network(Model):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_batch_fit')
     def batch_fit(
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[Dict] = None
     ) -> Any:
         """
         Computes a batch fitting step given input batch
@@ -330,7 +302,6 @@ class Network(Model):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
-            batch_args: additional information for the specific step.
 
         Returns:
             The computed training information for the current step (e.g., loss value, metadata, gradients)
@@ -338,18 +309,15 @@ class Network(Model):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_batch_predict')
     def batch_predict(
             self,
             batch_x: Any,
-            batch_args: Optional[Dict] = None
     ):
         """
         Computes model predictions for the given input batch.
 
         Args:
             batch_x: batch input training data in any model-compliant format
-            batch_args: additional information for the specific step.
 
         Returns:
             Model predictions for the given input batch
@@ -358,12 +326,10 @@ class Network(Model):
         pass
 
     @abc.abstractmethod
-    @guard(hookpoint='on_batch_evaluate')
     def batch_evaluate(
             self,
             batch_x: Any,
             batch_y: Any,
-            batch_args: Optional[Dict] = None
     ):
         """
         Computes training loss for the given input batch without a issuing a gradient step.
@@ -371,32 +337,9 @@ class Network(Model):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
-            batch_args: additional information for the specific step.
 
         Returns:
             Training loss for the given input batch
-        """
-
-        pass
-
-    @abc.abstractmethod
-    @guard(hookpoint='on_batch_evaluate_and_predict')
-    def batch_evaluate_and_predict(
-            self,
-            batch_x: Any,
-            batch_y: Any,
-            batch_args: Optional[Dict] = None
-    ):
-        """
-        Computes training loss and model predictions for the given input batch without a issuing a gradient step.
-
-        Args:
-            batch_x: batch input training data in any model-compliant format
-            batch_y: batch ground-truth training data in any model-compliant format
-            batch_args: additional information for the specific step.
-
-        Returns:
-            Training loss and model predictions for the given input batch
         """
 
         pass

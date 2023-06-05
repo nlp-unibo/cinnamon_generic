@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
@@ -62,9 +62,9 @@ class ProcessorPipeline(Processor):
             data: Optional[FieldDict] = None,
             is_training_data: bool = False
     ) -> Optional[FieldDict]:
-        processor = self.config.search_by_tag()
+        processors: List[Processor] = list(self.config.search_by_tag('pipeline').values())
 
-        for processor in self.processors:
+        for processor in processors:
             data = processor.run(data=data,
                                  is_training_data=is_training_data)
         return data
