@@ -170,7 +170,7 @@ def run_component_from_key(
             serialization_path = replacement_path
             logging_utility.logger.info(f'Renaming {serialization_path} to {replacement_path}')
 
-    if serialization_path.exists():
+    if serialization_path is not None and serialization_path.exists():
         file_manager.track_run(registration_key=config_registration_key,
                                serialization_path=serialization_path)
 

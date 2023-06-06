@@ -188,7 +188,7 @@ class Model(Component):
 
     @abc.abstractmethod
     @guard()
-    def evaluate_and_predict(
+    def evaluate(
             self,
             data: FieldDict,
             callbacks: Optional[Callback] = None,
@@ -244,7 +244,7 @@ class Model(Component):
             A ``FieldDict`` storing evaluation and prediction information
         """
 
-        return self.evaluate_and_predict(data=data)
+        return self.evaluate(data=data)
 
 
 class Network(Model):

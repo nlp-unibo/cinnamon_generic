@@ -1,5 +1,5 @@
 import abc
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from cinnamon_core.core.component import Component
 
@@ -18,7 +18,8 @@ class Metric(Component):
     def run(
             self,
             y_pred: Optional[Any] = None,
-            y_true: Optional[Any] = None
+            y_true: Optional[Any] = None,
+            as_dict: bool = False
     ) -> Any:
         """
         Computes the metric specified by this component given input predictions (``y_pred``) and
@@ -27,6 +28,7 @@ class Metric(Component):
         Args:
             y_pred: input predictions derived by other components or processes
             y_true: ground-truth for evaluation
+            as_dict: TODO
 
         Returns:
             The metric result
@@ -43,7 +45,8 @@ class LambdaMetric(Metric):
     def run(
             self,
             y_pred: Optional[Any] = None,
-            y_true: Optional[Any] = None
+            y_true: Optional[Any] = None,
+            as_dict: bool = False
     ) -> Any:
         """
         Computes the metric specified by this component given input predictions (``y_pred``) and
@@ -52,12 +55,12 @@ class LambdaMetric(Metric):
         Args:
             y_pred: input predictions derived by other components or processes
             y_true: ground-truth for evaluation
+            as_dict: TODO
 
         Returns:
             The metric result
         """
 
         method_args = self.method_args if self.method_args is not None else {}
-        return self.method(y_pred=y_pred,
-                           y_true=y_true,
-                           **method_args)
+        metric_value = self.method(y_pred=y_pred, y_true=y_true, **method_args)
+        return metric_value if not as_dict else {self.name: metric_value}
