@@ -85,12 +85,12 @@ def setup_registry(
     logging_utility.build_logger(__name__)
 
     if registrations_to_file:
-        list_registrations()
+        serialize_registrations()
 
     return file_manager_registration_key
 
 
-def list_registrations(
+def serialize_registrations(
         namespaces: Optional[List[str]] = None
 ):
     """
@@ -217,12 +217,11 @@ def routine_train(
         run_args:
     """
 
-    if helper_registration_key is not None:
-        helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-    else:
-        helper = Registry.build_component(name='helper',
-                                          tags={'default'},
-                                          namespace='generic')
+    if helper_registration_key is None:
+        helper_registration_key = RegistrationKey(name='helper',
+                                                  tags={'default'},
+                                                  namespace='generic')
+    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
 
     routine_args = {
         'helper': helper,
@@ -244,12 +243,11 @@ def routine_train_from_key(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ):
-    if helper_registration_key is not None:
-        helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-    else:
-        helper = Registry.build_component(name='helper',
-                                          tags={'default'},
-                                          namespace='generic')
+    if helper_registration_key is None:
+        helper_registration_key = RegistrationKey(name='helper',
+                                                  tags={'default'},
+                                                  namespace='generic')
+    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
 
     routine_args = {
         'helper': helper,
@@ -322,12 +320,11 @@ def routine_inference(
     command_metadata_info = load_json(metadata_path)
     routine_registration_key = command_metadata_info['routine_registration_key']
 
-    if helper_registration_key is not None:
-        helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-    else:
-        helper = Registry.retrieve_built_component(name='helper',
-                                                   namespace='generic',
-                                                   is_default=True)
+    if helper_registration_key is None:
+        helper_registration_key = RegistrationKey(name='helper',
+                                                  tags={'default'},
+                                                  namespace='generic')
+    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
 
     run_component_from_key(config_registration_key=routine_registration_key,
                            serialize=serialize,
@@ -376,7 +373,7 @@ def routine_multiple_inference(
 
 __all__ = [
     'setup_registry',
-    'list_registrations',
+    'serialize_registrations',
     'run_component',
     'run_component_from_key',
     'routine_train',
