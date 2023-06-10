@@ -177,9 +177,10 @@ def run_component_from_key(
     if serialization_path.exists():
         save_json(serialization_path.joinpath('metadata.json'),
                   data={
-                      'config_registration_key': config_registration_key,
-                      'run_name': run_name,
-                  })
+                      'config_registration_key': str(config_registration_key),
+                      'config': component.config.to_value_dict()
+                  },
+                  unpicklable=False)
         file_manager.track_run(registration_key=config_registration_key,
                                serialization_path=serialization_path)
 
@@ -225,29 +226,12 @@ def routine_train(
         run_name:
         run_args:
     """
-
-    if helper_registration_key is None:
-        helper_registration_key = RegistrationKey(name='helper',
-                                                  tags={'default'},
-                                                  namespace='generic')
-    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-
-    routine_args = {
-        'helper': helper,
-        'is_training': True
-    }
-    run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    routine_result, serialization_path = run_component(name=name,
-                                                       tags=tags,
-                                                       namespace=namespace,
-                                                       run_name=run_name,
-                                                       serialize=serialize,
-                                                       run_args=run_args)
-
-    if serialization_path is not None:
-        save_json(serialization_path.joinpath('result.json'), routine_result.to_value_dict())
-
-    return routine_result
+    routine_key = RegistrationKey(name=name, tags=tags, namespace=namespace)
+    return routine_train_from_key(routine_registration_key=routine_key,
+                                  helper_registration_key=helper_registration_key,
+                                  serialize=serialize,
+                                  run_name=run_name,
+                                  run_args=run_args)
 
 
 def routine_train_from_key(
@@ -268,10 +252,15 @@ def routine_train_from_key(
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    return run_component_from_key(config_registration_key=routine_registration_key,
-                                  run_name=run_name,
-                                  serialize=serialize,
-                                  run_args=run_args)
+    routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
+                                                                run_name=run_name,
+                                                                serialize=serialize,
+                                                                run_args=run_args)
+
+    if serialization_path is not None:
+        save_json(serialization_path.joinpath('result.json'), routine_result.to_value_dict())
+
+    return routine_result
 
 
 def routine_multiple_train(
@@ -330,12 +319,12 @@ def routine_inference(
         routine_path = file_manager.run(filepath=file_manager.routine_directory)
         routine_path = routine_path.joinpath(routine_name)
 
-    metadata_path = routine_path.joinpath('command_metadata.json')
+    metadata_path = routine_path.joinpath('metadata.json')
     if not metadata_path.is_file():
         raise FileNotFoundError(f'Expected to find metadata file {metadata_path}...')
 
     command_metadata_info = load_json(metadata_path)
-    routine_registration_key = command_metadata_info['routine_registration_key']
+    routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_registration_key'])
 
     if helper_registration_key is None:
         helper_registration_key = RegistrationKey(name='helper',
@@ -343,13 +332,14 @@ def routine_inference(
                                                   namespace='generic')
     helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
 
-    return run_component_from_key(config_registration_key=routine_registration_key,
-                                  serialize=serialize,
-                                  run_name=routine_name,
-                                  run_args={
-                                      'helper': helper,
-                                      'is_training': False
-                                  })
+    routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
+                                                                serialize=serialize,
+                                                                run_name=routine_name,
+                                                                run_args={
+                                                                    'helper': helper,
+                                                                    'is_training': False
+                                                                })
+    return routine_result
 
 
 def routine_multiple_inference(
