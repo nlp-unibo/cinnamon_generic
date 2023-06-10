@@ -1,9 +1,6 @@
-from typing import Dict, Any, Set, Callable, List, Optional
+from typing import Dict, Any, Callable, Optional
 
 from cinnamon_core.core.configuration import Configuration
-from cinnamon_core.core.registry import RegistrationKey
-
-from cinnamon_generic.components.metrics import Metric
 
 
 class MetricConfig(Configuration):

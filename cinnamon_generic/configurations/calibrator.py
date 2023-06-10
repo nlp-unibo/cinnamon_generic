@@ -5,7 +5,6 @@ from typing import Dict, Any, Optional, Type
 
 from cinnamon_core.core.configuration import supports_variants, Configuration, C
 from cinnamon_core.core.registry import RegistrationKey, Registry, register
-
 from cinnamon_generic.components.calibrator import ValidateCondition, HyperOptCalibrator, GridSearchCalibrator
 
 
@@ -79,8 +78,8 @@ class CalibratorConfig(Configuration):
 
     @classmethod
     def get_default(
-            cls
-    ) -> CalibratorConfig:
+            cls: Type[C]
+    ) -> C:
         config = super().get_default()
 
         config.add_short(name='validate_on',
@@ -99,8 +98,8 @@ class HyperoptCalibratorConfig(CalibratorConfig):
 
     @classmethod
     def get_default(
-            cls
-    ) -> HyperoptCalibratorConfig:
+            cls: Type[C]
+    ) -> C:
         config = super().get_default()
 
         config.add_short(name='file_manager_registration_key',
@@ -167,25 +166,25 @@ class HyperoptCalibratorConfig(CalibratorConfig):
                          type_hint=float,
                          description="Interval time between each mongo worker execution")
 
-        config.add_condition_short(name='worker_sleep_interval_minimum',
-                                   condition=lambda parameters: parameters.worker_sleep_interval.value >= 0.5)
-        config.add_condition_short(name="max_evaluations_minimum",
-                                   condition=lambda parameters: parameters.max_evaluations > 0)
+        config.add_condition(name='worker_sleep_interval_minimum',
+                             condition=lambda parameters: parameters.worker_sleep_interval.value >= 0.5)
+        config.add_condition(name="max_evaluations_minimum",
+                             condition=lambda parameters: parameters.max_evaluations > 0)
 
         return config
 
 
 @register
 def register_calibrators():
-    Registry.register_and_bind(configuration_class=HyperoptCalibratorConfig,
-                               component_class=HyperOptCalibrator,
-                               name='calibrator',
-                               tags={'hyperopt'},
-                               namespace='generic',
-                               is_default=True)
-    Registry.register_and_bind(configuration_class=Configuration,
-                               component_class=GridSearchCalibrator,
-                               name='calibrator',
-                               tags={'gridsearch'},
-                               namespace='generic',
-                               is_default=True)
+    Registry.add_and_bind(config_class=HyperoptCalibratorConfig,
+                          component_class=HyperOptCalibrator,
+                          name='calibrator',
+                          tags={'hyperopt'},
+                          namespace='generic',
+                          is_default=True)
+    Registry.add_and_bind(config_class=Configuration,
+                          component_class=GridSearchCalibrator,
+                          name='calibrator',
+                          tags={'gridsearch'},
+                          namespace='generic',
+                          is_default=True)

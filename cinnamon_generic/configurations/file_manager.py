@@ -73,8 +73,8 @@ class FileManagerConfig(Configuration):
 
 @register
 def register_file_managers():
-    Registry.register_and_bind(configuration_class=FileManagerConfig,
-                               component_class=FileManager,
-                               name='file_manager',
-                               namespace='generic',
-                               is_default=True)
+    Registry.add_and_bind(config_class=FileManagerConfig,
+                          component_class=FileManager,
+                          name='file_manager',
+                          namespace='generic',
+                          is_default=True)

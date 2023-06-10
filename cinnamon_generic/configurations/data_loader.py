@@ -1,3 +1,6 @@
+from typing import Type
+
+from cinnamon_core.core.configuration import C
 from cinnamon_generic.configurations.calibrator import TunableConfiguration
 
 
@@ -5,8 +8,8 @@ class DataLoaderConfig(TunableConfiguration):
 
     @classmethod
     def get_default(
-            cls
-    ):
+            cls: Type[C]
+    ) -> C:
         config = super().get_default()
 
         config.add_short(name='name',

@@ -92,7 +92,7 @@ class FoldProcessor(AverageProcessor):
 
         aggregate_data = {}
         for routine_suffix in routine_suffixes:
-            suffix_view = df_view.groupby['metric_name', 'info_key', routine_suffix]
+            suffix_view = df_view.groupby(['metric_name', 'info_key', routine_suffix])
             average = suffix_view['metric_value'].mean()
             average.name = 'average'
             std = suffix_view['metric_value'].std()

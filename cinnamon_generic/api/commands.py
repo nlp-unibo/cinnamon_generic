@@ -1,14 +1,15 @@
 import os
 from pathlib import Path
-from typing import AnyStr, List, Union, Optional, Callable, Dict, Any
+from typing import AnyStr, List, Union, Optional, Callable, Dict, Any, Tuple
 
+from tqdm import tqdm
+
+from cinnamon_core.core.data import FieldDict
 from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
-from cinnamon_core.utility.python_utility import get_function_signature
 from cinnamon_core.utility.path_utility import clear_folder
-from tqdm import tqdm
-
+from cinnamon_core.utility.python_utility import get_function_signature
 from cinnamon_generic.components.file_manager import FileManager
 
 
@@ -59,8 +60,7 @@ def setup_registry(
     """
 
     directory = Path(directory).resolve() if type(directory) != Path else directory
-    if Registry.is_custom_module(module_path=directory):
-        Registry.load_registrations(directory_path=directory)
+    Registry.load_registrations(directory_path=directory)
 
     if module_directories is not None:
         for mod_dir in module_directories:
@@ -68,7 +68,8 @@ def setup_registry(
             for module_name in find_modules(root=mod_dir):
                 Registry.load_registrations(directory_path=module_name)
 
-    Registry.register_and_bind_queued_variants()
+    Registry.check_registration_graph()
+    Registry.expand_and_resolve_registration()
 
     if file_manager_registration_key is None:
         file_manager_registration_key = RegistrationKey(name='file_manager',
@@ -123,7 +124,7 @@ def serialize_registrations(
         namespace_registration_path = registration_directory.joinpath(namespace)
 
         if not namespace_registration_path.is_dir():
-            namespace_registration_path.mkdir()
+            namespace_registration_path.mkdir(parents=True)
 
         retrieve_and_save(save_folder=namespace_registration_path,
                           save_name='configurations',
@@ -135,7 +136,7 @@ def run_component_from_key(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-) -> Any:
+) -> Tuple[Any, Optional[Path]]:
     logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{config_registration_key}')
 
     component = Registry.build_component_from_key(config_registration_key=config_registration_key)
@@ -160,6 +161,9 @@ def run_component_from_key(
         logging_utility.logger.info(f'Serializing Component state to: {serialization_path}')
         component.save(serialization_path=serialization_path)
 
+    if serialization_path is None:
+        return run_result
+
     if run_name is not None and serialization_path.exists():
         replacement_path: Path = file_manager.runs_registry[serialization_path]
         if replacement_path.exists():
@@ -170,11 +174,16 @@ def run_component_from_key(
             serialization_path = replacement_path
             logging_utility.logger.info(f'Renaming {serialization_path} to {replacement_path}')
 
-    if serialization_path is not None and serialization_path.exists():
+    if serialization_path.exists():
+        save_json(serialization_path.joinpath('metadata.json'),
+                  data={
+                      'config_registration_key': config_registration_key,
+                      'run_name': run_name,
+                  })
         file_manager.track_run(registration_key=config_registration_key,
                                serialization_path=serialization_path)
 
-    return run_result
+    return run_result, serialization_path
 
 
 def run_component(
@@ -184,7 +193,7 @@ def run_component(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-) -> Any:
+) -> Tuple[Any, Optional[Path]]:
     key = RegistrationKey(name=name,
                           tags=tags,
                           namespace=namespace)
@@ -202,7 +211,7 @@ def routine_train(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-):
+) -> FieldDict:
     """
     Builds a ``Routine`` ``Component`` and runs it in training mode.
 
@@ -228,12 +237,17 @@ def routine_train(
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    run_component(name=name,
-                  tags=tags,
-                  namespace=namespace,
-                  run_name=run_name,
-                  serialize=serialize,
-                  run_args=run_args)
+    routine_result, serialization_path = run_component(name=name,
+                                                       tags=tags,
+                                                       namespace=namespace,
+                                                       run_name=run_name,
+                                                       serialize=serialize,
+                                                       run_args=run_args)
+
+    if serialization_path is not None:
+        save_json(serialization_path.joinpath('result.json'), routine_result.to_value_dict())
+
+    return routine_result
 
 
 def routine_train_from_key(
@@ -242,7 +256,7 @@ def routine_train_from_key(
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
-):
+) -> FieldDict:
     if helper_registration_key is None:
         helper_registration_key = RegistrationKey(name='helper',
                                                   tags={'default'},
@@ -254,17 +268,17 @@ def routine_train_from_key(
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    run_component_from_key(config_registration_key=routine_registration_key,
-                           run_name=run_name,
-                           serialize=serialize,
-                           run_args=run_args)
+    return run_component_from_key(config_registration_key=routine_registration_key,
+                                  run_name=run_name,
+                                  serialize=serialize,
+                                  run_args=run_args)
 
 
 def routine_multiple_train(
         routine_registration_keys: List[Registration],
         helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
-):
+) -> List[FieldDict]:
     """
     Sequentially executes the ``train`` command for each specified ``Routine`` ``RegistrationKey``.
 
@@ -275,10 +289,13 @@ def routine_multiple_train(
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
     """
 
+    result = []
     for routine_registration_key in routine_registration_keys:
-        routine_train_from_key(routine_registration_key=routine_registration_key,
-                               helper_registration_key=helper_registration_key,
-                               serialize=serialize)
+        run_result = routine_train_from_key(routine_registration_key=routine_registration_key,
+                                            helper_registration_key=helper_registration_key,
+                                            serialize=serialize)
+        result.append(run_result)
+    return result
 
 
 def routine_inference(
@@ -286,7 +303,7 @@ def routine_inference(
         routine_name: Optional[str] = None,
         helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
-):
+) -> FieldDict:
     """
     Builds a ``Routine`` ``Component`` and runs it in inference mode.
 
@@ -326,13 +343,13 @@ def routine_inference(
                                                   namespace='generic')
     helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
 
-    run_component_from_key(config_registration_key=routine_registration_key,
-                           serialize=serialize,
-                           run_name=routine_name,
-                           run_args={
-                               'helper': helper,
-                               'is_training': False
-                           })
+    return run_component_from_key(config_registration_key=routine_registration_key,
+                                  serialize=serialize,
+                                  run_name=routine_name,
+                                  run_args={
+                                      'helper': helper,
+                                      'is_training': False
+                                  })
 
 
 def routine_multiple_inference(
@@ -340,7 +357,7 @@ def routine_multiple_inference(
         routine_names: Optional[List[str]] = None,
         helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
-):
+) -> List[FieldDict]:
     """
     Sequentially executes the ``inference`` command for each specified ``Routine`` ``RegistrationKey``.
 
@@ -364,11 +381,14 @@ def routine_multiple_inference(
     else:
         routine_paths = [None] * len(routine_names)
 
+    result = []
     for routine_path, routine_name in zip(routine_paths, routine_names):
-        routine_inference(routine_path=routine_path,
-                          routine_name=routine_name,
-                          helper_registration_key=helper_registration_key,
-                          serialize=serialize)
+        run_result = routine_inference(routine_path=routine_path,
+                                       routine_name=routine_name,
+                                       helper_registration_key=helper_registration_key,
+                                       serialize=serialize)
+        result.append(run_result)
+    return result
 
 
 __all__ = [
