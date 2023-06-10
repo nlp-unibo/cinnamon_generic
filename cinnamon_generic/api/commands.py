@@ -147,7 +147,8 @@ def run_component_from_key(
 
     if serialize:
         serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
-                                                                      create_path=serialize)
+                                                                      create_path=serialize,
+                                                                      key=config_registration_key)
         logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
     else:
         serialization_path = None
@@ -289,7 +290,8 @@ def routine_multiple_train(
 
 def routine_inference(
         routine_path: Optional[Union[AnyStr, Path]] = None,
-        routine_name: Optional[str] = None,
+        run_name: Optional[str] = None,
+        namespace: Optional[str] = None,
         helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
 ) -> FieldDict:
@@ -298,18 +300,19 @@ def routine_inference(
 
     Args:
         routine_path: path where ``Routine`` training result is stored
-        routine_name: directory name under 'pipelines' folder where ``Routine`` training result is stored.
+        run_name: directory name under 'pipelines' folder where ``Routine`` training result is stored.
         helper_registration_key: an optional ``Helper`` ``RegistrationKey``.
         If specified, it will replace any ``Helper`` specified in ``Routine``.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
+        namespace: TODO
 
     Raises
         ``AttributeError``: if both ``routine_path`` and ``routine_name`` are not specified.
         ``FileNotFoundError``: if no ``train`` command metadata file is found.
     """
-    if routine_path is None and routine_name is None:
-        raise AttributeError('At least routine_path or routine_name have to be specified.'
-                             f'Got routine_path={routine_path} and routine_name={routine_name}')
+    if routine_path is None and run_name is None:
+        raise AttributeError('At least routine_path or run_name have to be specified.'
+                             f'Got routine_path={routine_path} and run_name={run_name}')
 
     file_manager = FileManager.retrieve_built_component(name='file_manager',
                                                         namespace='generic',
@@ -317,7 +320,7 @@ def routine_inference(
 
     if routine_path is None:
         routine_path = file_manager.run(filepath=file_manager.routine_directory)
-        routine_path = routine_path.joinpath(routine_name)
+        routine_path = routine_path.joinpath(namespace, 'routine', run_name)
 
     metadata_path = routine_path.joinpath('metadata.json')
     if not metadata_path.is_file():
@@ -325,6 +328,10 @@ def routine_inference(
 
     command_metadata_info = load_json(metadata_path)
     routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_registration_key'])
+
+    # Sanity check
+    assert routine_registration_key.namespace == namespace,\
+        f'Found inconsistent namespaces. Given {namespace} != Found {routine_registration_key.namespace}'
 
     if helper_registration_key is None:
         helper_registration_key = RegistrationKey(name='helper',
@@ -334,7 +341,7 @@ def routine_inference(
 
     routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
                                                                 serialize=serialize,
-                                                                run_name=routine_name,
+                                                                run_name=run_name,
                                                                 run_args={
                                                                     'helper': helper,
                                                                     'is_training': False
@@ -374,7 +381,7 @@ def routine_multiple_inference(
     result = []
     for routine_path, routine_name in zip(routine_paths, routine_names):
         run_result = routine_inference(routine_path=routine_path,
-                                       routine_name=routine_name,
+                                       run_name=routine_name,
                                        helper_registration_key=helper_registration_key,
                                        serialize=serialize)
         result.append(run_result)

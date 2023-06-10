@@ -41,11 +41,12 @@ class FileManager(Component):
 
     def register_temporary_run_name(
             self,
+            key: Registration,
             replacement_name: Optional[str] = None,
             create_path: bool = False
     ) -> Path:
         current_date = datetime.today().strftime('%d-%m-%Y-%H-%M-%S')
-        run_path = self.runs_directory.joinpath(current_date)
+        run_path = self.runs_directory.joinpath(key.namespace, key.name, current_date)
 
         if replacement_name is not None:
             self.runs_registry[run_path] = run_path.with_name(replacement_name)
