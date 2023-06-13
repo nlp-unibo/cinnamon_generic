@@ -4,12 +4,14 @@ from typing import Any, AnyStr, Union, Type, Hashable, Optional
 from sklearn.model_selection import KFold
 from sklearn.model_selection._split import _BaseKFold
 
-from cinnamon_core.core.configuration import C
-from cinnamon_core.core.registry import RegistrationKey
+from cinnamon_core.core.configuration import C, supports_variants, add_variant
+from cinnamon_core.core.registry import RegistrationKey, register, Registry
+from cinnamon_generic.components.data_splitter import InternalTTSplitter, SklearnTTSplitter, TTSplitter
 from cinnamon_generic.configurations.calibrator import TunableConfiguration
 
 
-class TrainAndTestSplitterConfig(TunableConfiguration):
+@supports_variants
+class TTSplitterConfig(TunableConfiguration):
 
     @classmethod
     def get_default(
@@ -24,12 +26,26 @@ class TrainAndTestSplitterConfig(TunableConfiguration):
                          type_hint=Optional[float],
                          description='Training set percentage to use as test split')
         config.add_short(name='splitter_type',
+                         type_hint=InternalTTSplitter,
                          description='Splitter class for performing data split',
                          is_required=True)
         config.add_short(name='splitter_args',
                          value={},
                          description="Arguments for creating a splitter instance")
 
+        return config
+
+    @classmethod
+    @add_variant(name='sklearn')
+    def get_sklearn_variant(
+            cls
+    ):
+        config = cls.get_default()
+        config.splitter_type = SklearnTTSplitter
+        config.splitter_args = {
+            'random_state': 42,
+            'shuffle': True
+        }
         return config
 
 
@@ -101,3 +117,12 @@ class PrebuiltCVSplitterConfig(CVSplitterConfig):
                          is_required=True)
 
         return config
+
+
+@register
+def register_data_splitter_configurations():
+    Registry.add_and_bind_variants(config_class=TTSplitterConfig,
+                                   component_class=TTSplitter,
+                                   name='data_splitter',
+                                   tags={'tt'},
+                                   namespace='generic')

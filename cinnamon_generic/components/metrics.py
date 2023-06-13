@@ -2,6 +2,7 @@ import abc
 from typing import Any, Optional
 
 from cinnamon_core.core.component import Component
+from cinnamon_generic.components.pipeline import Pipeline
 
 
 class Metric(Component):
@@ -64,3 +65,25 @@ class LambdaMetric(Metric):
         method_args = self.method_args if self.method_args is not None else {}
         metric_value = self.method(y_pred=y_pred, y_true=y_true, **method_args)
         return metric_value if not as_dict else {self.name: metric_value}
+
+
+class MetricPipeline(Pipeline, Metric):
+
+    def run(
+            self,
+            y_pred: Optional[Any] = None,
+            y_true: Optional[Any] = None,
+            as_dict: bool = False
+    ) -> Any:
+        metrics = self.get_pipeline()
+        result = []
+        for metric in metrics:
+            metric_result = metric.run(y_pred=y_pred,
+                                       y_true=y_true,
+                                       as_dict=as_dict)
+            result.append(metric_result)
+
+        if as_dict:
+            return {key: value for metric_dict in result for key, value in metric_dict.items()}
+
+        return result

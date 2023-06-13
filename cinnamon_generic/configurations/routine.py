@@ -4,7 +4,7 @@ from cinnamon_core.core.configuration import Configuration
 from cinnamon_core.core.registry import RegistrationKey
 from cinnamon_generic.components.callback import Callback
 from cinnamon_generic.components.data_loader import DataLoader
-from cinnamon_generic.components.data_splitter import TrainAndTestSplitter
+from cinnamon_generic.components.data_splitter import TTSplitter
 from cinnamon_generic.components.helper import Helper
 from cinnamon_generic.components.metrics import Metric
 from cinnamon_generic.components.model import Model
@@ -32,7 +32,7 @@ class RoutineConfig(TunableConfiguration):
                          is_registration=True)
         config.add_short(name='data_splitter',
                          type_hint=Optional[RegistrationKey],
-                         build_type_hint=TrainAndTestSplitter,
+                         build_type_hint=TTSplitter,
                          description="Data splitter component for creating train/val/test splits",
                          is_required=True,
                          is_registration=True)
@@ -47,6 +47,12 @@ class RoutineConfig(TunableConfiguration):
                          type_hint=Optional[RegistrationKey],
                          build_type_hint=Optional[Processor],
                          description="Processor component used to for data post-processing",
+                         is_registration=True,
+                         build_from_registration=False)
+        config.add_short(name='model_processor',
+                         type_hint=Optional[RegistrationKey],
+                         build_type_hint=Optional[Processor],
+                         description="Processor component used to for model output post-processing",
                          is_registration=True,
                          build_from_registration=False)
         config.add_short(name='routine_processor',

@@ -1,7 +1,8 @@
-from typing import Optional, List
+from typing import Optional
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
+from cinnamon_generic.components.pipeline import OrderedPipeline
 
 
 # TODO: add possibility to run processor in-place or not (overwrite or not data)
@@ -52,19 +53,14 @@ class Processor(Component):
         return data
 
 
-class ProcessorPipeline(Processor):
-    """
-    A pipeline of ``Processor`` components to be executed in a sequential fashion.
-    """
+class ProcessorPipeline(OrderedPipeline, Processor):
 
     def run(
             self,
             data: Optional[FieldDict] = None,
             is_training_data: bool = False
-    ) -> Optional[FieldDict]:
-        processors: List[Processor] = list(self.config.search_by_tag('pipeline').values())
-
-        for processor in processors:
-            data = processor.run(data=data,
-                                 is_training_data=is_training_data)
+    ) -> FieldDict:
+        components = self.get_pipeline()
+        for component in components:
+            data = component.run(data=data, is_training_data=is_training_data)
         return data

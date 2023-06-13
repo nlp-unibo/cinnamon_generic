@@ -1,9 +1,26 @@
 from typing import List, Optional, Type, Set, Iterable, Any
 
-from cinnamon_core.core.configuration import Configuration
+from cinnamon_core.core.configuration import Configuration, C
+from cinnamon_core.core.registry import Registration
 
 
 class PipelineConfig(Configuration):
+
+    @classmethod
+    def from_keys(
+            cls: Type[C],
+            keys: List[Registration]
+    ) -> C:
+        config = cls.get_default()
+
+        for key in keys:
+            key_name = key.name
+            if key.tags is not None:
+                key_name += '_'.join(key.tags)
+            config.add_pipeline_component(name=key_name,
+                                          value=key)
+
+        return config
 
     def add_pipeline_component(
             self,

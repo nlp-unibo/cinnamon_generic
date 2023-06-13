@@ -130,8 +130,8 @@ class TrainAndTestRoutine(Routine):
             callbacks = None
 
         model = Model.build_component_from_key(config_registration_key=self.model)
-        model.build_model(processor=pre_processor,
-                          callbacks=callbacks)
+        model.build(processor=pre_processor,
+                    callbacks=callbacks)
 
         if callbacks is not None:
             callbacks.setup(component=model,
@@ -143,6 +143,11 @@ class TrainAndTestRoutine(Routine):
         else:
             metrics = None
 
+        # Model Processor
+        model_processor: Optional[Processor] = None
+        if self.model_processor is not None:
+            model_processor = Processor.build_component_from_key(config_registration_key=self.model_processor)
+
         if is_training:
             model.prepare_for_training(train_data=train_data)
 
@@ -152,7 +157,8 @@ class TrainAndTestRoutine(Routine):
             fit_info = model.fit(train_data=train_data,
                                  val_data=val_data,
                                  metrics=metrics,
-                                 callbacks=callbacks)
+                                 callbacks=callbacks,
+                                 model_processor=model_processor)
             step_info.add_short(name='fit_info',
                                 value=fit_info,
                                 tags={'training'})
@@ -175,7 +181,8 @@ class TrainAndTestRoutine(Routine):
         if val_data is not None:
             val_info = model.predict(data=val_data,
                                      metrics=metrics,
-                                     callbacks=callbacks)
+                                     callbacks=callbacks,
+                                     model_processor=model_processor)
             if self.post_processor is not None:
                 val_info = post_processor.run(data=val_info)
             step_info.add_short(name='val_info',
@@ -185,7 +192,8 @@ class TrainAndTestRoutine(Routine):
         if test_data is not None:
             test_info = model.predict(data=test_data,
                                       metrics=metrics,
-                                      callbacks=callbacks)
+                                      callbacks=callbacks,
+                                      model_processor=model_processor)
             if self.post_processor is not None:
                 test_info = post_processor.run(data=test_info)
             step_info.add_short(name='test_info',
@@ -232,13 +240,14 @@ class TrainAndTestRoutine(Routine):
 
         # Get data splits
         data_loader = cast(DataLoader, self.data_loader)
-        train_data, val_data, test_data = data_loader.get_splits()
-        step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
-                                                                                val_data=val_data,
-                                                                                test_data=test_data)
 
         for seed_idx, seed in enumerate(seeds):
             logging_utility.logger.info(f'Seed: {seed} (Progress -> {seed_idx + 1}/{len(seeds)})')
+
+            train_data, val_data, test_data = data_loader.get_splits()
+            step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
+                                                                                    val_data=val_data,
+                                                                                    test_data=test_data)
 
             step_train_data = data_loader.parse(data=step_train_data)
             step_val_data = data_loader.parse(data=step_val_data)

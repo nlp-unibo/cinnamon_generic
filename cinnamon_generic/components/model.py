@@ -125,7 +125,7 @@ class Model(Component):
         pass
 
     @abc.abstractmethod
-    def build_model(
+    def build(
             self,
             processor: Processor,
             callbacks: Optional[Callback] = None
@@ -148,7 +148,8 @@ class Model(Component):
             train_data: FieldDict,
             val_data: Optional[FieldDict] = None,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         """
         Fits the model with given training and (optionally) validation data.
@@ -158,6 +159,7 @@ class Model(Component):
             val_data: validation data that can be used to regularize or monitor the training process
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
+            model_processor: TODO
 
         Returns:
             A ``FieldDict`` storing training information
@@ -170,29 +172,8 @@ class Model(Component):
             self,
             data: FieldDict,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
-    ) -> FieldDict:
-        """
-        Evaluates a trained model on given data.
-
-        Args:
-            data: data to evaluate the model on
-            callbacks: callbacks for custom execution flow and side effects
-            metrics: metrics for quantitatively evaluate the training process
-
-        Returns:
-            A ``FieldDict`` storing evaluation information
-        """
-
-        pass
-
-    @abc.abstractmethod
-    @guard()
-    def evaluate(
-            self,
-            data: FieldDict,
-            callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         """
         Evaluates a trained model on given data and computes model predictions on the same data.
@@ -201,6 +182,7 @@ class Model(Component):
             data: data to evaluate the model on and compute predictions.
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
+            model_processor: TODO
 
         Returns:
             A ``FieldDict`` storing evaluation and prediction information
@@ -214,7 +196,8 @@ class Model(Component):
             self,
             data: FieldDict,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         """
         Computes model predictions on the given data.
@@ -223,6 +206,7 @@ class Model(Component):
             data: data to compute model predictions.
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
+            model_processor: TODO
 
         Returns:
             A ``FieldDict`` storing prediction information
@@ -232,13 +216,19 @@ class Model(Component):
 
     def run(
             self,
-            data: Optional[FieldDict] = None
+            data: Optional[FieldDict] = None,
+            callbacks: Optional[Callback] = None,
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         """
         The default ``Model`` behaviour is to execute ``evaluate_and_predict`` given input data.
 
         Args:
             data: data to evaluate the model on and compute predictions.
+            callbacks: callbacks for custom execution flow and side effects
+            metrics: metrics for quantitatively evaluate the training process
+            model_processor: TODO
 
         Returns:
             A ``FieldDict`` storing evaluation and prediction information

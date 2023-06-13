@@ -1,8 +1,24 @@
-from cinnamon_core.core.component import Component
 from typing import List
+
+from cinnamon_core.core.component import Component
+from cinnamon_generic.configurations.pipeline import PipelineConfig
 
 
 class Pipeline(Component):
+
+    @classmethod
+    def from_components(
+            cls,
+            components: List[Component]
+    ):
+        pipeline = cls(config=PipelineConfig())
+
+        for idx, component in enumerate(components):
+            pipeline.config.add_short(name=f'component_{idx}',
+                                      value=component,
+                                      tags={'pipeline'})
+
+        return pipeline
 
     def get_pipeline(
             self

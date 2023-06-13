@@ -1,8 +1,9 @@
 from functools import partial
 from pathlib import Path
-from typing import Any, Dict, cast, Optional, Callable
+from typing import Any, Dict, Optional, Callable
 
 from cinnamon_core.core.component import Component
+from cinnamon_generic.components.pipeline import Pipeline
 
 
 class Callback(Component):
@@ -53,6 +54,28 @@ class Callback(Component):
         if hasattr(self, hookpoint):
             hookpoint_method = getattr(self, hookpoint)
             hookpoint_method(logs=logs)
+
+
+class CallbackPipeline(Pipeline, Callback):
+
+    def setup(
+            self,
+            component: Component,
+            save_path: Path
+    ):
+        callbacks = self.get_pipeline()
+        for callback in callbacks:
+            callback.setup(component=component,
+                           save_path=save_path)
+
+    def run(
+            self,
+            hookpoint: Optional[str] = None,
+            logs: Dict[str, Any] = None
+    ):
+        components = self.get_pipeline()
+        for component in components:
+            component.run(hookpoint=hookpoint, logs=logs)
 
 
 def hookpoint_guard(
@@ -124,4 +147,4 @@ def guard(
     return partial(hookpoint_guard, hookpoint=hookpoint)
 
 
-__all__ = ['Callback', 'guard']
+__all__ = ['Callback', 'CallbackPipeline', 'guard']

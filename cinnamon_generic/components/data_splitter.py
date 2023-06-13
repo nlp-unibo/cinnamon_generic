@@ -1,14 +1,48 @@
+import abc
 from pathlib import Path
 from typing import Tuple, Any, Optional
 
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.utility.pickle_utility import save_pickle, load_pickle
 from cinnamon_generic.components.file_manager import FileManager
 
 
-class TrainAndTestSplitter(Component):
+class InternalTTSplitter:
+
+    @abc.abstractmethod
+    def split(
+            self,
+            data: Any,
+            size: int
+    ) -> Tuple[Any, Any]:
+        pass
+
+
+class SklearnTTSplitter(InternalTTSplitter):
+
+    def __init__(
+            self,
+            **kwargs
+    ):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    def split(
+            self,
+            data: Any,
+            size: int
+    ) -> Tuple[Any, Any]:
+        return train_test_split(data,
+                                test_size=size,
+                                random_state=getattr(self, 'random_state') if hasattr(self, 'random_state') else None,
+                                shuffle=getattr(self, 'shuffle') if hasattr(self, 'shuffle') else None,
+                                stratify=getattr(self, 'stratify') if hasattr(self, 'stratify') else None)
+
+
+class TTSplitter(Component):
 
     def __init__(
             self,
@@ -40,7 +74,7 @@ class TrainAndTestSplitter(Component):
         return train_data, val_data, test_data
 
 
-class CVSplitter(TrainAndTestSplitter):
+class CVSplitter(TTSplitter):
 
     def get_split_input(
             self,
