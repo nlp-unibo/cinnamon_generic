@@ -1,25 +1,38 @@
 import os
+import shutil
 from pathlib import Path
 from typing import AnyStr, List, Union, Optional, Callable, Dict, Any, Tuple
 
 from tqdm import tqdm
 
-from cinnamon_core.core.data import FieldDict
-from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag
+from cinnamon_core.core.data import FieldDict, ValidationFailureException
+from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag, InvalidConfigurationTypeException
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
-from cinnamon_core.utility.path_utility import clear_folder
 from cinnamon_core.utility.python_utility import get_function_signature
 from cinnamon_generic.components.file_manager import FileManager
 
 
 def retrieve_and_save(
         save_folder: Path,
-        save_name: str,
         conditions: List[Callable[[RegistrationKey], bool]]
 ):
     registration_keys = sorted([str(key) for key in Registry.REGISTRY if all([cond(key) for cond in conditions])])
-    save_json(save_folder.joinpath(f'{save_name}.json'), registration_keys)
+
+    valid_keys = []
+    invalid_keys = []
+    for key in registration_keys:
+        try:
+            Registry.build_component_from_key(config_registration_key=key)
+            valid_keys.append(key)
+        except (InvalidConfigurationTypeException, ValidationFailureException):
+            invalid_keys.append(key)
+
+    if valid_keys:
+        save_json(save_folder.joinpath('valid.json'), valid_keys)
+
+    if invalid_keys:
+        save_json(save_folder.joinpath('invalid.json'), invalid_keys)
 
 
 def find_modules(
@@ -118,7 +131,7 @@ def serialize_registrations(
     registration_directory = file_manager.run(filepath=file_manager.registrations_directory)
 
     if registration_directory.exists():
-        clear_folder(registration_directory)
+        shutil.rmtree(registration_directory)
 
     for namespace in tqdm(namespaces):
         namespace_registration_path = registration_directory.joinpath(namespace)
@@ -127,7 +140,6 @@ def serialize_registrations(
             namespace_registration_path.mkdir(parents=True)
 
         retrieve_and_save(save_folder=namespace_registration_path,
-                          save_name='configurations',
                           conditions=[lambda key: key.namespace == namespace])
 
 
@@ -311,7 +323,7 @@ def routine_inference(
     routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_registration_key'])
 
     # Sanity check
-    assert routine_registration_key.namespace == namespace,\
+    assert routine_registration_key.namespace == namespace, \
         f'Found inconsistent namespaces. Given {namespace} != Found {routine_registration_key.namespace}'
 
     routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,

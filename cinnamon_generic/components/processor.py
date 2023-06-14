@@ -29,6 +29,12 @@ class Processor(Component):
         """
         return data
 
+    # TODO: documentation
+    def finalize(
+            self
+    ):
+        pass
+
     def run(
             self,
             data: Optional[FieldDict] = None,
@@ -54,6 +60,13 @@ class Processor(Component):
 
 
 class ProcessorPipeline(OrderedPipeline, Processor):
+
+    def finalize(
+            self
+    ):
+        components = self.get_pipeline()
+        for component in components:
+            component.finalize()
 
     def run(
             self,

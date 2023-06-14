@@ -1,14 +1,14 @@
 import abc
 from functools import reduce
-from typing import Tuple, Union, List, Dict, Iterable, Optional
+from typing import Union, List, Dict, Iterable, Optional
 
 import gensim
 import gensim.downloader as gloader
 import numpy as np
-from cinnamon_core.core.data import FieldDict
-from cinnamon_core.utility.logging_utility import logger
 from tqdm import tqdm
 
+from cinnamon_core.core.data import FieldDict
+from cinnamon_core.utility import logging_utility
 from cinnamon_generic.components.processor import Processor
 
 
@@ -84,13 +84,26 @@ class TokenizerProcessor(Processor):
         """
         pass
 
+    def finalize(
+            self
+    ):
+        if self.embedding_type is not None:
+            self.load_embedding_model()
+
+            if self.embedding_model is None:
+                raise RuntimeError(f'Expected a pre-trained embedding model. Got {self.embedding_model}')
+
+            self.build_embeddings_matrix(vocabulary=self.vocabulary,
+                                         embedding_model=self.embedding_model,
+                                         embedding_dimension=self.embedding_dimension)
+
     def load_embedding_model(
             self,
     ):
         """
         Loads a pre-trained word embedding model via Gensim library.
         """
-        logger.info(f'Loading pre-trained embedding model: {self.embedding_type}')
+        logging_utility.logger.info(f'Loading pre-trained embedding model: {self.embedding_type}')
         embedding_model = gloader.load(self.embedding_type)
         self.embedding_model = embedding_model
 
@@ -99,7 +112,7 @@ class TokenizerProcessor(Processor):
             vocabulary: Dict[str, int],
             embedding_model: gensim.models.keyedvectors.KeyedVectors,
             embedding_dimension: int = 300,
-    ) -> Tuple[np.ndarray, Dict[str, int]]:
+    ):
         """
         Builds embedding matrix given the pre-trained embedding model.
 
@@ -131,7 +144,8 @@ class TokenizerProcessor(Processor):
 
             embedding_matrix[i] = embedding_vector
 
-        return embedding_matrix, vocabulary
+        self.embedding_matrix = embedding_matrix
+        self.vocabulary = vocabulary
 
     @abc.abstractmethod
     def tokenize(
@@ -205,7 +219,6 @@ class TokenizerProcessor(Processor):
             is_training_data: bool = False,
             tokenize: bool = True,
             remove_special_tokens: bool = False,
-            build: bool = False,
             **kwargs
     ) -> Optional[FieldDict]:
         """
@@ -217,30 +230,21 @@ class TokenizerProcessor(Processor):
             is_training_data: if True, input data is from a training split
             tokenize: if True, the tokenizer will tokenize text fields. Otherwise, de-tokenization will be carried out.
             remove_special_tokens: if True, the tokenizer will not report any special tokens
-            build: if True, the specified pre-trained embedding model is loaded to build the corresponding
-             embedding matrix.
 
         Returns:
             The input data with text fields processed by the internal tokenizer.ut
         """
         if is_training_data or not self.fit_on_train_only:
             if data is None:
-                raise AttributeError(f'Expected to fit on some training data. Got {data}')
+                if is_training_data:
+                    raise AttributeError(f'Expected to fit on some training data. Got {data}')
+                else:
+                    return data
 
             self.fit(data=data)
 
             if self.vocabulary is None:
                 raise RuntimeError(f'Expected vocabulary to be not None. Got {self.vocabulary}')
-
-        if build and self.embedding_type is not None:
-            self.load_embedding_model()
-
-            if self.embedding_model is None:
-                raise RuntimeError(f'Expected a pre-trained embedding model. Got {self.embedding_model}')
-
-            self.build_embeddings_matrix(vocabulary=self.vocabulary,
-                                         embedding_model=self.embedding_model,
-                                         embedding_dimension=self.embedding_dimension)
 
         if data is not None:
             data = self.process(data=data,

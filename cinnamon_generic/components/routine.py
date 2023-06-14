@@ -170,19 +170,12 @@ class TrainAndTestRoutine(Routine):
             # Model loading might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
-        # Post-Processor
-        post_processor: Optional[Processor] = None
-        if self.post_processor is not None:
-            post_processor = Processor.build_component_from_key(config_registration_key=self.post_processor)
-
         # Evaluator
         if val_data is not None:
             val_info = model.predict(data=val_data,
                                      metrics=metrics,
                                      callbacks=callbacks,
                                      model_processor=model_processor)
-            if self.post_processor is not None:
-                val_info = post_processor.run(data=val_info)
             step_info.add_short(name='val_info',
                                 value=val_info,
                                 tags={'info'})
@@ -192,11 +185,14 @@ class TrainAndTestRoutine(Routine):
                                       metrics=metrics,
                                       callbacks=callbacks,
                                       model_processor=model_processor)
-            if self.post_processor is not None:
-                test_info = post_processor.run(data=test_info)
             step_info.add_short(name='test_info',
                                 value=test_info,
                                 tags={'info'})
+
+        # Post-Processor
+        if self.post_processor is not None:
+            post_processor = Processor.build_component_from_key(config_registration_key=self.post_processor)
+            step_info = post_processor.run(data=step_info)
 
         # Save
         if serialization_path is not None:

@@ -9,12 +9,12 @@ import hyperopt
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.registry import Registry
 from cinnamon_core.utility.logging_utility import logger
-from cinnamon_core.utility.path_utility import clear_folder
 from cinnamon_core.utility.pickle_utility import save_pickle
 from cinnamon_core.utility.python_utility import get_dict_values_combinations
 from hyperopt import fmin, space_eval, tpe, Trials
 from hyperopt.mongoexp import MongoTrials
 from tqdm import tqdm
+import shutil
 
 from cinnamon_generic.components.file_manager import FileManager
 
@@ -283,7 +283,8 @@ class HyperOptCalibrator(Calibrator):
         logger.info(f'Executing mongo worker...\n{cmd}')
 
         # Clear mongo_workers_dir before execution
-        clear_folder(self.mongo_workers_directory)
+        if self.mongo_workers_directory.exists():
+            shutil.rmtree(self.mongo_workers_directory)
 
         # Run process
         process = Popen(cmd, cwd=self.mongo_workers_directory, shell=True)
