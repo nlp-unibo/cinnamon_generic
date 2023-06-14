@@ -54,7 +54,6 @@ class Routine(Component):
     @abc.abstractmethod
     def run(
             self,
-            helper: Optional[Helper] = None,
             is_training: bool = False,
             serialization_path: Optional[Union[AnyStr, Path]] = None,
     ) -> FieldDict:
@@ -62,7 +61,6 @@ class Routine(Component):
         Executes the ``Routine`` component according to its evaluation criteria.
 
         Args:
-            helper: ``Helper`` component for reproducibility and backend interfacing
             is_training: if True, the ``Routine`` is executing in training mode
             serialization_path: Path where to store any ``Component``'s serialization activity.
 
@@ -210,7 +208,6 @@ class TrainAndTestRoutine(Routine):
 
     def run(
             self,
-            helper: Optional[Helper] = None,
             is_training: bool = False,
             serialization_path: Optional[Union[AnyStr, Path]] = None,
     ) -> FieldDict:
@@ -218,7 +215,6 @@ class TrainAndTestRoutine(Routine):
         Executes the ``TrainAndTestRoutine`` component according to its evaluation criteria.
 
         Args:
-            helper: ``Helper`` component for reproducibility and backend interfacing
             is_training: if True, the ``Routine`` is executing in training mode
             serialization_path: Path where to store any ``Component``'s serialization activity.
 
@@ -232,9 +228,6 @@ class TrainAndTestRoutine(Routine):
                                  type_hint=List[FieldDict])
 
         # Helper
-        if helper is not None:
-            self.helper = helper
-
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
         self.helper.run(seed=seeds[0])
 
@@ -279,7 +272,6 @@ class CVRoutine(TrainAndTestRoutine):
 
     def run(
             self,
-            helper: Optional[Helper] = None,
             is_training: bool = False,
             serialization_path: Optional[Union[AnyStr, Path]] = None,
     ) -> FieldDict:
@@ -287,7 +279,6 @@ class CVRoutine(TrainAndTestRoutine):
         Executes the ``CVRoutine`` component according to its evaluation criteria.
 
         Args:
-            helper: ``Helper`` component for reproducibility and backend interfacing
             is_training: if True, the ``Routine`` is executing in training mode
             serialization_path: Path where to store any ``Component``'s serialization activity.
 
@@ -301,9 +292,6 @@ class CVRoutine(TrainAndTestRoutine):
                                  type_hint=List[FieldDict])
 
         # Helper
-        if helper is not None:
-            self.helper = helper
-
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
         self.helper.run(seed=seeds[0])
 

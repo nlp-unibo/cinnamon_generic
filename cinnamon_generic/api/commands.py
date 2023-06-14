@@ -209,7 +209,6 @@ def routine_train(
         name: str,
         tags: Tag = None,
         namespace: str = 'generic',
-        helper_registration_key: Optional[Registration] = None,
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
@@ -221,15 +220,12 @@ def routine_train(
         name:
         tags:
         namespace:
-        helper_registration_key: an optional ``Helper`` ``RegistrationKey``.
-        If specified, it will replace any ``Helper`` specified in ``Routine``.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
         run_name:
         run_args:
     """
     routine_key = RegistrationKey(name=name, tags=tags, namespace=namespace)
     return routine_train_from_key(routine_registration_key=routine_key,
-                                  helper_registration_key=helper_registration_key,
                                   serialize=serialize,
                                   run_name=run_name,
                                   run_args=run_args)
@@ -237,19 +233,11 @@ def routine_train(
 
 def routine_train_from_key(
         routine_registration_key: Registration,
-        helper_registration_key: Optional[Registration] = None,
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> FieldDict:
-    if helper_registration_key is None:
-        helper_registration_key = RegistrationKey(name='helper',
-                                                  tags={'default'},
-                                                  namespace='generic')
-    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-
     routine_args = {
-        'helper': helper,
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
@@ -266,7 +254,6 @@ def routine_train_from_key(
 
 def routine_multiple_train(
         routine_registration_keys: List[Registration],
-        helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
 ) -> List[FieldDict]:
     """
@@ -274,15 +261,12 @@ def routine_multiple_train(
 
     Args:
         routine_registration_keys: a list of ``Routine`` ``RegistrationKey`` instances
-        helper_registration_key: an optional ``Helper`` ``RegistrationKey``.
-        If specified, it will replace any ``Helper`` specified in ``Routine``.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
     """
 
     result = []
     for routine_registration_key in routine_registration_keys:
         run_result = routine_train_from_key(routine_registration_key=routine_registration_key,
-                                            helper_registration_key=helper_registration_key,
                                             serialize=serialize)
         result.append(run_result)
     return result
@@ -292,7 +276,6 @@ def routine_inference(
         routine_path: Optional[Union[AnyStr, Path]] = None,
         run_name: Optional[str] = None,
         namespace: Optional[str] = None,
-        helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
 ) -> FieldDict:
     """
@@ -301,8 +284,6 @@ def routine_inference(
     Args:
         routine_path: path where ``Routine`` training result is stored
         run_name: directory name under 'pipelines' folder where ``Routine`` training result is stored.
-        helper_registration_key: an optional ``Helper`` ``RegistrationKey``.
-        If specified, it will replace any ``Helper`` specified in ``Routine``.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
         namespace: TODO
 
@@ -333,17 +314,10 @@ def routine_inference(
     assert routine_registration_key.namespace == namespace,\
         f'Found inconsistent namespaces. Given {namespace} != Found {routine_registration_key.namespace}'
 
-    if helper_registration_key is None:
-        helper_registration_key = RegistrationKey(name='helper',
-                                                  tags={'default'},
-                                                  namespace='generic')
-    helper = Registry.build_component_from_key(config_registration_key=helper_registration_key)
-
     routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
                                                                 serialize=serialize,
                                                                 run_name=run_name,
                                                                 run_args={
-                                                                    'helper': helper,
                                                                     'is_training': False
                                                                 })
     return routine_result
@@ -352,7 +326,6 @@ def routine_inference(
 def routine_multiple_inference(
         routine_paths: Optional[List[Union[AnyStr, Path]]] = None,
         routine_names: Optional[List[str]] = None,
-        helper_registration_key: Optional[Registration] = None,
         serialize: bool = False
 ) -> List[FieldDict]:
     """
@@ -361,8 +334,6 @@ def routine_multiple_inference(
     Args:
         routine_paths: list of paths where ``Routine`` training result is stored
         routine_names: list of directory names under 'pipelines' folder where ``Routine`` training result is stored.
-        helper_registration_key: an optional ``Helper`` ``RegistrationKey``.
-        If specified, it will replace any ``Helper`` specified in ``Routine``.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
 
     Raises
@@ -382,7 +353,6 @@ def routine_multiple_inference(
     for routine_path, routine_name in zip(routine_paths, routine_names):
         run_result = routine_inference(routine_path=routine_path,
                                        run_name=routine_name,
-                                       helper_registration_key=helper_registration_key,
                                        serialize=serialize)
         result.append(run_result)
     return result
