@@ -23,7 +23,7 @@ def retrieve_and_save(
     invalid_keys = []
     for key in registration_keys:
         try:
-            Registry.build_component_from_key(config_registration_key=key)
+            Registry.build_component_from_key(registration_key=key)
             valid_keys.append(key)
         except (InvalidConfigurationTypeException, ValidationFailureException):
             invalid_keys.append(key)
@@ -151,7 +151,7 @@ def run_component_from_key(
 ) -> Tuple[Any, Optional[Path]]:
     logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{config_registration_key}')
 
-    component = Registry.build_component_from_key(config_registration_key=config_registration_key)
+    component = Registry.build_component_from_key(registration_key=config_registration_key)
 
     file_manager = FileManager.retrieve_built_component(name='file_manager',
                                                         namespace='generic',

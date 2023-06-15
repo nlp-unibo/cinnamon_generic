@@ -68,12 +68,12 @@ class TokenizerProcessorConfig(TunableConfiguration):
 
 
 def register_processors():
-    Registry.register_and_bind(configuration_class=TextProcessorConfig,
+    Registry.register_and_bind(config_class=TextProcessorConfig,
                                component_class=TextProcessor,
                                name='processor',
                                tags={'text'},
                                is_default=True)
-    Registry.register_and_bind(configuration_class=TokenizerProcessorConfig,
+    Registry.register_and_bind(config_class=TokenizerProcessorConfig,
                                component_class=TokenizerProcessor,
                                name='processor',
                                tags={'text', 'tokenizer'},

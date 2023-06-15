@@ -53,7 +53,7 @@ class TunableConfiguration(Configuration):
         children = {param_key: param for param_key, param in default_config.items() if
                     param.is_registration and not param.is_calibration}
         for child_key, child in children.items():
-            child_config_class = Registry.retrieve_configurations_from_key(config_registration_key=child.value,
+            child_config_class = Registry.retrieve_configurations_from_key(registration_key=child.value,
                                                                            exact_match=True).class_type
             if not issubclass(child_config_class, TunableConfiguration):
                 raise NonTunableConfigurationException(class_type=child_config_class)
@@ -64,7 +64,7 @@ class TunableConfiguration(Configuration):
 
         # Merge search space
         calibration_config_class = Registry.retrieve_configurations_from_key(
-            config_registration_key=default_config.calibration_config,
+            registration_key=default_config.calibration_config,
             exact_match=True).class_type
         search_space = {f'{parent_key}.{key}' if parent_key is not None else key: value
                         for key, value in calibration_config_class.get_default().search_space.items()}
