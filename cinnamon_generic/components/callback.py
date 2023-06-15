@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Callable
 
 from cinnamon_core.core.component import Component
+from cinnamon_core.core.data import FieldDict
 from cinnamon_generic.components.pipeline import Pipeline
 
 
@@ -36,6 +37,12 @@ class Callback(Component):
 
         self.component = component
         self.save_path = save_path
+
+    @property
+    def state(
+            self
+    ) -> FieldDict:
+        return FieldDict({key: value for key, value in self.__dict__.items() if key != 'component'})
 
     def run(
             self,

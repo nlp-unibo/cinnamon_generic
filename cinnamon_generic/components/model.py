@@ -1,6 +1,6 @@
 import abc
 from pathlib import Path
-from typing import AnyStr, Any, Optional, Union
+from typing import AnyStr, Any, Optional, Union, Dict
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
@@ -9,7 +9,6 @@ from cinnamon_generic.components.metrics import Metric
 from cinnamon_generic.components.processor import Processor
 
 
-# TODO: check whether to split training/inference APIs into a Trainer/Predictor dedicated component.
 class Model(Component):
     """
     A ``Model`` is a ``Component`` specialized for wrapping a machine learning model.
@@ -81,11 +80,6 @@ class Model(Component):
         super().load(serialization_path=serialization_path)
         self.model = self.load_model(filepath=serialization_path)
 
-    @property
-    def state(
-            self
-    ) -> FieldDict:
-        return FieldDict({key: value for key, value in self.__dict__.items() if key != 'model'})
 
     def prepare_for_training(
             self,
@@ -197,7 +191,8 @@ class Model(Component):
             data: FieldDict,
             callbacks: Optional[Callback] = None,
             metrics: Optional[Metric] = None,
-            model_processor: Optional[Processor] = None
+            model_processor: Optional[Processor] = None,
+            suffixes: Optional[Dict] = None
     ) -> FieldDict:
         """
         Computes model predictions on the given data.
@@ -207,6 +202,7 @@ class Model(Component):
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
             model_processor: TODO
+            suffixes: TODO
 
         Returns:
             A ``FieldDict`` storing prediction information

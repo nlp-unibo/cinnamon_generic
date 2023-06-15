@@ -1,13 +1,11 @@
 import abc
 from pathlib import Path
-from typing import AnyStr, List, Union, Optional, cast
+from typing import AnyStr, List, Union, Optional
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.data import FieldDict
 from cinnamon_core.utility import logging_utility
 from cinnamon_generic.components.callback import Callback
-from cinnamon_generic.components.data_loader import DataLoader
-from cinnamon_generic.components.helper import Helper
 from cinnamon_generic.components.metrics import Metric
 from cinnamon_generic.components.model import Model
 from cinnamon_generic.components.processor import Processor
@@ -122,18 +120,13 @@ class TrainAndTestRoutine(Routine):
         test_data = pre_processor.run(data=test_data)
 
         # Model
-        if self.callbacks is not None:
-            callbacks = Callback.build_component_from_key(config_registration_key=self.callbacks)
-        else:
-            callbacks = None
-
         model = Model.build_component_from_key(config_registration_key=self.model)
         model.build(processor=pre_processor,
-                    callbacks=callbacks)
+                    callbacks=self.callbacks)
 
-        if callbacks is not None:
-            callbacks.setup(component=model,
-                            save_path=serialization_path)
+        if self.callbacks is not None:
+            self.callbacks.setup(component=model,
+                                 save_path=serialization_path)
 
         # Training
         if self.metrics is not None:
@@ -155,7 +148,7 @@ class TrainAndTestRoutine(Routine):
             fit_info = model.fit(train_data=train_data,
                                  val_data=val_data,
                                  metrics=metrics,
-                                 callbacks=callbacks,
+                                 callbacks=self.callbacks,
                                  model_processor=model_processor)
             step_info.add_short(name='fit_info',
                                 value=fit_info,
@@ -170,12 +163,23 @@ class TrainAndTestRoutine(Routine):
             # Model loading might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
+        routine_suffixes = step_info.search_by_tag('routine_suffix')
+        train_info = model.predict(data=train_data,
+                                   metrics=metrics,
+                                   callbacks=self.callbacks,
+                                   model_processor=model_processor,
+                                   suffixes={**routine_suffixes, **{'split': 'train'}})
+        step_info.add_short(name='train_info',
+                            value=train_info,
+                            tags={'info'})
+
         # Evaluator
         if val_data is not None:
             val_info = model.predict(data=val_data,
                                      metrics=metrics,
-                                     callbacks=callbacks,
-                                     model_processor=model_processor)
+                                     callbacks=self.callbacks,
+                                     model_processor=model_processor,
+                                     suffixes={**routine_suffixes, **{'split': 'val'}})
             step_info.add_short(name='val_info',
                                 value=val_info,
                                 tags={'info'})
@@ -183,8 +187,9 @@ class TrainAndTestRoutine(Routine):
         if test_data is not None:
             test_info = model.predict(data=test_data,
                                       metrics=metrics,
-                                      callbacks=callbacks,
-                                      model_processor=model_processor)
+                                      callbacks=self.callbacks,
+                                      model_processor=model_processor,
+                                      suffixes={**routine_suffixes, **{'split': 'test'}})
             step_info.add_short(name='test_info',
                                 value=test_info,
                                 tags={'info'})
@@ -218,29 +223,41 @@ class TrainAndTestRoutine(Routine):
             The ``TrainAndTestRoutine`` output results in ``FieldDict`` format
         """
 
-        routine_result = FieldDict()
-        routine_result.add_short(name='steps',
-                                 value=[],
-                                 type_hint=List[FieldDict])
+        if self.callbacks is not None:
+            self.callbacks = Callback.build_component_from_key(config_registration_key=self.callbacks)
+
+        routine_info = FieldDict()
+        routine_info.add_short(name='steps',
+                               value=[],
+                               type_hint=List[FieldDict])
 
         # Helper
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
         self.helper.run(seed=seeds[0])
 
-        # Get data splits
-        data_loader = cast(DataLoader, self.data_loader)
+        self.callbacks.run(hookpoint='on_routine_begin',
+                           logs={
+                               'seeds': seeds
+                           })
 
         for seed_idx, seed in enumerate(seeds):
             logging_utility.logger.info(f'Seed: {seed} (Progress -> {seed_idx + 1}/{len(seeds)})')
 
-            train_data, val_data, test_data = data_loader.get_splits()
+            self.callbacks.run(hookpoint='on_routine_step_begin',
+                               logs={
+                                   'seed': seed,
+                                   'serialization_path': serialization_path,
+                                   'is_training': is_training
+                               })
+
+            train_data, val_data, test_data = self.data_loader.get_splits()
             step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
                                                                                     val_data=val_data,
                                                                                     test_data=test_data)
 
-            step_train_data = data_loader.parse(data=step_train_data)
-            step_val_data = data_loader.parse(data=step_val_data)
-            step_test_data = data_loader.parse(data=step_test_data)
+            step_train_data = self.data_loader.parse(data=step_train_data)
+            step_val_data = self.data_loader.parse(data=step_val_data)
+            step_test_data = self.data_loader.parse(data=step_test_data)
 
             step_info = FieldDict()
             step_info.add_short(name='seed',
@@ -253,12 +270,26 @@ class TrainAndTestRoutine(Routine):
                                           test_data=step_test_data,
                                           is_training=is_training,
                                           serialization_path=serialization_path)
-            routine_result.steps.append(step_info)
+            routine_info.steps.append(step_info)
+
+            self.callbacks.run(hookpoint='on_routine_step_end',
+                               logs={
+                                   'seed': seed,
+                                   'step_info': step_info
+                               })
 
         if self.routine_processor is not None:
-            routine_result = self.routine_processor.run(data=routine_result)
+            routine_info = self.routine_processor.run(data=routine_info)
 
-        return routine_result
+        self.callbacks.run(hookpoint='on_routine_end',
+                           logs={
+                               'seeds': seeds,
+                               'routine_info': routine_info,
+                               'serialization_path': serialization_path,
+                               'is_training': is_training
+                           })
+
+        return routine_info
 
 
 class CVRoutine(TrainAndTestRoutine):
@@ -282,10 +313,13 @@ class CVRoutine(TrainAndTestRoutine):
             The ``CVRoutine`` output results in ``FieldDict`` format
         """
 
-        routine_result = FieldDict()
-        routine_result.add_short(name='steps',
-                                 value=[],
-                                 type_hint=List[FieldDict])
+        if self.callbacks is not None:
+            self.callbacks = Callback.build_component_from_key(config_registration_key=self.callbacks)
+
+        routine_info = FieldDict()
+        routine_info.add_short(name='steps',
+                               value=[],
+                               type_hint=List[FieldDict])
 
         # Helper
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
@@ -299,6 +333,13 @@ class CVRoutine(TrainAndTestRoutine):
                 raise RuntimeError(f'Cannot build cross-validation folds without training data in training mode. '
                                    f'Got {train_data}')
 
+        self.callbacks.run(hookpoint='on_routine_begin',
+                           logs={
+                               'seeds': seeds,
+                               'serialization_path': serialization_path,
+                               'is_training': is_training
+                           })
+
         for seed_idx, seed in enumerate(seeds):
             logging_utility.logger.info(f'Seed: {seed} (Progress -> {seed_idx + 1}/{len(seeds)})')
             for fold_idx, \
@@ -308,6 +349,12 @@ class CVRoutine(TrainAndTestRoutine):
                                                                          val_data=val_data,
                                                                          test_data=test_data)):
                 logging_utility.logger.info(f'Fold {fold_idx + 1}')
+
+                self.callbacks.run(hookpoint='on_routine_step_begin',
+                                   logs={
+                                       'seed': seed,
+                                       'fold': fold_idx
+                                   })
 
                 step_train_data = self.data_loader.parse(data=step_train_data)
                 step_val_data = self.data_loader.parse(data=step_val_data)
@@ -328,9 +375,24 @@ class CVRoutine(TrainAndTestRoutine):
                                               test_data=step_test_data,
                                               is_training=is_training,
                                               serialization_path=serialization_path)
-                routine_result.steps.append(step_info)
+                routine_info.steps.append(step_info)
+
+                self.callbacks.run(hookpoint='on_routine_step_end',
+                                   logs={
+                                       'seed': seed,
+                                       'fold': fold_idx,
+                                       'step_info': step_info
+                                   })
 
         if self.routine_processor is not None:
-            routine_result = self.routine_processor.run(data=routine_result)
+            routine_info = self.routine_processor.run(data=routine_info)
 
-        return routine_result
+        self.callbacks.run(hookpoint='on_routine_end',
+                           logs={
+                               'seeds': seeds,
+                               'routine_info': routine_info,
+                               'serialization_path': serialization_path,
+                               'is_training': is_training
+                           })
+
+        return routine_info

@@ -71,6 +71,19 @@ class TokenizerProcessor(Processor):
         self.vocabulary: Optional[Dict] = None
         self.vocab_size: Optional[int] = None
 
+    @property
+    def state(
+            self
+    ) -> FieldDict:
+        state = super().state
+
+        state.add_short(name='embedding_model', value=self.embedding_model)
+        state.add_short(name='embedding_matrix', value=self.embedding_matrix)
+        state.add_short(name='vocabulary', value=self.vocabulary)
+        state.add_short(name='vocab_size', value=self.vocab_size)
+
+        return state
+
     @abc.abstractmethod
     def fit(
             self,
