@@ -112,15 +112,16 @@ class TrainAndTestRoutine(Routine):
         self.helper.run(seed=step_info.seed)
 
         # Pre-Processor
-        pre_processor = Processor.build_component_from_key(config_registration_key=self.pre_processor)
+        pre_processor = Processor.build_component_from_key(registration_key=self.pre_processor)
 
         train_data = pre_processor.run(data=train_data,
                                        is_training_data=is_training)
         val_data = pre_processor.run(data=val_data)
         test_data = pre_processor.run(data=test_data)
+        pre_processor.finalize()
 
         # Model
-        model = Model.build_component_from_key(config_registration_key=self.model)
+        model = Model.build_component_from_key(registration_key=self.model)
         model.build(processor=pre_processor,
                     callbacks=self.callbacks)
 
@@ -130,14 +131,14 @@ class TrainAndTestRoutine(Routine):
 
         # Training
         if self.metrics is not None:
-            metrics = Metric.build_component_from_key(config_registration_key=self.metrics)
+            metrics = Metric.build_component_from_key(registration_key=self.metrics)
         else:
             metrics = None
 
         # Model Processor
         model_processor: Optional[Processor] = None
         if self.model_processor is not None:
-            model_processor = Processor.build_component_from_key(config_registration_key=self.model_processor)
+            model_processor = Processor.build_component_from_key(registration_key=self.model_processor)
 
         if is_training:
             model.prepare_for_training(train_data=train_data)
@@ -150,9 +151,9 @@ class TrainAndTestRoutine(Routine):
                                  metrics=metrics,
                                  callbacks=self.callbacks,
                                  model_processor=model_processor)
-            step_info.add_short(name='fit_info',
-                                value=fit_info,
-                                tags={'training'})
+            step_info.add(name='fit_info',
+                          value=fit_info,
+                          tags={'training'})
         else:
             model.prepare_for_loading(data=test_data if test_data is not None else val_data)
 
@@ -169,9 +170,9 @@ class TrainAndTestRoutine(Routine):
                                    callbacks=self.callbacks,
                                    model_processor=model_processor,
                                    suffixes={**routine_suffixes, **{'split': 'train'}})
-        step_info.add_short(name='train_info',
-                            value=train_info,
-                            tags={'info'})
+        step_info.add(name='train_info',
+                      value=train_info,
+                      tags={'info'})
 
         # Evaluator
         if val_data is not None:
@@ -180,9 +181,9 @@ class TrainAndTestRoutine(Routine):
                                      callbacks=self.callbacks,
                                      model_processor=model_processor,
                                      suffixes={**routine_suffixes, **{'split': 'val'}})
-            step_info.add_short(name='val_info',
-                                value=val_info,
-                                tags={'info'})
+            step_info.add(name='val_info',
+                          value=val_info,
+                          tags={'info'})
 
         if test_data is not None:
             test_info = model.predict(data=test_data,
@@ -190,14 +191,17 @@ class TrainAndTestRoutine(Routine):
                                       callbacks=self.callbacks,
                                       model_processor=model_processor,
                                       suffixes={**routine_suffixes, **{'split': 'test'}})
-            step_info.add_short(name='test_info',
-                                value=test_info,
-                                tags={'info'})
+            step_info.add(name='test_info',
+                          value=test_info,
+                          tags={'info'})
+
+        model_processor.finalize()
 
         # Post-Processor
         if self.post_processor is not None:
-            post_processor = Processor.build_component_from_key(config_registration_key=self.post_processor)
+            post_processor = Processor.build_component_from_key(registration_key=self.post_processor)
             step_info = post_processor.run(data=step_info)
+            post_processor.finalize()
 
         # Save
         if serialization_path is not None:
@@ -224,12 +228,12 @@ class TrainAndTestRoutine(Routine):
         """
 
         if self.callbacks is not None:
-            self.callbacks = Callback.build_component_from_key(config_registration_key=self.callbacks)
+            self.callbacks = Callback.build_component_from_key(registration_key=self.callbacks)
 
         routine_info = FieldDict()
-        routine_info.add_short(name='steps',
-                               value=[],
-                               type_hint=List[FieldDict])
+        routine_info.add(name='steps',
+                         value=[],
+                         type_hint=List[FieldDict])
 
         # Helper
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
@@ -260,10 +264,10 @@ class TrainAndTestRoutine(Routine):
             step_test_data = self.data_loader.parse(data=step_test_data)
 
             step_info = FieldDict()
-            step_info.add_short(name='seed',
-                                value=seed,
-                                type_hint=int,
-                                tags={'routine_suffix'})
+            step_info.add(name='seed',
+                          value=seed,
+                          type_hint=int,
+                          tags={'routine_suffix'})
             step_info = self.routine_step(step_info=step_info,
                                           train_data=step_train_data,
                                           val_data=step_val_data,
@@ -314,12 +318,12 @@ class CVRoutine(TrainAndTestRoutine):
         """
 
         if self.callbacks is not None:
-            self.callbacks = Callback.build_component_from_key(config_registration_key=self.callbacks)
+            self.callbacks = Callback.build_component_from_key(registration_key=self.callbacks)
 
         routine_info = FieldDict()
-        routine_info.add_short(name='steps',
-                               value=[],
-                               type_hint=List[FieldDict])
+        routine_info.add(name='steps',
+                         value=[],
+                         type_hint=List[FieldDict])
 
         # Helper
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
@@ -361,14 +365,14 @@ class CVRoutine(TrainAndTestRoutine):
                 step_test_data = self.data_loader.parse(data=step_test_data)
 
                 step_info = FieldDict()
-                step_info.add_short(name='seed',
-                                    value=seed,
-                                    type_hint=int,
-                                    tags={'routine_suffix'})
-                step_info.add_short(name='fold',
-                                    value=fold_idx,
-                                    type_hint=int,
-                                    tags={'routine_suffix'})
+                step_info.add(name='seed',
+                              value=seed,
+                              type_hint=int,
+                              tags={'routine_suffix'})
+                step_info.add(name='fold',
+                              value=fold_idx,
+                              type_hint=int,
+                              tags={'routine_suffix'})
                 step_info = self.routine_step(step_info=step_info,
                                               train_data=step_train_data,
                                               val_data=step_val_data,

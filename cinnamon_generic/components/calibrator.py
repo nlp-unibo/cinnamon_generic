@@ -1,21 +1,21 @@
 import pickle
+import shutil
 import time
 from enum import Enum
 from multiprocessing import Process, Pool, Queue
 from subprocess import Popen
-from typing import Dict, Any, cast, Optional
+from typing import Dict, Any
 
 import hyperopt
-from cinnamon_core.core.component import Component
-from cinnamon_core.core.registry import Registry
-from cinnamon_core.utility.logging_utility import logger
-from cinnamon_core.utility.pickle_utility import save_pickle
-from cinnamon_core.utility.python_utility import get_dict_values_combinations
+import numpy as np
 from hyperopt import fmin, space_eval, tpe, Trials
 from hyperopt.mongoexp import MongoTrials
 from tqdm import tqdm
-import shutil
 
+from cinnamon_core.core.component import Component
+from cinnamon_core.utility.logging_utility import logger
+from cinnamon_core.utility.pickle_utility import save_pickle
+from cinnamon_core.utility.python_utility import get_dict_values_combinations
 from cinnamon_generic.components.file_manager import FileManager
 
 
@@ -42,43 +42,11 @@ class UnsetValidatorException(Exception):
         super().__init__('Validator is not set! Make sure to run set_validator() before calibration')
 
 
-# TODO: add RandomSearchCalibrator, OptunaCalibrator
+# TODO: add OptunaCalibrator
 class Calibrator(Component):
     """
     A ``Calibrator`` is a ``Component`` specialized in hyper-parameters tuning.
     """
-
-    def __init__(
-            self,
-            **kwargs
-    ):
-        """
-        The ``Calibrator`` constructor.
-        A ``Calibrator`` executes a given ``Component`` (denotes as ``validator``)
-        for tuning its ``Configuration`` parameters.
-        """
-
-        super(Calibrator, self).__init__(**kwargs)
-        self.validator: Optional[Component] = None
-        self.validator_args: Optional[Dict[str, Any]] = None
-
-    def set_validator(
-            self,
-            validator: Component,
-            validator_args: Optional[Dict[str, Any]] = None
-    ):
-        """
-        Sets the validator ``Component`` for the ``Calibrator``.
-        The ``Calibrator`` will build ``Component`` delta copies based on sampled hyper-parameters combinations
-        and, eventually, execute each copy.
-
-        Args:
-            validator: a ``Component`` for which hyper-parameter tuning should be carried out
-            validator_args: optional arguments to ``validator.run(...)`` method.
-        """
-
-        self.validator = validator
-        self.validator_args = validator_args
 
     def evaluate_combination(
             self,
@@ -165,6 +133,38 @@ class GridSearchCalibrator(Calibrator):
         return best_params, best_result
 
 
+class RandomSearchCalibration(Calibrator):
+
+    def run(
+            self,
+    ) -> Any:
+
+        if self.validator is None:
+            raise UnsetValidatorException()
+
+        search_space = self.validator.config.get_search_space()
+
+        if search_space is None:
+            raise MissingSearchSpaceException(search_space=search_space)
+
+        combinations = get_dict_values_combinations(search_space)
+
+        logger.info(f'Starting hyper-parameters calibration search! '
+                    f'Total combinations: {len(combinations)}'
+                    f'Total tries: {len(self.tries)}')
+
+        calibration_results = []
+        sampled_combinations_tries = np.random.choice(combinations, size=self.tries, replace=False)
+        for combination_try in tqdm(sampled_combinations_tries):
+            combination = combinations[combination_try]
+            combination_result = self.evaluate_combination(parameter_combination=combination)
+            calibration_results.append((combination_result, combination))
+
+        calibration_results = sorted(calibration_results, key=lambda pair: pair[0])
+        best_params, best_result = calibration_results[0]
+        return best_params, best_result
+
+
 class HyperOptCalibrator(Calibrator):
     """
     A ``Calibrator`` extension that wraps a ``HyperOpt`` calibrator.
@@ -182,8 +182,7 @@ class HyperOptCalibrator(Calibrator):
         super().__init__(**kwargs)
 
         # Update directory paths
-        file_manager = Registry.retrieve_built_component_from_key(self.file_manager_registration_key)
-        file_manager = cast(FileManager, file_manager)
+        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
 
         self.mongo_directory = file_manager.run(filepath=self.mongo_directory)
         self.mongo_workers_directory = file_manager.run(filepath=self.mongo_workers_directory)
@@ -291,7 +290,7 @@ class HyperOptCalibrator(Calibrator):
         process.wait()
 
     def run(
-            self
+            self,
     ):
         """
         Runs the calibration phase for the specified ``validator`` ``Component``.
@@ -301,6 +300,9 @@ class HyperOptCalibrator(Calibrator):
         - MongoDB mode: if a MongoDB instance is running, the calibrator runs multiple workers to evaluate
         multiple trials in parallel. All results are stored in the MongoDB instance.
         - Sequential mode: trials are evaluated sequentially. All results are stored in a .csv file.
+
+        Args:
+            validator_args: TODO
 
         Returns:
             The best hyper-parameter combination along with the corresponding calibration metric value.
@@ -368,4 +370,10 @@ class HyperOptCalibrator(Calibrator):
         return best_params, best_trial
 
 
-__all__ = ['ValidateCondition', 'Calibrator', 'GridSearchCalibrator', 'HyperOptCalibrator']
+__all__ = [
+    'ValidateCondition',
+    'Calibrator',
+    'GridSearchCalibrator',
+    'RandomSearchCalibration',
+    'HyperOptCalibrator'
+]

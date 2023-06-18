@@ -3,7 +3,7 @@ from __future__ import annotations
 import multiprocessing as mp
 from typing import Dict, Any, Optional, Type
 
-from cinnamon_core.core.configuration import supports_variants, Configuration, C
+from cinnamon_core.core.configuration import Configuration, C
 from cinnamon_core.core.registry import RegistrationKey, Registry, register
 from cinnamon_generic.components.calibrator import ValidateCondition, HyperOptCalibrator, GridSearchCalibrator
 
@@ -20,7 +20,6 @@ class NonTunableConfigurationException(Exception):
         super().__init__(f'Expected an instance of TunableConfiguration but got {class_type}')
 
 
-@supports_variants
 class TunableConfiguration(Configuration):
 
     @classmethod
@@ -28,13 +27,13 @@ class TunableConfiguration(Configuration):
             cls: Type[C]
     ) -> C:
         config = super().get_default()
-        config.add_short(name='calibration_config',
-                         type_hint=RegistrationKey,
-                         build_type_hint=Configuration,
-                         is_registration=True,
-                         build_from_registration=False,
-                         is_calibration=True,
-                         description="Calibration configuration that specifies")
+        config.add(name='calibration_config',
+                   type_hint=RegistrationKey,
+                   build_type_hint=Configuration,
+                   is_registration=True,
+                   build_from_registration=False,
+                   is_calibration=True,
+                   description="Calibration configuration that specifies")
         return config
 
     @classmethod
@@ -73,7 +72,7 @@ class TunableConfiguration(Configuration):
         return buffer
 
 
-# TODO: add RandomSearchCalibratorConfig, OptunaCalibratorConfig
+# TODO: add OptunaCalibratorConfig
 class CalibratorConfig(Configuration):
 
     @classmethod
@@ -82,14 +81,43 @@ class CalibratorConfig(Configuration):
     ) -> C:
         config = super().get_default()
 
-        config.add_short(name='validate_on',
-                         type_hint=str,
-                         description="metric name to monitor for calibration",
-                         is_required=True)
-        config.add_short(name='validate_condition',
-                         type_hint=ValidateCondition,
-                         description="whether the ``validate_on`` monitor value should be maximized or minimized",
-                         is_required=True)
+        config.add(name='validator',
+                   type_hint=RegistrationKey,
+                   description='The component that is run with different hyper-parameter combinations for evaluation',
+                   is_required=True,
+                   is_registration=True)
+        config.add(name='validator_args',
+                   value={},
+                   type_hint=Dict,
+                   description='Validator additional run arguments')
+        config.add(name='validate_on',
+                   value='val_loss',
+                   type_hint=str,
+                   description="metric name to monitor for calibration",
+                   is_required=True)
+        config.add(name='validate_condition',
+                   value=ValidateCondition.MINIMIZATION,
+                   type_hint=ValidateCondition,
+                   description="whether the ``validate_on`` monitor value should be maximized or minimized",
+                   is_required=True)
+
+        return config
+
+
+class RandomSearchCalibratorConfig(CalibratorConfig):
+
+    @classmethod
+    def get_default(
+            cls: Type[C]
+    ) -> C:
+        config = super().get_default()
+
+        config.add(name='tries',
+                   value=10,
+                   type_hint=int,
+                   allowed_range=lambda value: value >= 1,
+                   is_required=True,
+                   description='Number of hyper-parameter combinations to randomly sample and try')
 
         return config
 
@@ -102,69 +130,69 @@ class HyperoptCalibratorConfig(CalibratorConfig):
     ) -> C:
         config = super().get_default()
 
-        config.add_short(name='file_manager_registration_key',
-                         type_hint=RegistrationKey,
-                         value=RegistrationKey(name='file_manager',
+        config.add(name='file_manager_registration_key',
+                   type_hint=RegistrationKey,
+                   value=RegistrationKey(name='file_manager',
                                                tags={'default'},
                                                namespace='generic'),
-                         description="registration info of built FileManager component."
+                   description="registration info of built FileManager component."
                                      " Used for filesystem interfacing")
-        config.add_short(name='max_evaluations',
-                         value=-1,
-                         type_hint=int,
-                         description="number of evaluations to perform for calibration."
+        config.add(name='max_evaluations',
+                   value=-1,
+                   type_hint=int,
+                   description="number of evaluations to perform for calibration."
                                      " -1 allows search space grid search.")
-        config.add_short(name='mongo_directory',
-                         value='mongodb',
-                         description="directory name where mongoDB is located and running",
-                         is_required=True)
-        config.add_short(name='mongo_workers_directory',
-                         value='mongo_workers',
-                         description="directory name where mongo workers stored their execution metadata")
-        config.add_short(name='hyperopt_additional_info',
-                         type_hint=Optional[Dict[str, Any]],
-                         description="additional arguments for hyperopt calibrator")
-        config.add_short(name='use_mongo',
-                         value=False,
-                         allowed_range=lambda value: value in [False, True],
-                         type_hint=bool,
-                         description="if enabled, it uses hyperopt mongoDB support for calibration")
-        config.add_short(name='mongo_address',
-                         value='localhost',
-                         type_hint=str,
-                         description="the address of running mongoDB instance")
-        config.add_short(name='mongo_port',
-                         value=4000,
-                         type_hint=int,
-                         description="the port of running mongoDB instance")
-        config.add_short(name='workers',
-                         value=2,
-                         allowed_range=lambda value: 1 <= value <= mp.cpu_count(),
-                         type_hint=int,
-                         description="number of mongo workers to run")
-        config.add_short(name='reserve_timeout',
-                         value=10.0,
-                         type_hint=float,
-                         description="Wait time (in seconds) for reserving a calibration "
+        config.add(name='mongo_directory',
+                   value='mongodb',
+                   description="directory name where mongoDB is located and running",
+                   is_required=True)
+        config.add(name='mongo_workers_directory',
+                   value='mongo_workers',
+                   description="directory name where mongo workers stored their execution metadata")
+        config.add(name='hyperopt_additional_info',
+                   type_hint=Optional[Dict[str, Any]],
+                   description="additional arguments for hyperopt calibrator")
+        config.add(name='use_mongo',
+                   value=False,
+                   allowed_range=lambda value: value in [False, True],
+                   type_hint=bool,
+                   description="if enabled, it uses hyperopt mongoDB support for calibration")
+        config.add(name='mongo_address',
+                   value='localhost',
+                   type_hint=str,
+                   description="the address of running mongoDB instance")
+        config.add(name='mongo_port',
+                   value=4000,
+                   type_hint=int,
+                   description="the port of running mongoDB instance")
+        config.add(name='workers',
+                   value=2,
+                   allowed_range=lambda value: 1 <= value <= mp.cpu_count(),
+                   type_hint=int,
+                   description="number of mongo workers to run")
+        config.add(name='reserve_timeout',
+                   value=10.0,
+                   type_hint=float,
+                   description="Wait time (in seconds) for reserving a calibration "
                                      "instance from mongo workers pool")
-        config.add_short(name='max_consecutive_failures',
-                         value=2,
-                         type_hint=int,
-                         description="Maximum number of tentatives before mongo worker is shutdown")
-        config.add_short(name='poll_interval',
-                         value=5.0,
-                         type_hint=float,
-                         description="Wait time for poll request.")
-        config.add_short(name='use_subprocesses',
-                         value=False,
-                         allowed_range=lambda value: value in [False, True],
-                         type_hint=bool,
-                         description="If enabled, mongo workers are executed with the"
+        config.add(name='max_consecutive_failures',
+                   value=2,
+                   type_hint=int,
+                   description="Maximum number of tentatives before mongo worker is shutdown")
+        config.add(name='poll_interval',
+                   value=5.0,
+                   type_hint=float,
+                   description="Wait time for poll request.")
+        config.add(name='use_subprocesses',
+                   value=False,
+                   allowed_range=lambda value: value in [False, True],
+                   type_hint=bool,
+                   description="If enabled, mongo workers are executed with the"
                                      " capability of running subprocesses")
-        config.add_short(name='worker_sleep_interval',
-                         value=2.0,
-                         type_hint=float,
-                         description="Interval time between each mongo worker execution")
+        config.add(name='worker_sleep_interval',
+                   value=2.0,
+                   type_hint=float,
+                   description="Interval time between each mongo worker execution")
 
         config.add_condition(name='worker_sleep_interval_minimum',
                              condition=lambda parameters: parameters.worker_sleep_interval.value >= 0.5)
@@ -176,15 +204,21 @@ class HyperoptCalibratorConfig(CalibratorConfig):
 
 @register
 def register_calibrators():
+    Registry.add_and_bind(config_class=Configuration,
+                          component_class=GridSearchCalibrator,
+                          name='calibrator',
+                          tags={'grid'},
+                          namespace='generic',
+                          is_default=True)
+    Registry.add_and_bind(config_class=RandomSearchCalibratorConfig,
+                          component_class=RandomSearchCalibratorConfig,
+                          name='calibrator',
+                          tags={'random'},
+                          namespace='generic',
+                          is_default=True)
     Registry.add_and_bind(config_class=HyperoptCalibratorConfig,
                           component_class=HyperOptCalibrator,
                           name='calibrator',
                           tags={'hyperopt'},
-                          namespace='generic',
-                          is_default=True)
-    Registry.add_and_bind(config_class=Configuration,
-                          component_class=GridSearchCalibrator,
-                          name='calibrator',
-                          tags={'gridsearch'},
                           namespace='generic',
                           is_default=True)

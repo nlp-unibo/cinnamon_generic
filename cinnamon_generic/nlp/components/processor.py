@@ -77,10 +77,10 @@ class TokenizerProcessor(Processor):
     ) -> FieldDict:
         state = super().state
 
-        state.add_short(name='embedding_model', value=self.embedding_model)
-        state.add_short(name='embedding_matrix', value=self.embedding_matrix)
-        state.add_short(name='vocabulary', value=self.vocabulary)
-        state.add_short(name='vocab_size', value=self.vocab_size)
+        state.add(name='embedding_model', value=self.embedding_model)
+        state.add(name='embedding_matrix', value=self.embedding_matrix)
+        state.add(name='vocabulary', value=self.vocabulary)
+        state.add(name='vocab_size', value=self.vocab_size)
 
         return state
 

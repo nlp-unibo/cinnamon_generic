@@ -26,16 +26,16 @@ class ConfigA(TunableConfiguration):
             cls
     ):
         config = super().get_default()
-        config.add_short(name='param1',
-                         value=1,
-                         type_hint=int)
-        config.add_short(name='param2',
-                         value=True,
-                         type_hint=bool)
-        config.add_short(name='child',
-                         value=RegistrationKey(name='config_b',
+        config.add(name='param1',
+                   value=1,
+                   type_hint=int)
+        config.add(name='param2',
+                   value=True,
+                   type_hint=bool)
+        config.add(name='child',
+                   value=RegistrationKey(name='config_b',
                                                namespace='testing'),
-                         is_registration=True)
+                   is_registration=True)
         config.calibration_config = RegistrationKey(name='calibration',
                                                     tags={'config_a'},
                                                     namespace='testing')
@@ -50,9 +50,9 @@ class ConfigB(TunableConfiguration):
             cls
     ):
         config = super().get_default()
-        config.add_short(name='param1',
-                         value=True,
-                         type_hint=bool)
+        config.add(name='param1',
+                   value=True,
+                   type_hint=bool)
         config.calibration_config = RegistrationKey(name='calibration',
                                                     tags={'config_b'},
                                                     namespace='testing')
@@ -66,8 +66,8 @@ class CalConfigA(Configuration):
             cls
     ):
         config = super().get_default()
-        config.add_short(name='search_space',
-                         value={
+        config.add(name='search_space',
+                   value={
                              'param1': [1, 2, 3],
                              'param2': [False, True]
                          })
@@ -81,8 +81,8 @@ class CalConfigB(Configuration):
             cls
     ):
         config = super().get_default()
-        config.add_short(name='search_space',
-                         value={
+        config.add(name='search_space',
+                   value={
                              'param1': [False, True]
                          })
         return config
@@ -96,20 +96,20 @@ def reset_registry():
 def test_search_space(
         reset_registry
 ):
-    Registry.register_and_bind(configuration_class=ConfigA,
+    Registry.register_and_bind(config_class=ConfigA,
                                component_class=MockComponent,
                                name='config_a',
                                namespace='testing')
-    Registry.register_and_bind(configuration_class=ConfigB,
+    Registry.register_and_bind(config_class=ConfigB,
                                component_class=MockComponent,
                                name='config_b',
                                namespace='testing')
 
-    Registry.register_configuration(configuration_class=CalConfigA,
+    Registry.register_configuration(config_class=CalConfigA,
                                     name='calibration',
                                     tags={'config_a'},
                                     namespace='testing')
-    Registry.register_configuration(configuration_class=CalConfigB,
+    Registry.register_configuration(config_class=CalConfigB,
                                     name='calibration',
                                     tags={'config_b'},
                                     namespace='testing')
@@ -125,20 +125,20 @@ def test_search_space(
 def test_search_space_combinations(
         reset_registry
 ):
-    Registry.register_and_bind(configuration_class=ConfigA,
+    Registry.register_and_bind(config_class=ConfigA,
                                component_class=MockComponent,
                                name='config_a',
                                namespace='testing')
-    Registry.register_and_bind(configuration_class=ConfigB,
+    Registry.register_and_bind(config_class=ConfigB,
                                component_class=MockComponent,
                                name='config_b',
                                namespace='testing')
 
-    Registry.register_configuration(configuration_class=CalConfigA,
+    Registry.register_configuration(config_class=CalConfigA,
                                     name='calibration',
                                     tags={'config_a'},
                                     namespace='testing')
-    Registry.register_configuration(configuration_class=CalConfigB,
+    Registry.register_configuration(config_class=CalConfigB,
                                     name='calibration',
                                     tags={'config_b'},
                                     namespace='testing')

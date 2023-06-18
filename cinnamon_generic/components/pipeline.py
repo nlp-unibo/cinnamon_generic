@@ -14,9 +14,9 @@ class Pipeline(Component):
         pipeline = cls(config=PipelineConfig())
 
         for idx, component in enumerate(components):
-            pipeline.config.add_short(name=f'component_{idx}',
-                                      value=component,
-                                      tags={'pipeline'})
+            pipeline.config.add(name=f'component_{idx}',
+                                value=component,
+                                tags={'pipeline'})
 
         return pipeline
 

@@ -74,9 +74,9 @@ class AverageProcessor(RoutineProcessor):
                                            step=step)
 
         average_data = self.aggregate(info=average_data)
-        data.add_short(name='average',
-                       value=average_data,
-                       description=f'Processed routine results via {self.__class__.__name__}.'
+        data.add(name='average',
+                 value=average_data,
+                 description=f'Processed routine results via {self.__class__.__name__}.'
                                    f'Each metric is averaged across routine suffixes.')
         return data
 

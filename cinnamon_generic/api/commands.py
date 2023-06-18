@@ -6,7 +6,8 @@ from typing import AnyStr, List, Union, Optional, Callable, Dict, Any, Tuple
 from tqdm import tqdm
 
 from cinnamon_core.core.data import FieldDict, ValidationFailureException
-from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag, InvalidConfigurationTypeException
+from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag, InvalidConfigurationTypeException, \
+    NotBoundException
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
 from cinnamon_core.utility.python_utility import get_function_signature
@@ -25,7 +26,7 @@ def retrieve_and_save(
         try:
             Registry.build_component_from_key(registration_key=key)
             valid_keys.append(key)
-        except (InvalidConfigurationTypeException, ValidationFailureException):
+        except (InvalidConfigurationTypeException, ValidationFailureException, NotBoundException):
             invalid_keys.append(key)
 
     if valid_keys:
@@ -82,16 +83,17 @@ def setup_registry(
                 Registry.load_registrations(directory_path=module_name)
 
     Registry.check_registration_graph()
+    Registry.show_dependencies()
     Registry.expand_and_resolve_registration()
 
     if file_manager_registration_key is None:
         file_manager_registration_key = RegistrationKey(name='file_manager',
                                                         tags={'default'},
                                                         namespace='generic')
-
-    file_manager = FileManager.build_component_from_key(config_registration_key=file_manager_registration_key,
+    file_manager = FileManager.build_component_from_key(registration_key=file_manager_registration_key,
                                                         register_built_component=True)
     file_manager.setup(base_directory=directory)
+    registration_directory = file_manager.run(filepath=file_manager.registrations_directory)
 
     logging_path = file_manager.run(filepath=file_manager.logging_directory)
     logging_path = logging_path.joinpath(file_manager.logging_filename)
@@ -190,7 +192,7 @@ def run_component_from_key(
     if serialization_path.exists():
         save_json(serialization_path.joinpath('metadata.json'),
                   data={
-                      'config_registration_key': str(config_registration_key),
+                      'registration_key': str(config_registration_key),
                       'config': component.config.to_value_dict()
                   },
                   unpicklable=False)
@@ -378,5 +380,5 @@ __all__ = [
     'routine_train',
     'routine_multiple_train',
     'routine_inference',
-    'routine_multiple_inference'
+    'routine_multiple_inference',
 ]

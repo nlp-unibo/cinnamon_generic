@@ -103,21 +103,21 @@ class DataLoader(Component):
         result = FieldDict()
         if train_data is not None:
             train_data = self.parse(data=train_data)
-        result.add_short(name='train',
-                         value=train_data,
-                         type_hint=FieldDict,
-                         tags={'train'})
+        result.add(name='train',
+                   value=train_data,
+                   type_hint=FieldDict,
+                   tags={'train'})
         if val_data is not None:
             val_data = self.parse(data=val_data)
-        result.add_short(name='val',
-                         value=val_data,
-                         type_hint=FieldDict,
-                         tags={'val'})
+        result.add(name='val',
+                   value=val_data,
+                   type_hint=FieldDict,
+                   tags={'val'})
         if test_data is not None:
             test_data = self.parse(data=test_data)
-        result.add_short(name='test',
-                         value=test_data,
-                         type_hint=FieldDict,
-                         tags={'test'})
+        result.add(name='test',
+                   value=test_data,
+                   type_hint=FieldDict,
+                   tags={'test'})
 
         return result

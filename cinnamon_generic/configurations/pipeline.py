@@ -34,15 +34,15 @@ class PipelineConfig(Configuration):
             variants: Optional[Iterable] = None,
     ):
         tags = tags.union({'pipeline'}) if tags is not None else {'pipeline'}
-        self.add_short(name=name,
-                       value=value,
-                       type_hint=type_hint,
-                       description=description,
-                       tags=tags,
-                       is_required=is_required,
-                       build_type_hint=build_type_hint,
-                       variants=variants,
-                       is_registration=True)
+        self.add(name=name,
+                 value=value,
+                 type_hint=type_hint,
+                 description=description,
+                 tags=tags,
+                 is_required=is_required,
+                 build_type_hint=build_type_hint,
+                 variants=variants,
+                 is_registration=True)
 
 
 class OrderedPipelineConfig(PipelineConfig):
@@ -68,13 +68,13 @@ class OrderedPipelineConfig(PipelineConfig):
                                        build_type_hint=build_type_hint,
                                        variants=variants)
         if 'ordering' not in self:
-            self.add_short(name='ordering',
-                           value=[],
-                           type_hint=List[str],
-                           is_required=True,
-                           description="A list of Parameter names in Configuration that point to pipeline components."
-                                       "This list is used to retrieve the correct order of execution of pipeline "
-                                       "components: the specified ordering in this Parameter is the execution order.")
+            self.add(name='ordering',
+                     value=[],
+                     type_hint=List[str],
+                     is_required=True,
+                     description="A list of Parameter names in Configuration that point to pipeline components."
+                                 "This list is used to retrieve the correct order of execution of pipeline "
+                                 "components: the specified ordering in this Parameter is the execution order.")
 
         if order is None:
             self.ordering.append(name)
