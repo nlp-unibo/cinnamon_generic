@@ -45,28 +45,30 @@ class TunableConfiguration(Configuration):
         buffer = buffer if buffer is not None else dict()
 
         default_config = cls.get_default()
-        if default_config.calibration_config is None:
-            raise UnsetCalibrationConfigurationException(calibration_config=default_config.calibration_config)
 
         # Apply to children as well
-        children = {param_key: param for param_key, param in default_config.items() if
-                    param.is_registration and not param.is_calibration}
-        for child_key, child in children.items():
+        for child_key, child in default_config.children.items():
+            if child.value is None:
+                continue
+
             child_config_class = Registry.retrieve_configurations_from_key(registration_key=child.value,
                                                                            exact_match=True).class_type
-            if not issubclass(child_config_class, TunableConfiguration):
-                raise NonTunableConfigurationException(class_type=child_config_class)
 
-            buffer = child_config_class.get_search_space(buffer=buffer,
-                                                         parent_key=f'{parent_key}.{child.name}'
-                                                         if parent_key is not None else f'{child.name}')
+            if issubclass(child_config_class, TunableConfiguration):
+                buffer = child_config_class.get_search_space(buffer=buffer,
+                                                             parent_key=f'{parent_key}.{child.name}'
+                                                             if parent_key is not None else f'{child.name}')
 
         # Merge search space
-        calibration_config_class = Registry.retrieve_configurations_from_key(
-            registration_key=default_config.calibration_config,
-            exact_match=True).class_type
-        search_space = {f'{parent_key}.{key}' if parent_key is not None else key: value
-                        for key, value in calibration_config_class.get_default().search_space.items()}
+        if default_config.calibration_config is not None:
+            calibration_config_class = Registry.retrieve_configurations_from_key(
+                registration_key=default_config.calibration_config,
+                exact_match=True).class_type
+            search_space = {f'{parent_key}.{key}' if parent_key is not None else key: value
+                            for key, value in calibration_config_class.get_default().search_space.items()}
+        else:
+            search_space = {}
+
         buffer = {**buffer, **search_space}
 
         return buffer
@@ -91,7 +93,7 @@ class CalibratorConfig(Configuration):
                    type_hint=Dict,
                    description='Validator additional run arguments')
         config.add(name='validate_on',
-                   value='val_loss',
+                   value='loss_val_info',
                    type_hint=str,
                    description="metric name to monitor for calibration",
                    is_required=True)

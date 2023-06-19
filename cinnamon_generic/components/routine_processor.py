@@ -2,8 +2,8 @@ import abc
 from typing import Dict
 
 import pandas as pd
-from cinnamon_core.core.data import FieldDict
 
+from cinnamon_core.core.data import FieldDict
 from cinnamon_generic.components.processor import Processor
 
 
@@ -36,16 +36,24 @@ class AverageProcessor(RoutineProcessor):
                                               exact_match=True)
         for info_key, info in step.search_by_tag(tags={'info'},
                                                  exact_match=True).items():
-            if 'metrics' not in info:
-                continue
 
-            for metric_name, metric_value in info.metrics.items():
-                accumulator.setdefault('metric_name', []).append(metric_name)
-                accumulator.setdefault('metric_value', []).append(metric_value)
-                accumulator.setdefault('info_key', []).append(info_key)
+            for key, value in info.to_value_dict().items():
+                if type(value) == float:
+                    accumulator.setdefault('metric_name', []).append(key)
+                    accumulator.setdefault('metric_value', []).append(value)
+                    accumulator.setdefault('info_key', []).append(info_key)
 
-                for suffix_name, suffix_value in routine_suffixes.items():
-                    accumulator.setdefault(f'suffix_{suffix_name}', []).append(suffix_value)
+                    for suffix_name, suffix_value in routine_suffixes.items():
+                        accumulator.setdefault(f'suffix_{suffix_name}', []).append(suffix_value)
+
+                if key == 'metric':
+                    for metric_name, metric_value in info.metrics.items():
+                        accumulator.setdefault('metric_name', []).append(metric_name)
+                        accumulator.setdefault('metric_value', []).append(metric_value)
+                        accumulator.setdefault('info_key', []).append(info_key)
+
+                        for suffix_name, suffix_value in routine_suffixes.items():
+                            accumulator.setdefault(f'suffix_{suffix_name}', []).append(suffix_value)
 
         return accumulator
 
@@ -77,7 +85,7 @@ class AverageProcessor(RoutineProcessor):
         data.add(name='average',
                  value=average_data,
                  description=f'Processed routine results via {self.__class__.__name__}.'
-                                   f'Each metric is averaged across routine suffixes.')
+                             f'Each metric is averaged across routine suffixes.')
         return data
 
 

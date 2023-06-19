@@ -13,7 +13,7 @@ from hyperopt.mongoexp import MongoTrials
 from tqdm import tqdm
 
 from cinnamon_core.core.component import Component
-from cinnamon_core.utility.logging_utility import logger
+from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.pickle_utility import save_pickle
 from cinnamon_core.utility.python_utility import get_dict_values_combinations
 from cinnamon_generic.components.file_manager import FileManager
@@ -70,7 +70,7 @@ class Calibrator(Component):
             according to sampled hyper-parameter combination.
         """
 
-        logger.info(f'Considering hyper-parameters: {parameter_combination}')
+        logging_utility.logger.info(f'Considering hyper-parameters: {parameter_combination}')
 
         # Create a validator copy with passed arguments
         validator = self.validator.get_delta_copy(params_dict=parameter_combination)
@@ -79,7 +79,7 @@ class Calibrator(Component):
         validator_results = validator.run(**self.validator_args)
 
         # Get validation results
-        validation_on_value: float = validator_results.get_field(key=self.validate_on).value
+        validation_on_value: float = validator_results[self.validate_on]
         if validation_on_value is None or type(validation_on_value) != float:
             raise RuntimeError(
                 f'Expected a float validation value for {self.validate_on} '
@@ -121,7 +121,8 @@ class GridSearchCalibrator(Calibrator):
 
         combinations = get_dict_values_combinations(search_space)
 
-        logger.info(f'Starting hyper-parameters calibration search! Total combinations: {len(combinations)}')
+        logging_utility.logger.info(
+            f'Starting hyper-parameters calibration search! Total combinations: {len(combinations)}')
 
         calibration_results = []
         for combination in tqdm(combinations):
@@ -149,18 +150,19 @@ class RandomSearchCalibration(Calibrator):
 
         combinations = get_dict_values_combinations(search_space)
 
-        logger.info(f'Starting hyper-parameters calibration search! '
-                    f'Total combinations: {len(combinations)}'
-                    f'Total tries: {len(self.tries)}')
+        self.tries = min(self.tries, len(combinations))
+
+        logging_utility.logger.info(f'Starting hyper-parameters calibration search! '
+                                    f'Total combinations: {len(combinations)} '
+                                    f'Total tries: {self.tries}')
 
         calibration_results = []
-        sampled_combinations_tries = np.random.choice(combinations, size=self.tries, replace=False)
-        for combination_try in tqdm(sampled_combinations_tries):
-            combination = combinations[combination_try]
+        sampled_combinations = np.random.choice(combinations, size=self.tries, replace=False)
+        for combination in tqdm(sampled_combinations):
             combination_result = self.evaluate_combination(parameter_combination=combination)
             calibration_results.append((combination_result, combination))
 
-        calibration_results = sorted(calibration_results, key=lambda pair: pair[0])
+        calibration_results = list(sorted(calibration_results, key=lambda pair: pair[0]))
         best_params, best_result = calibration_results[0]
         return best_params, best_result
 
@@ -206,11 +208,11 @@ class HyperOptCalibrator(Calibrator):
 
         trials_path = self.mongo_directory.joinpath(f'{db_name}.pickle')
         if trials_path.exists():
-            logger.info('Using existing Trials DB!')
+            logging_utility.logger.info('Using existing Trials DB!')
             with trials_path.open('rb') as f:
                 trials = pickle.load(f)
         else:
-            logger.info(f"Can't find specified Trials DB ({db_name})...creating new one!")
+            logging_utility.logger.info(f"Can't find specified Trials DB ({db_name})...creating new one!")
             trials = Trials(exp_key=db_name)
         return trials
 
@@ -279,7 +281,7 @@ class HyperOptCalibrator(Calibrator):
             cmd.append(f'--no-subprocesses')
 
         cmd = ' '.join(cmd)
-        logger.info(f'Executing mongo worker...\n{cmd}')
+        logging_utility.logger.info(f'Executing mongo worker...\n{cmd}')
 
         # Clear mongo_workers_dir before execution
         if self.mongo_workers_directory.exists():
@@ -301,14 +303,12 @@ class HyperOptCalibrator(Calibrator):
         multiple trials in parallel. All results are stored in the MongoDB instance.
         - Sequential mode: trials are evaluated sequentially. All results are stored in a .csv file.
 
-        Args:
-            validator_args: TODO
-
         Returns:
             The best hyper-parameter combination along with the corresponding calibration metric value.
         """
 
-        logger.info(f'Starting hyper-parameters calibration search! Max evaluations: {self.max_evaluations}')
+        logging_utility.logger.info(
+            f'Starting hyper-parameters calibration search! Max evaluations: {self.max_evaluations}')
 
         if self.validator is None:
             raise UnsetValidatorException()
@@ -329,7 +329,7 @@ class HyperOptCalibrator(Calibrator):
             trials = self._retrieve_custom_trials(db_name=self.db_name)
 
         if self.use_mongo:
-            logger.info('Running calibration with mongodb, make sure mongodb is active and running!')
+            logging_utility.logger.info('Running calibration with mongodb, make sure mongodb is active and running!')
 
             # Execute main calibration process as subprocess
             main_calibrator_queue = Queue()
@@ -360,9 +360,9 @@ class HyperOptCalibrator(Calibrator):
         except hyperopt.exceptions.AllTrialsFailed:
             best_trial = {'state': 'N/A'}
 
-        logger.info('Hyper-parameters calibration ended..')
-        logger.info(f'Best combination: {best_params}')
-        logger.info(f'Best combination info: {best_trial}')
+        logging_utility.logger.info('Hyper-parameters calibration ended..')
+        logging_utility.logger.info(f'Best combination: {best_params}')
+        logging_utility.logger.info(f'Best combination info: {best_trial}')
 
         if not self.use_mongo:
             save_pickle(filepath=self.mongo_directory.joinpath(f'{self.db_name}.pickle'), data=trials)

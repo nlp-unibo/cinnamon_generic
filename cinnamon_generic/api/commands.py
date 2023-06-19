@@ -176,10 +176,7 @@ def run_component_from_key(
         logging_utility.logger.info(f'Serializing Component state to: {serialization_path}')
         component.save(serialization_path=serialization_path)
 
-    if serialization_path is None:
-        return run_result
-
-    if run_name is not None and serialization_path.exists():
+    if run_name is not None and serialization_path is not None and serialization_path.exists():
         replacement_path: Path = file_manager.runs_registry[serialization_path]
         if replacement_path.exists():
             logging_utility.logger.warning(
@@ -189,7 +186,7 @@ def run_component_from_key(
             serialization_path = replacement_path
             logging_utility.logger.info(f'Renaming {serialization_path} to {replacement_path}')
 
-    if serialization_path.exists():
+    if serialization_path is not None and serialization_path.exists():
         save_json(serialization_path.joinpath('metadata.json'),
                   data={
                       'registration_key': str(config_registration_key),

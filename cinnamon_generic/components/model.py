@@ -167,7 +167,8 @@ class Model(Component):
             data: FieldDict,
             callbacks: Optional[Callback] = None,
             metrics: Optional[Metric] = None,
-            model_processor: Optional[Processor] = None
+            model_processor: Optional[Processor] = None,
+            suffixes: Optional[Dict] = None
     ) -> FieldDict:
         """
         Evaluates a trained model on given data and computes model predictions on the same data.
@@ -177,6 +178,7 @@ class Model(Component):
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
             model_processor: TODO
+            suffixes: TODO
 
         Returns:
             A ``FieldDict`` storing evaluation and prediction information

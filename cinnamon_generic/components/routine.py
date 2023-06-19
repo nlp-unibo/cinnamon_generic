@@ -165,32 +165,32 @@ class TrainAndTestRoutine(Routine):
             self.helper.run(seed=step_info.seed)
 
         routine_suffixes = step_info.search_by_tag('routine_suffix')
-        train_info = model.predict(data=train_data,
-                                   metrics=metrics,
-                                   callbacks=self.callbacks,
-                                   model_processor=model_processor,
-                                   suffixes={**routine_suffixes, **{'split': 'train'}})
+        train_info = model.evaluate(data=train_data,
+                                    metrics=metrics,
+                                    callbacks=self.callbacks,
+                                    model_processor=model_processor,
+                                    suffixes={**routine_suffixes, **{'split': 'train', 'status': 'inference'}})
         step_info.add(name='train_info',
                       value=train_info,
                       tags={'info'})
 
         # Evaluator
         if val_data is not None:
-            val_info = model.predict(data=val_data,
-                                     metrics=metrics,
-                                     callbacks=self.callbacks,
-                                     model_processor=model_processor,
-                                     suffixes={**routine_suffixes, **{'split': 'val'}})
+            val_info = model.evaluate(data=val_data,
+                                      metrics=metrics,
+                                      callbacks=self.callbacks,
+                                      model_processor=model_processor,
+                                      suffixes={**routine_suffixes, **{'split': 'val', 'status': 'inference'}})
             step_info.add(name='val_info',
                           value=val_info,
                           tags={'info'})
 
         if test_data is not None:
-            test_info = model.predict(data=test_data,
-                                      metrics=metrics,
-                                      callbacks=self.callbacks,
-                                      model_processor=model_processor,
-                                      suffixes={**routine_suffixes, **{'split': 'test'}})
+            test_info = model.evaluate(data=test_data,
+                                       metrics=metrics,
+                                       callbacks=self.callbacks,
+                                       model_processor=model_processor,
+                                       suffixes={**routine_suffixes, **{'split': 'test', 'status': 'inference'}})
             step_info.add(name='test_info',
                           value=test_info,
                           tags={'info'})
