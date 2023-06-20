@@ -130,8 +130,8 @@ class GridSearchCalibrator(Calibrator):
             calibration_results.append((combination_result, combination))
 
         calibration_results = sorted(calibration_results, key=lambda pair: pair[0])
-        best_params, best_result = calibration_results[0]
-        return best_params, best_result
+        best_result, best_params = calibration_results[0]
+        return best_result, best_params
 
 
 class RandomSearchCalibration(Calibrator):
@@ -163,8 +163,8 @@ class RandomSearchCalibration(Calibrator):
             calibration_results.append((combination_result, combination))
 
         calibration_results = list(sorted(calibration_results, key=lambda pair: pair[0]))
-        best_params, best_result = calibration_results[0]
-        return best_params, best_result
+        best_result, best_params = calibration_results[0]
+        return best_result, best_params
 
 
 class HyperOptCalibrator(Calibrator):
@@ -367,7 +367,7 @@ class HyperOptCalibrator(Calibrator):
         if not self.use_mongo:
             save_pickle(filepath=self.mongo_directory.joinpath(f'{self.db_name}.pickle'), data=trials)
 
-        return best_params, best_trial
+        return best_trial, best_params
 
 
 __all__ = [
