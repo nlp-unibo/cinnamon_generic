@@ -13,6 +13,7 @@ from hyperopt.mongoexp import MongoTrials
 from tqdm import tqdm
 
 from cinnamon_core.core.component import Component
+from cinnamon_core.core.data import FieldDict
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.pickle_utility import save_pickle
 from cinnamon_core.utility.python_utility import get_dict_values_combinations
@@ -131,7 +132,10 @@ class GridSearchCalibrator(Calibrator):
 
         calibration_results = sorted(calibration_results, key=lambda pair: pair[0])
         best_result, best_params = calibration_results[0]
-        return best_result, best_params
+
+        return FieldDict({"best_result": best_result,
+                          "best_params": best_params,
+                          'combinations': len(combinations)})
 
 
 class RandomSearchCalibration(Calibrator):
@@ -164,7 +168,10 @@ class RandomSearchCalibration(Calibrator):
 
         calibration_results = list(sorted(calibration_results, key=lambda pair: pair[0]))
         best_result, best_params = calibration_results[0]
-        return best_result, best_params
+
+        return FieldDict({"best_result": best_result,
+                          "best_params": best_params,
+                          'combinations': len(combinations)})
 
 
 class HyperOptCalibrator(Calibrator):
@@ -367,7 +374,8 @@ class HyperOptCalibrator(Calibrator):
         if not self.use_mongo:
             save_pickle(filepath=self.mongo_directory.joinpath(f'{self.db_name}.pickle'), data=trials)
 
-        return best_trial, best_params
+        return FieldDict({"best_result": best_trial,
+                          "best_params": best_params})
 
 
 __all__ = [

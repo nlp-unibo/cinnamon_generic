@@ -35,6 +35,8 @@ def retrieve_and_save(
     if invalid_keys:
         save_json(save_folder.joinpath('invalid.json'), invalid_keys)
 
+    return len(valid_keys), len(invalid_keys)
+
 
 def find_modules(
         root: Union[Path, AnyStr]
@@ -141,19 +143,21 @@ def serialize_registrations(
         if not namespace_registration_path.is_dir():
             namespace_registration_path.mkdir(parents=True)
 
-        retrieve_and_save(save_folder=namespace_registration_path,
-                          conditions=[lambda key: key.namespace == namespace])
+        valid_keys_number, \
+            invalid_keys_number = retrieve_and_save(save_folder=namespace_registration_path,
+                                                    conditions=[lambda key: key.namespace == namespace])
+        logging_utility.logger.info(f'{valid_keys_number} valid keys were saved for namespace {namespace}')
 
 
 def run_component_from_key(
-        config_registration_key: Registration,
+        registration_key: Registration,
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> Tuple[Any, Optional[Path]]:
-    logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{config_registration_key}')
+    logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{registration_key}')
 
-    component = Registry.build_component_from_key(registration_key=config_registration_key)
+    component = Registry.build_component_from_key(registration_key=registration_key)
 
     file_manager = FileManager.retrieve_built_component(name='file_manager',
                                                         namespace='generic',
@@ -162,7 +166,7 @@ def run_component_from_key(
     if serialize:
         serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
                                                                       create_path=serialize,
-                                                                      key=config_registration_key)
+                                                                      key=registration_key)
         logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
     else:
         serialization_path = None
@@ -189,11 +193,11 @@ def run_component_from_key(
     if serialization_path is not None and serialization_path.exists():
         save_json(serialization_path.joinpath('metadata.json'),
                   data={
-                      'registration_key': str(config_registration_key),
+                      'registration_key': str(registration_key),
                       'config': component.config.to_value_dict()
                   },
                   unpicklable=False)
-        file_manager.track_run(registration_key=config_registration_key,
+        file_manager.track_run(registration_key=registration_key,
                                serialization_path=serialization_path)
 
     return run_result, serialization_path
@@ -210,10 +214,34 @@ def run_component(
     key = RegistrationKey(name=name,
                           tags=tags,
                           namespace=namespace)
-    return run_component_from_key(config_registration_key=key,
+    return run_component_from_key(registration_key=key,
                                   serialize=serialize,
                                   run_name=run_name,
                                   run_args=run_args)
+
+
+# TODO: documentation
+def run_components(
+        registration_keys: List[Registration],
+        serialize: bool = False,
+        runs_names: Optional[List[str]] = None,
+        runs_args: Optional[List[Dict]] = None
+):
+    if runs_names is not None:
+        assert len(runs_names) == len(registration_keys)
+    else:
+        runs_names = [None] * len(registration_keys)
+
+    if runs_args is not None:
+        assert len(runs_args) == len(registration_keys)
+    else:
+        runs_args = [None] * len(registration_keys)
+
+    for registration_key, run_name, run_args in zip(registration_keys, runs_names, runs_args):
+        run_component_from_key(registration_key=registration_key,
+                               run_name=run_name,
+                               run_args=run_args,
+                               serialize=serialize)
 
 
 def routine_train(
@@ -252,7 +280,7 @@ def routine_train_from_key(
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
+    routine_result, serialization_path = run_component_from_key(registration_key=routine_registration_key,
                                                                 run_name=run_name,
                                                                 serialize=serialize,
                                                                 run_args=run_args)
@@ -325,7 +353,7 @@ def routine_inference(
     assert routine_registration_key.namespace == namespace, \
         f'Found inconsistent namespaces. Given {namespace} != Found {routine_registration_key.namespace}'
 
-    routine_result, serialization_path = run_component_from_key(config_registration_key=routine_registration_key,
+    routine_result, serialization_path = run_component_from_key(registration_key=routine_registration_key,
                                                                 serialize=serialize,
                                                                 run_name=run_name,
                                                                 run_args={
@@ -369,13 +397,48 @@ def routine_multiple_inference(
     return result
 
 
+def run_calibration(
+        name: str,
+        tags: Tag = None,
+        namespace: str = 'generic',
+        serialize: bool = False,
+        run_name: Optional[str] = None,
+        run_args: Optional[Dict] = None
+):
+    registration_key = RegistrationKey(name=name,
+                                       tags=tags,
+                                       namespace=namespace)
+    return run_calibration_from_key(registration_key=registration_key,
+                                    serialize=serialize,
+                                    run_name=run_name,
+                                    run_args=run_args)
+
+
+def run_calibration_from_key(
+        registration_key: Registration,
+        serialize: bool = False,
+        run_name: Optional[str] = None,
+        run_args: Optional[Dict] = None
+) -> FieldDict:
+    calibration_result, serialization_path = run_component_from_key(registration_key=registration_key,
+                                                                    serialize=serialize,
+                                                                    run_name=run_name,
+                                                                    run_args=run_args)
+    if serialization_path is not None:
+        save_json(serialization_path.joinpath('result.json'), calibration_result.to_value_dict())
+
+    return calibration_result
+
+
 __all__ = [
     'setup_registry',
     'serialize_registrations',
     'run_component',
     'run_component_from_key',
+    'run_components',
     'routine_train',
     'routine_multiple_train',
     'routine_inference',
     'routine_multiple_inference',
+    'run_calibration'
 ]
