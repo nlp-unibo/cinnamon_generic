@@ -135,7 +135,8 @@ class GridSearchCalibrator(Calibrator):
 
         return FieldDict({"best_result": best_result,
                           "best_params": best_params,
-                          'combinations': len(combinations)})
+                          'combinations': len(combinations),
+                          'calibration_results': calibration_results})
 
 
 class RandomSearchCalibration(Calibrator):
@@ -171,7 +172,8 @@ class RandomSearchCalibration(Calibrator):
 
         return FieldDict({"best_result": best_result,
                           "best_params": best_params,
-                          'combinations': len(combinations)})
+                          'combinations': len(combinations),
+                          'calibration_results': calibration_results})
 
 
 class HyperOptCalibrator(Calibrator):
