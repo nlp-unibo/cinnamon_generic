@@ -3,6 +3,7 @@ from __future__ import annotations
 import multiprocessing as mp
 from typing import Dict, Any, Optional, Type
 
+from cinnamon_core.core.component import Component
 from cinnamon_core.core.configuration import Configuration, C
 from cinnamon_core.core.registry import RegistrationKey, Registry, register
 from cinnamon_generic.components.calibrator import ValidateCondition, HyperOptCalibrator, GridSearchCalibrator
@@ -36,33 +37,32 @@ class TunableConfiguration(Configuration):
                    description="Calibration configuration that specifies")
         return config
 
-    @classmethod
     def get_search_space(
-            cls,
+            self,
             buffer: Optional[Dict[str, Any]] = None,
             parent_key: Optional[str] = None
     ) -> Dict[str, Any]:
         buffer = buffer if buffer is not None else dict()
 
-        default_config = cls.get_default()
-
         # Apply to children as well
-        for child_key, child in default_config.children.items():
+        for child_key, child in self.children.items():
             if child.value is None:
                 continue
 
-            child_config_class = Registry.retrieve_configurations_from_key(registration_key=child.value,
-                                                                           exact_match=True).class_type
+            if isinstance(child.value, RegistrationKey):
+                built_child = Registry.build_component_from_key(registration_key=child.value)
+            else:
+                built_child = child.value
 
-            if issubclass(child_config_class, TunableConfiguration):
-                buffer = child_config_class.get_search_space(buffer=buffer,
+            if isinstance(built_child, Component) and isinstance(built_child.config, TunableConfiguration):
+                buffer = built_child.config.get_search_space(buffer=buffer,
                                                              parent_key=f'{parent_key}.{child.name}'
                                                              if parent_key is not None else f'{child.name}')
 
         # Merge search space
-        if default_config.calibration_config is not None:
+        if self.calibration_config is not None:
             calibration_config_class = Registry.retrieve_configurations_from_key(
-                registration_key=default_config.calibration_config,
+                registration_key=self.calibration_config,
                 exact_match=True).class_type
             search_space = {f'{parent_key}.{key}' if parent_key is not None else key: value
                             for key, value in calibration_config_class.get_default().search_space.items()}
@@ -135,15 +135,15 @@ class HyperoptCalibratorConfig(CalibratorConfig):
         config.add(name='file_manager_registration_key',
                    type_hint=RegistrationKey,
                    value=RegistrationKey(name='file_manager',
-                                               tags={'default'},
-                                               namespace='generic'),
+                                         tags={'default'},
+                                         namespace='generic'),
                    description="registration info of built FileManager component."
-                                     " Used for filesystem interfacing")
+                               " Used for filesystem interfacing")
         config.add(name='max_evaluations',
                    value=-1,
                    type_hint=int,
                    description="number of evaluations to perform for calibration."
-                                     " -1 allows search space grid search.")
+                               " -1 allows search space grid search.")
         config.add(name='mongo_directory',
                    value='mongodb',
                    description="directory name where mongoDB is located and running",
@@ -176,7 +176,7 @@ class HyperoptCalibratorConfig(CalibratorConfig):
                    value=10.0,
                    type_hint=float,
                    description="Wait time (in seconds) for reserving a calibration "
-                                     "instance from mongo workers pool")
+                               "instance from mongo workers pool")
         config.add(name='max_consecutive_failures',
                    value=2,
                    type_hint=int,
@@ -190,7 +190,7 @@ class HyperoptCalibratorConfig(CalibratorConfig):
                    allowed_range=lambda value: value in [False, True],
                    type_hint=bool,
                    description="If enabled, mongo workers are executed with the"
-                                     " capability of running subprocesses")
+                               " capability of running subprocesses")
         config.add(name='worker_sleep_interval',
                    value=2.0,
                    type_hint=float,
