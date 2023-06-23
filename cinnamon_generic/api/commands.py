@@ -264,14 +264,14 @@ def routine_train(
         run_args:
     """
     routine_key = RegistrationKey(name=name, tags=tags, namespace=namespace)
-    return routine_train_from_key(routine_registration_key=routine_key,
+    return routine_train_from_key(routine_key=routine_key,
                                   serialize=serialize,
                                   run_name=run_name,
                                   run_args=run_args)
 
 
 def routine_train_from_key(
-        routine_registration_key: Registration,
+        routine_key: Registration,
         serialize: bool = False,
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
@@ -280,7 +280,7 @@ def routine_train_from_key(
         'is_training': True
     }
     run_args = {**routine_args, **run_args} if run_args is not None else routine_args
-    routine_result, serialization_path = run_component_from_key(registration_key=routine_registration_key,
+    routine_result, serialization_path = run_component_from_key(registration_key=routine_key,
                                                                 run_name=run_name,
                                                                 serialize=serialize,
                                                                 run_args=run_args)
@@ -292,22 +292,29 @@ def routine_train_from_key(
 
 
 def routine_multiple_train(
-        routine_registration_keys: List[Registration],
+        routine_keys: List[Registration],
         serialize: bool = False
 ) -> List[FieldDict]:
     """
     Sequentially executes the ``train`` command for each specified ``Routine`` ``RegistrationKey``.
 
     Args:
-        routine_registration_keys: a list of ``Routine`` ``RegistrationKey`` instances
+        routine_keys: a list of ``Routine`` ``RegistrationKey`` instances
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
     """
+    logging_utility.logger.info(f'Total number of routine keys to run: {len(routine_keys)}')
+    display_keys = os.linesep.join([f'{key_index}. {key}' for key_index, key in enumerate(routine_keys)])
+    logging_utility.logger.info(f'Listing routine keys: {os.linesep}{display_keys}')
 
     result = []
-    for routine_registration_key in routine_registration_keys:
-        run_result = routine_train_from_key(routine_registration_key=routine_registration_key,
-                                            serialize=serialize)
-        result.append(run_result)
+    for routine_key in routine_keys:
+        try:
+            run_result = routine_train_from_key(routine_key=routine_key,
+                                                serialize=serialize)
+            result.append(run_result)
+        except Exception as e:
+            logging_utility.logger.info(f'Run with key {routine_key} has failed. Reason {e}')
+            continue
     return result
 
 
@@ -347,7 +354,7 @@ def routine_inference(
         raise FileNotFoundError(f'Expected to find metadata file {metadata_path}...')
 
     command_metadata_info = load_json(metadata_path)
-    routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_registration_key'])
+    routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_key'])
 
     # Sanity check
     assert routine_registration_key.namespace == namespace, \
