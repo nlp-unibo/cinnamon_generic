@@ -46,7 +46,7 @@ class AverageProcessor(RoutineProcessor):
                     for suffix_name, suffix_value in routine_suffixes.items():
                         accumulator.setdefault(f'suffix_{suffix_name}', []).append(suffix_value)
 
-                if key == 'metric':
+                if key == 'metrics':
                     for metric_name, metric_value in info.metrics.items():
                         accumulator.setdefault('metric_name', []).append(metric_name)
                         accumulator.setdefault('metric_value', []).append(metric_value)
