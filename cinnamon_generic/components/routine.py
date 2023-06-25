@@ -114,13 +114,20 @@ class TrainAndTestRoutine(Routine):
         # Pre-Processor
         pre_processor = Processor.build_component_from_key(registration_key=self.pre_processor)
 
+        logging_utility.logger.info('Pre-processing train data...')
         train_data = pre_processor.run(data=train_data,
                                        is_training_data=is_training)
+
+        logging_utility.logger.info('Pre-processing val data...')
         val_data = pre_processor.run(data=val_data)
+
+        logging_utility.logger.info('Pre-processing test data...')
         test_data = pre_processor.run(data=test_data)
+
         pre_processor.finalize()
 
         # Model
+        logging_utility.logger.info('Building model...')
         model = Model.build_component_from_key(registration_key=self.model)
         model.build(processor=pre_processor,
                     callbacks=self.callbacks)
