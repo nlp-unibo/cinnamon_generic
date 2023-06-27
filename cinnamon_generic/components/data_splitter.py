@@ -136,7 +136,7 @@ class CVSplitter(TTSplitter):
 
             for train_indexes, val_indexes, test_indexes in splits:
                 if self.held_out_key == 'validation':
-                    yield train_data.iloc[train_indexes], train_data.iloc[train_indexes], test_data
+                    yield train_data.iloc[train_indexes], train_data.iloc[val_indexes], test_data
                 else:
                     yield train_data.iloc[train_indexes], val_data, train_data.iloc[test_indexes]
 
