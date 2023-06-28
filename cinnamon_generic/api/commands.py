@@ -53,8 +53,8 @@ def setup_registry(
         directory: Union[Path, AnyStr] = None,
         module_directories: List[Union[AnyStr, Path]] = None,
         registrations_to_file: bool = False,
-        file_manager_registration_key: Registration = None
-) -> Union[RegistrationKey, str]:
+        file_manager_key: Registration = None
+) -> FileManager:
     """
     This command does the following actions:
     - Populates the ``Registry`` with specified registration actions.
@@ -69,7 +69,7 @@ def setup_registry(
         directory: path to the base directory where to look for standard ``FileManager`` folders.
         module_directories: list of base directories where to look for registration calls.
         registrations_to_file: if True, the ``list_registrations`` command is invoked.
-        file_manager_registration_key:
+        file_manager_key:
 
     Returns:
         The built ``FileManager``'s ``RegistrationKey``
@@ -88,14 +88,13 @@ def setup_registry(
     Registry.show_dependencies()
     Registry.expand_and_resolve_registration()
 
-    if file_manager_registration_key is None:
-        file_manager_registration_key = RegistrationKey(name='file_manager',
-                                                        tags={'default'},
-                                                        namespace='generic')
-    file_manager = FileManager.build_component_from_key(registration_key=file_manager_registration_key,
+    if file_manager_key is None:
+        file_manager_key = RegistrationKey(name='file_manager',
+                                           tags={'default'},
+                                           namespace='generic')
+    file_manager = FileManager.build_component_from_key(registration_key=file_manager_key,
                                                         register_built_component=True)
     file_manager.setup(base_directory=directory)
-    registration_directory = file_manager.run(filepath=file_manager.registrations_directory)
 
     logging_path = file_manager.run(filepath=file_manager.logging_directory)
     logging_path = logging_path.joinpath(file_manager.logging_filename)
@@ -105,7 +104,7 @@ def setup_registry(
     if registrations_to_file:
         serialize_registrations()
 
-    return file_manager_registration_key
+    return file_manager
 
 
 def serialize_registrations(
@@ -346,7 +345,7 @@ def routine_inference(
                                                         is_default=True)
 
     if routine_path is None:
-        routine_path = file_manager.run(filepath=file_manager.routine_directory)
+        routine_path = file_manager.run(filepath=file_manager.runs_directory)
         routine_path = routine_path.joinpath(namespace, 'routine', run_name)
 
     metadata_path = routine_path.joinpath('metadata.json')
@@ -354,7 +353,7 @@ def routine_inference(
         raise FileNotFoundError(f'Expected to find metadata file {metadata_path}...')
 
     command_metadata_info = load_json(metadata_path)
-    routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_key'])
+    routine_registration_key = RegistrationKey.from_string(command_metadata_info['registration_key'])
 
     # Sanity check
     assert routine_registration_key.namespace == namespace, \

@@ -132,7 +132,7 @@ class HyperoptCalibratorConfig(CalibratorConfig):
     ) -> C:
         config = super().get_default()
 
-        config.add(name='file_manager_registration_key',
+        config.add(name='file_manager_key',
                    type_hint=RegistrationKey,
                    value=RegistrationKey(name='file_manager',
                                          tags={'default'},
