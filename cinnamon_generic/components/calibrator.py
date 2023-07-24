@@ -4,7 +4,7 @@ import time
 from enum import Enum
 from multiprocessing import Process, Pool, Queue
 from subprocess import Popen
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 import hyperopt
 import numpy as np
@@ -18,6 +18,7 @@ from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.pickle_utility import save_pickle
 from cinnamon_core.utility.python_utility import get_dict_values_combinations
 from cinnamon_generic.components.file_manager import FileManager
+from pathlib import Path
 
 
 class ValidateCondition(str, Enum):
@@ -203,11 +204,8 @@ class HyperOptCalibrator(Calibrator):
 
         super().__init__(**kwargs)
 
-        # Update directory paths
-        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
-
-        self.mongo_directory = file_manager.run(filepath=self.mongo_directory)
-        self.mongo_workers_directory = file_manager.run(filepath=self.mongo_workers_directory)
+        self.mongo_directory: Optional[Path] = None
+        self.mongo_workers_directory: Optional[Path] = None
 
     def _retrieve_custom_trials(
             self,
@@ -340,6 +338,10 @@ class HyperOptCalibrator(Calibrator):
 
         if self.db_name is None:
             raise DBNotSpecifiedException(db_name=self.db_name)
+
+        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
+        self.mongo_directory = file_manager.run(filepath=self.mongo_directory_name)
+        self.mongo_workers_directory = file_manager.run(filepath=self.mongo_workers_directory_name)
 
         if self.use_mongo:
             trials = MongoTrials(

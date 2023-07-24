@@ -1,6 +1,6 @@
 import abc
 from pathlib import Path
-from typing import Tuple, Any, Optional
+from typing import Tuple, Any, Optional, List
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -227,12 +227,8 @@ class PrebuiltCVSplitter(CVSplitter):
     ):
         super().__init__(**kwargs)
 
-        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
-
-        self.folds_path = file_manager.run(filepath=Path(self.prebuilt_folder))
-        self.folds_path = self.folds_path.joinpath(self.prebuilt_filename)
-
-        self.folds = []
+        self.folds_path: Optional[Path] = None
+        self.folds: List = []
 
     def held_out_split(
             self,
@@ -288,3 +284,35 @@ class PrebuiltCVSplitter(CVSplitter):
         """
         self.folds = load_pickle(self.folds_path)
         return self.folds
+
+    def run(
+            self,
+            train_data: pd.DataFrame,
+            val_data: Optional[pd.DataFrame] = None,
+            test_data: Optional[pd.DataFrame] = None
+    ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+        """
+        Builds train, validation and test fold splits based on input available splits.
+        The splitter operates as follows:
+            - Training data split is required to perform any kind of splitting
+            - If both validation and test splits are not specified, these splits are built based on train data
+            - if validation or test splits is missing, the split is built based on train data. The specified
+            data split is fixed for all folds.
+
+        Args:
+            train_data: training data
+            val_data: optional validation data
+            test_data: optional test data
+
+        Returns:
+            Train, validation and test data fold splits
+        """
+
+        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
+
+        self.folds_path = file_manager.run(filepath=Path(self.prebuilt_folder_name))
+        self.folds_path = self.folds_path.joinpath(self.prebuilt_filename)
+
+        return super().run(train_data=train_data,
+                           val_data=val_data,
+                           test_data=test_data)

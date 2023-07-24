@@ -43,7 +43,7 @@ class PipelineConfig(Configuration):
                  is_required=is_required,
                  build_type_hint=build_type_hint,
                  variants=variants,
-                 is_registration=True)
+                 is_child=True)
 
 
 class OrderedPipelineConfig(PipelineConfig):

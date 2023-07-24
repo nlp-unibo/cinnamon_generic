@@ -41,7 +41,7 @@ class TunableConfiguration(Configuration):
         config.add(name='calibration_config',
                    type_hint=RegistrationKey,
                    build_type_hint=Configuration,
-                   is_registration=True,
+                   is_child=True,
                    build_from_registration=False,
                    is_calibration=True,
                    description="Calibration configuration that specifies")
@@ -108,7 +108,7 @@ class CalibratorConfig(Configuration):
                    type_hint=RegistrationKey,
                    description='The component that is run with different hyper-parameter combinations for evaluation',
                    is_required=True,
-                   is_registration=True)
+                   is_child=True)
         config.add(name='validator_args',
                    value={},
                    type_hint=Dict,
@@ -165,11 +165,11 @@ class HyperoptCalibratorConfig(CalibratorConfig):
                    type_hint=int,
                    description="number of evaluations to perform for calibration."
                                " -1 allows search space grid search.")
-        config.add(name='mongo_directory',
+        config.add(name='mongo_directory_name',
                    value='mongodb',
                    description="directory name where mongoDB is located and running",
                    is_required=True)
-        config.add(name='mongo_workers_directory',
+        config.add(name='mongo_workers_directory_name',
                    value='mongo_workers',
                    description="directory name where mongo workers stored their execution metadata")
         config.add(name='hyperopt_additional_info',
