@@ -113,6 +113,8 @@ class TrainAndTestRoutine(Routine):
 
         # Pre-Processor
         pre_processor = Processor.build_component_from_key(registration_key=self.pre_processor)
+        if not is_training:
+            pre_processor.load(serialization_path=routine_path)
 
         logging_utility.logger.info('Pre-processing train data...')
         train_data = pre_processor.run(data=train_data,
@@ -213,6 +215,7 @@ class TrainAndTestRoutine(Routine):
 
         # Save
         if serialization_path is not None:
+            pre_processor.save(serialization_path=routine_path)
             model.save(serialization_path=routine_path)
 
         self.helper.clear_status()

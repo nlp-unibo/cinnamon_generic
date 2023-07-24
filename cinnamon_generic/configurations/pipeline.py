@@ -9,15 +9,16 @@ class PipelineConfig(Configuration):
     @classmethod
     def from_keys(
             cls: Type[C],
-            keys: List[Registration]
+            keys: List[Registration],
+            names: List[str]
     ) -> C:
         config = cls.get_default()
 
-        for key in keys:
-            key_name = key.name
-            if key.tags is not None:
-                key_name += '_'.join(key.tags)
-            config.add_pipeline_component(name=key_name,
+        if len(keys) != len(names):
+            raise AttributeError(f'Inconsistent keys and names. Got keys={keys} and names={names}')
+
+        for key, name in zip(keys, names):
+            config.add_pipeline_component(name=name,
                                           value=key)
 
         return config

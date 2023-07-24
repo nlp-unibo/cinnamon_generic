@@ -190,7 +190,7 @@ def run_component_from_key(
         serialization_path = None
 
     run_args = run_args if run_args is not None else {}
-    if 'serialization_path' in get_function_signature(component.run):
+    if 'serialization_path' in get_function_signature(component.run) and 'serialization_path' not in run_args:
         run_args['serialization_path'] = serialization_path
     run_result = component.run(**run_args)
 
@@ -430,7 +430,8 @@ def routine_inference(
                                                                 serialize=serialize,
                                                                 run_name=run_name,
                                                                 run_args={
-                                                                    'is_training': False
+                                                                    'is_training': False,
+                                                                    'serialization_path': routine_path
                                                                 })
     return routine_result
 
