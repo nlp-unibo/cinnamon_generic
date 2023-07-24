@@ -202,7 +202,8 @@ class TrainAndTestRoutine(Routine):
                           value=test_info,
                           tags={'info'})
 
-        model_processor.finalize()
+        if model_processor is not None:
+            model_processor.finalize()
 
         # Post-Processor
         if self.post_processor is not None:
@@ -246,20 +247,22 @@ class TrainAndTestRoutine(Routine):
         seeds = self.seeds if type(self.seeds) == list else [self.seeds]
         self.helper.run(seed=seeds[0])
 
-        self.callbacks.run(hookpoint='on_routine_begin',
-                           logs={
-                               'seeds': seeds
-                           })
+        if self.callbacks is not None:
+            self.callbacks.run(hookpoint='on_routine_begin',
+                               logs={
+                                   'seeds': seeds
+                               })
 
         for seed_idx, seed in enumerate(seeds):
             logging_utility.logger.info(f'Seed: {seed} (Progress -> {seed_idx + 1}/{len(seeds)})')
 
-            self.callbacks.run(hookpoint='on_routine_step_begin',
-                               logs={
-                                   'seed': seed,
-                                   'serialization_path': serialization_path,
-                                   'is_training': is_training
-                               })
+            if self.callbacks is not None:
+                self.callbacks.run(hookpoint='on_routine_step_begin',
+                                   logs={
+                                       'seed': seed,
+                                       'serialization_path': serialization_path,
+                                       'is_training': is_training
+                                   })
 
             train_data, val_data, test_data = self.data_loader.get_splits()
             step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
@@ -283,22 +286,24 @@ class TrainAndTestRoutine(Routine):
                                           serialization_path=serialization_path)
             routine_info.steps.append(step_info)
 
-            self.callbacks.run(hookpoint='on_routine_step_end',
-                               logs={
-                                   'seed': seed,
-                                   'step_info': step_info
-                               })
+            if self.callbacks is not None:
+                self.callbacks.run(hookpoint='on_routine_step_end',
+                                   logs={
+                                       'seed': seed,
+                                       'step_info': step_info
+                                   })
 
         if self.routine_processor is not None:
             routine_info = self.routine_processor.run(data=routine_info)
 
-        self.callbacks.run(hookpoint='on_routine_end',
-                           logs={
-                               'seeds': seeds,
-                               'routine_info': routine_info,
-                               'serialization_path': serialization_path,
-                               'is_training': is_training
-                           })
+        if self.callbacks is not None:
+            self.callbacks.run(hookpoint='on_routine_end',
+                               logs={
+                                   'seeds': seeds,
+                                   'routine_info': routine_info,
+                                   'serialization_path': serialization_path,
+                                   'is_training': is_training
+                               })
 
         return routine_info
 
@@ -344,12 +349,13 @@ class CVRoutine(TrainAndTestRoutine):
                 raise RuntimeError(f'Cannot build cross-validation folds without training data in training mode. '
                                    f'Got {train_data}')
 
-        self.callbacks.run(hookpoint='on_routine_begin',
-                           logs={
-                               'seeds': seeds,
-                               'serialization_path': serialization_path,
-                               'is_training': is_training
-                           })
+        if self.callbacks is not None:
+            self.callbacks.run(hookpoint='on_routine_begin',
+                               logs={
+                                   'seeds': seeds,
+                                   'serialization_path': serialization_path,
+                                   'is_training': is_training
+                               })
 
         for seed_idx, seed in enumerate(seeds):
             logging_utility.logger.info(f'Seed: {seed} (Progress -> {seed_idx + 1}/{len(seeds)})')
@@ -361,11 +367,12 @@ class CVRoutine(TrainAndTestRoutine):
                                                                          test_data=test_data)):
                 logging_utility.logger.info(f'Fold {fold_idx + 1}')
 
-                self.callbacks.run(hookpoint='on_routine_step_begin',
-                                   logs={
-                                       'seed': seed,
-                                       'fold': fold_idx
-                                   })
+                if self.callbacks is not None:
+                    self.callbacks.run(hookpoint='on_routine_step_begin',
+                                       logs={
+                                           'seed': seed,
+                                           'fold': fold_idx
+                                       })
 
                 step_train_data = self.data_loader.parse(data=step_train_data)
                 step_val_data = self.data_loader.parse(data=step_val_data)
@@ -388,22 +395,24 @@ class CVRoutine(TrainAndTestRoutine):
                                               serialization_path=serialization_path)
                 routine_info.steps.append(step_info)
 
-                self.callbacks.run(hookpoint='on_routine_step_end',
-                                   logs={
-                                       'seed': seed,
-                                       'fold': fold_idx,
-                                       'step_info': step_info
-                                   })
+                if self.callbacks is not None:
+                    self.callbacks.run(hookpoint='on_routine_step_end',
+                                       logs={
+                                           'seed': seed,
+                                           'fold': fold_idx,
+                                           'step_info': step_info
+                                       })
 
         if self.routine_processor is not None:
             routine_info = self.routine_processor.run(data=routine_info)
 
-        self.callbacks.run(hookpoint='on_routine_end',
-                           logs={
-                               'seeds': seeds,
-                               'routine_info': routine_info,
-                               'serialization_path': serialization_path,
-                               'is_training': is_training
-                           })
+        if self.callbacks is not None:
+            self.callbacks.run(hookpoint='on_routine_end',
+                               logs={
+                                   'seeds': seeds,
+                                   'routine_info': routine_info,
+                                   'serialization_path': serialization_path,
+                                   'is_training': is_training
+                               })
 
         return routine_info

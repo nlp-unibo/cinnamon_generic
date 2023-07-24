@@ -13,6 +13,9 @@ class ComponentRunConfig(Configuration):
     ) -> C:
         config = super().get_default()
 
+        config.add(name='name',
+                   type_hint=str,
+                   is_required=True)
         config.add(name='tags',
                    type_hint=Tag)
         config.add(name='namespace',

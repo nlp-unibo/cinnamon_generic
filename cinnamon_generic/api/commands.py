@@ -23,11 +23,16 @@ def retrieve_and_save(
     valid_keys = []
     invalid_keys = []
     for key in registration_keys:
+        key = RegistrationKey.from_string(key)
+        if key.name == 'command':
+            valid_keys.append(str(key))
+            continue
+
         try:
             Registry.build_component_from_key(registration_key=key)
-            valid_keys.append(key)
+            valid_keys.append(str(key))
         except (InvalidConfigurationTypeException, ValidationFailureException, NotBoundException):
-            invalid_keys.append(key)
+            invalid_keys.append(str(key))
 
     if valid_keys:
         save_json(save_folder.joinpath('valid.json'), valid_keys)
