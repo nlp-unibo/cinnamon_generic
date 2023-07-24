@@ -54,7 +54,7 @@ def setup_registry(
         module_directories: List[Union[AnyStr, Path]] = None,
         registrations_to_file: bool = False,
         file_manager_key: Registration = None
-) -> Union[RegistrationKey, str]:
+) -> FileManager:
     """
     This command does the following actions:
     - Populates the ``Registry`` with specified registration actions.
@@ -72,7 +72,7 @@ def setup_registry(
         file_manager_key:
 
     Returns:
-        The built ``FileManager``'s ``RegistrationKey``
+        The built ``FileManager``
     """
 
     directory = Path(directory).resolve() if type(directory) != Path else directory
@@ -104,7 +104,7 @@ def setup_registry(
     if registrations_to_file:
         serialize_registrations()
 
-    return file_manager_key
+    return file_manager
 
 
 def serialize_registrations(
@@ -407,7 +407,7 @@ def routine_inference(
                                                         is_default=True)
 
     if routine_path is None:
-        routine_path = file_manager.run(filepath=file_manager.routine_directory)
+        routine_path = file_manager.run(filepath=file_manager.runs_directory)
         routine_path = routine_path.joinpath(namespace, 'routine', run_name)
 
     metadata_path = routine_path.joinpath('metadata.json')
@@ -415,7 +415,7 @@ def routine_inference(
         raise FileNotFoundError(f'Expected to find metadata file {metadata_path}...')
 
     command_metadata_info = load_json(metadata_path)
-    routine_registration_key = RegistrationKey.from_string(command_metadata_info['routine_key'])
+    routine_registration_key = RegistrationKey.from_string(command_metadata_info['registration_key'])
 
     # Sanity check
     assert routine_registration_key.namespace == namespace, \
