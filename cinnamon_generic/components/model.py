@@ -53,14 +53,16 @@ class Model(Component):
     def save(
             self,
             serialization_path: Optional[Union[AnyStr, Path]] = None,
-            overwrite: bool = False
+            name: Optional[str] = None
     ):
         """
         Serializes the ``Model``'s state to filesystem.
 
         Args:
             serialization_path: Path where to save the ``Model`` state and its internal model.
-            overwrite: if True, the existing serialized ``Model`` data is overwritten.
+            name: if the component is a child in another component configuration, ``name`` is the parameter key
+            used by the parent to reference the child. Otherwise, ``name`` is automatically set to the component class
+            name.
         """
 
         super().save(serialization_path=serialization_path)
@@ -68,18 +70,21 @@ class Model(Component):
 
     def load(
             self,
-            serialization_path: Optional[Union[AnyStr, Path]] = None
+            serialization_path: Optional[Union[AnyStr, Path]] = None,
+            name: Optional[str] = None
     ):
         """
         Loads the ``Model``'s state from a serialized checkpoint stored in the filesystem.
 
         Args:
             serialization_path: path where the model serialized checkpoint is stored.
+            name: if the component is a child in another component configuration, ``name`` is the parameter key
+            used by the parent to reference the child. Otherwise, ``name`` is automatically set to the component class
+            name.
         """
 
         super().load(serialization_path=serialization_path)
         self.model = self.load_model(filepath=serialization_path)
-
 
     def prepare_for_training(
             self,
@@ -153,7 +158,7 @@ class Model(Component):
             val_data: validation data that can be used to regularize or monitor the training process
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
-            model_processor: TODO
+            model_processor: a ``Processor`` component that parses model predictions.
 
         Returns:
             A ``FieldDict`` storing training information
@@ -177,8 +182,8 @@ class Model(Component):
             data: data to evaluate the model on and compute predictions.
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
-            model_processor: TODO
-            suffixes: TODO
+            model_processor: a ``Processor`` component that parses model predictions.
+            suffixes: suffixes used to uniquely identify evaluation results on input data
 
         Returns:
             A ``FieldDict`` storing evaluation and prediction information
@@ -203,8 +208,8 @@ class Model(Component):
             data: data to compute model predictions.
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
-            model_processor: TODO
-            suffixes: TODO
+            model_processor: a ``Processor`` component that parses model predictions.
+            suffixes: suffixes used to uniquely identify evaluation results on input data
 
         Returns:
             A ``FieldDict`` storing prediction information
@@ -226,7 +231,7 @@ class Model(Component):
             data: data to evaluate the model on and compute predictions.
             callbacks: callbacks for custom execution flow and side effects
             metrics: metrics for quantitatively evaluate the training process
-            model_processor: TODO
+            model_processor: a ``Processor`` component that parses model predictions.
 
         Returns:
             A ``FieldDict`` storing evaluation and prediction information

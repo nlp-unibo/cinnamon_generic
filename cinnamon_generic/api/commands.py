@@ -6,8 +6,8 @@ from typing import AnyStr, List, Union, Optional, Callable, Dict, Any, Tuple
 from tqdm import tqdm
 
 from cinnamon_core.core.data import FieldDict, ValidationFailureException
-from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag, InvalidConfigurationTypeException, \
-    NotBoundException
+from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag,\
+    InvalidConfigurationTypeException, NotBoundException
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
 from cinnamon_core.utility.python_utility import get_function_signature
@@ -53,7 +53,7 @@ def setup_registry(
         directory: Union[Path, AnyStr] = None,
         module_directories: List[Union[AnyStr, Path]] = None,
         registrations_to_file: bool = False,
-        file_manager_registration_key: Registration = None
+        file_manager_key: Registration = None
 ) -> Union[RegistrationKey, str]:
     """
     This command does the following actions:
@@ -69,7 +69,7 @@ def setup_registry(
         directory: path to the base directory where to look for standard ``FileManager`` folders.
         module_directories: list of base directories where to look for registration calls.
         registrations_to_file: if True, the ``list_registrations`` command is invoked.
-        file_manager_registration_key:
+        file_manager_key:
 
     Returns:
         The built ``FileManager``'s ``RegistrationKey``
@@ -88,14 +88,13 @@ def setup_registry(
     Registry.show_dependencies()
     Registry.expand_and_resolve_registration()
 
-    if file_manager_registration_key is None:
-        file_manager_registration_key = RegistrationKey(name='file_manager',
-                                                        tags={'default'},
-                                                        namespace='generic')
-    file_manager = FileManager.build_component_from_key(registration_key=file_manager_registration_key,
+    if file_manager_key is None:
+        file_manager_key = RegistrationKey(name='file_manager',
+                                           tags={'default'},
+                                           namespace='generic')
+    file_manager = FileManager.build_component_from_key(registration_key=file_manager_key,
                                                         register_built_component=True)
     file_manager.setup(base_directory=directory)
-    registration_directory = file_manager.run(filepath=file_manager.registrations_directory)
 
     logging_path = file_manager.run(filepath=file_manager.logging_directory)
     logging_path = logging_path.joinpath(file_manager.logging_filename)
@@ -105,7 +104,7 @@ def setup_registry(
     if registrations_to_file:
         serialize_registrations()
 
-    return file_manager_registration_key
+    return file_manager_key
 
 
 def serialize_registrations(
@@ -155,6 +154,20 @@ def run_component_from_key(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> Tuple[Any, Optional[Path]]:
+    """
+    Builds and runs a ``Component`` given its registration key in explicit format.
+
+    Args:
+        registration_key: the configuration registration key
+        serialize: if True, it enables the serialization process of ``Component`` component during execution.
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        run_result: the output of ``Component.run()``
+        serialization_path: the path where run results are stored
+    """
+
     logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{registration_key}')
 
     component = Registry.build_component_from_key(registration_key=registration_key)
@@ -211,6 +224,22 @@ def run_component(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> Tuple[Any, Optional[Path]]:
+    """
+    Builds and runs a ``Component`` given its registration key in implicit format.
+
+    Args:
+        name: registration key name
+        tags: registration key tags
+        namespace: registration key namespace
+        serialize: if True, it enables the serialization process of ``Component`` component during execution.
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        run_result: the output of ``Component.run()``
+        serialization_path: the path where run results are stored
+    """
+
     key = RegistrationKey(name=name,
                           tags=tags,
                           namespace=namespace)
@@ -220,13 +249,23 @@ def run_component(
                                   run_args=run_args)
 
 
-# TODO: documentation
 def run_components(
         registration_keys: List[Registration],
         serialize: bool = False,
         runs_names: Optional[List[str]] = None,
         runs_args: Optional[List[Dict]] = None
 ):
+    """
+    Builds and runs a ``Component`` sequence.
+
+    Args:
+        registration_keys: list of ``RegistrationKey``
+        serialize: if True, it enables the serialization process of ``Component`` component during execution.
+        runs_names: list of folder names containing individual run results
+        runs_args: list of optional run arguments
+
+    """
+
     if runs_names is not None:
         assert len(runs_names) == len(registration_keys)
     else:
@@ -253,15 +292,18 @@ def routine_train(
         run_args: Optional[Dict] = None
 ) -> FieldDict:
     """
-    Builds a ``Routine`` ``Component`` and runs it in training mode.
+    Builds a ``Routine`` component and runs it in training mode given its registration key in implicit format.
 
     Args:
-        name:
-        tags:
-        namespace:
+        name: registration key name
+        tags: registration key tags
+        namespace: registration key namespace
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
-        run_name:
-        run_args:
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        routine_result: the ``Routine`` run results
     """
     routine_key = RegistrationKey(name=name, tags=tags, namespace=namespace)
     return routine_train_from_key(routine_key=routine_key,
@@ -276,6 +318,19 @@ def routine_train_from_key(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> FieldDict:
+    """
+    Builds a ``Routine`` component and runs it in training mode given its registration key in explicit format.
+
+    Args:
+        routine_key: the ``Routine`` registration key
+        serialize: if True, it enables the serialization process of ``Routine`` component during execution.
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        routine_result: the ``Routine`` run results
+    """
+
     routine_args = {
         'is_training': True
     }
@@ -301,6 +356,9 @@ def routine_multiple_train(
     Args:
         routine_keys: a list of ``Routine`` ``RegistrationKey`` instances
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
+
+    Returns:
+        result: a list of individual ``Routine`` run results
     """
     logging_utility.logger.info(f'Total number of routine keys to run: {len(routine_keys)}')
     display_keys = os.linesep.join([f'{key_index}. {key}' for key_index, key in enumerate(routine_keys)])
@@ -325,17 +383,20 @@ def routine_inference(
         serialize: bool = False
 ) -> FieldDict:
     """
-    Builds a ``Routine`` ``Component`` and runs it in inference mode.
+    Builds a ``Routine`` component and runs it in inference mode.
 
     Args:
         routine_path: path where ``Routine`` training result is stored
         run_name: directory name under 'pipelines' folder where ``Routine`` training result is stored.
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
-        namespace: TODO
+        namespace: registration key namespace
 
     Raises
         ``AttributeError``: if both ``routine_path`` and ``routine_name`` are not specified.
         ``FileNotFoundError``: if no ``train`` command metadata file is found.
+
+    Returns:
+        routine_result: the ``Routine`` run result
     """
     if routine_path is None and run_name is None:
         raise AttributeError('At least routine_path or run_name have to be specified.'
@@ -384,6 +445,9 @@ def routine_multiple_inference(
 
     Raises
         ``AttributeError``: if both ``routine_paths`` and ``routine_names`` are not specified.
+
+    Returns:
+        result: a list of individual ``Routine`` run results
     """
 
     if routine_paths is None and routine_names is None:
@@ -412,6 +476,21 @@ def run_calibration(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ):
+    """
+    Builds and runs a ``Calibrator`` component given its registration key in implicit format.
+
+    Args:
+        name: registration key name
+        tags: registration key tags
+        namespace: registration key namespace
+        serialize: if True, it enables the serialization process of ``Routine`` component during execution.
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        calibration_result: the ``Calibrator`` run results
+    """
+
     registration_key = RegistrationKey(name=name,
                                        tags=tags,
                                        namespace=namespace)
@@ -427,6 +506,19 @@ def run_calibration_from_key(
         run_name: Optional[str] = None,
         run_args: Optional[Dict] = None
 ) -> FieldDict:
+    """
+    Builds and runs a ``Calibrator`` component given its registration key in explicit format.
+
+    Args:
+        registration_key: the ``Calibrator`` registration key
+        serialize: if True, it enables the serialization process of ``Routine`` component during execution.
+        run_name: the name of the folder containing run results
+        run_args: optional run arguments
+
+    Returns:
+        calibration_result: the ``Calibrator`` run results
+    """
+
     calibration_result, serialization_path = run_component_from_key(registration_key=registration_key,
                                                                     serialize=serialize,
                                                                     run_name=run_name,

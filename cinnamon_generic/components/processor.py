@@ -29,10 +29,14 @@ class Processor(Component):
         """
         return data
 
-    # TODO: documentation
     def finalize(
             self
     ):
+        """
+        Finalizes the ``Processor`` internal state.
+        This functions should be called when no other run() function calls are required.
+        """
+
         pass
 
     def run(

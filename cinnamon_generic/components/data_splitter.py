@@ -11,17 +11,34 @@ from cinnamon_generic.components.file_manager import FileManager
 
 
 class InternalTTSplitter:
+    """
+    Base class for defining an internal data splitter used by a splitter ``Component``.
+    """
 
     @abc.abstractmethod
     def split(
             self,
             data: Any,
-            size: int
+            size: Any
     ) -> Tuple[Any, Any]:
+        """
+        Splits input data into two splits based on specified size.
+
+        Args:
+            data: data to split
+            size: split size to define
+
+        Returns:
+            The two data splits
+        """
+
         pass
 
 
 class SklearnTTSplitter(InternalTTSplitter):
+    """
+    A sklearn-compliant internal splitter wrapper.
+    """
 
     def __init__(
             self,
@@ -33,8 +50,19 @@ class SklearnTTSplitter(InternalTTSplitter):
     def split(
             self,
             data: Any,
-            size: int
+            size: Any
     ) -> Tuple[Any, Any]:
+        """
+        Splits input data into two splits based on specified size.
+
+        Args:
+            data: data to split
+            size: split size to define
+
+        Returns:
+            The two data splits
+        """
+
         return train_test_split(data,
                                 test_size=size,
                                 random_state=getattr(self, 'random_state') if hasattr(self, 'random_state') else None,
@@ -43,6 +71,10 @@ class SklearnTTSplitter(InternalTTSplitter):
 
 
 class TTSplitter(Component):
+    """
+    Train and test data splitter component.
+    The splitter leverages an internal splitter to build data splits.
+    """
 
     def __init__(
             self,
@@ -57,6 +89,22 @@ class TTSplitter(Component):
             val_data: Optional[pd.DataFrame] = None,
             test_data: Optional[pd.DataFrame] = None
     ) -> Tuple[pd.DataFrame, Optional[pd.DataFrame], Optional[pd.DataFrame]]:
+        """
+        Splits into train, validation and test splits based on input available splits.
+        The splitter operates as follows:
+            - Training data split is required to perform any kind of splitting
+            - If both validation and test splits are not specified, these splits are built based on train data
+            - if validation or test splits is missing, the split is built based on train data
+
+        Args:
+            train_data: training data split
+            val_data: optional validation data split
+            test_data: optional test data split
+
+        Returns:
+            Train, validation and test data splits
+        """
+
         if val_data is None and test_data is None:
             train_data, val_data = self.splitter.split(train_data,
                                                        size=self.validation_size)
@@ -75,6 +123,9 @@ class TTSplitter(Component):
 
 
 class CVSplitter(TTSplitter):
+    """
+    An extension of ``TTSplitter`` to define cross-validation fold splits.
+    """
 
     def get_split_input(
             self,
@@ -104,6 +155,13 @@ class CVSplitter(TTSplitter):
             y: Any,
             groups: Optional[Any] = None,
     ):
+        """
+        Builds train, validation and test fold splits.
+
+        Returns:
+            A generator of train, validation and test fold splits
+        """
+
         for train_indexes, held_out_indexes in self.splitter.split(X, y, groups):
             sub_X = X[train_indexes]
             sub_y = y[train_indexes]
@@ -122,6 +180,23 @@ class CVSplitter(TTSplitter):
             val_data: Optional[pd.DataFrame] = None,
             test_data: Optional[pd.DataFrame] = None
     ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+        """
+        Builds train, validation and test fold splits based on input available splits.
+        The splitter operates as follows:
+            - Training data split is required to perform any kind of splitting
+            - If both validation and test splits are not specified, these splits are built based on train data
+            - if validation or test splits is missing, the split is built based on train data. The specified
+            data split is fixed for all folds.
+
+        Args:
+            train_data: training data
+            val_data: optional validation data
+            test_data: optional test data
+
+        Returns:
+            Train, validation and test data fold splits
+        """
+
         X, y, groups = self.get_split_input(data=train_data)
 
         if val_data is None and test_data is None:
@@ -142,6 +217,9 @@ class CVSplitter(TTSplitter):
 
 
 class PrebuiltCVSplitter(CVSplitter):
+    """
+    An extension of ``CVSplitter`` that supports saving/loading pre-built fold splits.
+    """
 
     def __init__(
             self,
@@ -177,6 +255,14 @@ class PrebuiltCVSplitter(CVSplitter):
             y: Any,
             groups: Optional[Any] = None,
     ):
+        """
+        Builds train, validation and test fold splits.
+        If ``folds_path`` points to an existing file, the fold splits are loaded rather than being generated.
+
+        Returns:
+            A generator of train, validation and test fold splits
+        """
+
         if self.folds_path.exists():
             for train_indexes, val_indexes, test_indexes in self.load_folds():
                 yield train_indexes, val_indexes, test_indexes

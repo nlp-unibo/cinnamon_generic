@@ -1,8 +1,4 @@
 """
-
-TODO: add documentation
-TODO: add typing
-
 Mainly inspired from how ParlAI shows results
 
 """
@@ -11,14 +7,18 @@ import re
 
 import numpy as np
 import pandas as pd
+from typing import Union, Any, Optional, Dict
 
 LINE_WIDTH = 700
 
 
-def float_formatter(f) -> str:
+def float_formatter(
+        f: Optional[Union[float, int]]
+) -> str:
     """
     Format a float as a pretty string.
     """
+
     if f != f or f is None:
         # instead of returning nan, return "" so it shows blank in table
         return ""
@@ -43,7 +43,13 @@ def float_formatter(f) -> str:
     return s
 
 
-def general_formatter(value):
+def general_formatter(
+        value: Any
+):
+    """
+    Formatter for non-hashable types like list and dict
+    """
+
     if isinstance(value, list) or isinstance(value, np.ndarray):
         # apply formatting to each element
         return '[{}]'.format(','.join([float_formatter(item) for item in value]))
@@ -51,7 +57,9 @@ def general_formatter(value):
         return '[{}]'.format(','.join(list(value.items())))
 
 
-def prettify_value(value):
+def prettify_value(
+        value: Any
+):
     if value is None:
         return ""
     elif type(value) in [np.ndarray, list, dict]:
@@ -65,7 +73,14 @@ def prettify_value(value):
         return value
 
 
-def prettify_statistics(statistics, ignore_non_floats=False):
+def prettify_statistics(
+        statistics: Dict,
+        ignore_non_floats: bool = False
+):
+    """
+    Prettifies input statistics (in dict format) for visualization purposes.
+    """
+
     non_float_columns = [column for column, value in statistics.items() if type(value) in [np.ndarray, list, dict]]
     df = pd.DataFrame([statistics])
 

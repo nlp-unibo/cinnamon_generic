@@ -29,7 +29,7 @@ class Metric(Component):
         Args:
             y_pred: input predictions derived by other components or processes
             y_true: ground-truth for evaluation
-            as_dict: TODO
+            as_dict: whether metric results are reported in dict format or not
 
         Returns:
             The metric result
@@ -56,7 +56,7 @@ class LambdaMetric(Metric):
         Args:
             y_pred: input predictions derived by other components or processes
             y_true: ground-truth for evaluation
-            as_dict: TODO
+            as_dict: whether metric results are reported in dict format or not
 
         Returns:
             The metric result
@@ -75,6 +75,18 @@ class MetricPipeline(Pipeline, Metric):
             y_true: Optional[Any] = None,
             as_dict: bool = False
     ) -> Any:
+        """
+        Executes each child metric.run() in the pipeline.
+
+        Args:
+            y_pred: input predictions derived by other components or processes
+            y_true: ground-truth for evaluation
+            as_dict: whether metric results are reported in dict format or not
+
+        Returns:
+            A list or dict containing all metrics results
+        """
+
         metrics = self.get_pipeline()
         result = []
         for metric in metrics:

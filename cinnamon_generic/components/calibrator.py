@@ -140,10 +140,21 @@ class GridSearchCalibrator(Calibrator):
 
 
 class RandomSearchCalibration(Calibrator):
+    """
+    A ``Calibrator`` extension that defines a random search calibration criteria.
+    """
 
     def run(
             self,
     ) -> Any:
+        """
+        Runs the calibration phase for the specified ``validator`` ``Component``.
+        The grid-search samples and evaluates all possible hyper-parameter combinations of the
+        ``validator``'s ``Configuration``.
+
+        Returns:
+            The best hyper-parameter combination along with the corresponding calibration metric value.
+        """
 
         if self.validator is None:
             raise UnsetValidatorException()

@@ -45,6 +45,18 @@ class FileManager(Component):
             replacement_name: Optional[str] = None,
             create_path: bool = False
     ) -> Path:
+        """
+        Internally stores a temporary run name, which can be optionally overriden.
+
+        Args:
+            key: configuration registration key
+            replacement_name: replacement name for temporary run name
+            create_path: if True, a folder with temporary run name is created
+
+        Returns:
+            The temporary run path
+        """
+
         current_date = datetime.today().strftime('%d-%m-%Y-%H-%M-%S')
         run_path = self.runs_directory.joinpath(key.namespace, key.name, current_date)
 
@@ -60,6 +72,14 @@ class FileManager(Component):
             registration_key: Registration,
             serialization_path: Path
     ):
+        """
+        Tracks a run by storing its metadata in a file.
+
+        Args:
+            registration_key: configuration registration key
+            serialization_path: path where run results are stored
+        """
+
         data = {
             'name': registration_key.name,
             'tags': registration_key.tags,

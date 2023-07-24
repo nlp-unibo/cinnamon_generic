@@ -71,18 +71,17 @@ class TokenizerProcessor(Processor):
         self.vocabulary: Optional[Dict] = None
         self.vocab_size: Optional[int] = None
 
-    @property
-    def state(
+    def prepare_save_data(
             self
-    ) -> FieldDict:
-        state = super().state
+    ) -> Dict:
+        data = super().prepare_save_data()
 
-        state.add(name='embedding_model', value=self.embedding_model)
-        state.add(name='embedding_matrix', value=self.embedding_matrix)
-        state.add(name='vocabulary', value=self.vocabulary)
-        state.add(name='vocab_size', value=self.vocab_size)
+        data['embedding_model'] = self.embedding_model
+        data['embedding_matrix'] = self.embedding_matrix
+        data['vocabulary'] = self.vocabulary
+        data['vocab_size'] = self.vocab_size
 
-        return state
+        return data
 
     @abc.abstractmethod
     def fit(
@@ -100,6 +99,10 @@ class TokenizerProcessor(Processor):
     def finalize(
             self
     ):
+        """
+        If specified, it loads embedding model and computes pre-trained embedding matrix.
+        """
+
         if self.embedding_type is not None:
             self.load_embedding_model()
 

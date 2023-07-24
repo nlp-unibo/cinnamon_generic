@@ -38,12 +38,6 @@ class Callback(Component):
         self.component = component
         self.save_path = save_path
 
-    @property
-    def state(
-            self
-    ) -> FieldDict:
-        return FieldDict({key: value for key, value in self.__dict__.items() if key != 'component'})
-
     def run(
             self,
             hookpoint: Optional[str] = None,

@@ -22,6 +22,16 @@ class NonTunableConfigurationException(Exception):
 
 
 class TunableConfiguration(Configuration):
+    """
+    The ``TunableConfiguration`` is a ``Configuration`` that supports parameter calibration.
+    To allow flexible search space definitions, the ``TunableConfiguration`` leverages a special
+    child ``Configuration``: 'calibration_config`.
+    This configuration is not bound to any ``Component`` and only has a ``search_space`` parameter.
+    The ``search_space`` parameter is a dictionary defining a value search space for each ``TunableConfiguration``
+    parameter that has to be calibrated.
+    ``TunableConfiguration`` supports nested search spaces (i.e., children that are ``TunableConfiguration`` as well)
+
+    """
 
     @classmethod
     def get_default(
@@ -42,6 +52,17 @@ class TunableConfiguration(Configuration):
             buffer: Optional[Dict[str, Any]] = None,
             parent_key: Optional[str] = None
     ) -> Dict[str, Any]:
+        """
+        Retrieves the search space of the configuration (nesting supported).
+
+        Args:
+            buffer: temporary dictionary buffer for recursive function call
+            parent_key: optional string suffix to distinguish between configurations parameters
+
+        Returns:
+            Flat dictionary containing configuration parameters for which a calibration search space is defined.
+        """
+
         buffer = buffer if buffer is not None else dict()
 
         # Apply to children as well

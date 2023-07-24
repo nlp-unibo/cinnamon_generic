@@ -1,11 +1,11 @@
 from typing import Optional, AnyStr, Any
 
 import pytest
+
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.configuration import Configuration
 from cinnamon_core.core.registry import RegistrationKey, Registry
 from cinnamon_core.utility.python_utility import get_dict_values_combinations
-
 from cinnamon_generic.configurations.calibrator import TunableConfiguration
 
 
@@ -34,7 +34,7 @@ class ConfigA(TunableConfiguration):
                    type_hint=bool)
         config.add(name='child',
                    value=RegistrationKey(name='config_b',
-                                               namespace='testing'),
+                                         namespace='testing'),
                    is_registration=True)
         config.calibration_config = RegistrationKey(name='calibration',
                                                     tags={'config_a'},
@@ -68,9 +68,9 @@ class CalConfigA(Configuration):
         config = super().get_default()
         config.add(name='search_space',
                    value={
-                             'param1': [1, 2, 3],
-                             'param2': [False, True]
-                         })
+                       'param1': [1, 2, 3],
+                       'param2': [False, True]
+                   })
         return config
 
 
@@ -83,8 +83,8 @@ class CalConfigB(Configuration):
         config = super().get_default()
         config.add(name='search_space',
                    value={
-                             'param1': [False, True]
-                         })
+                       'param1': [False, True]
+                   })
         return config
 
 
