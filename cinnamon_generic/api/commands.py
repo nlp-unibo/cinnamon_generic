@@ -3,10 +3,8 @@ import shutil
 from pathlib import Path
 from typing import AnyStr, List, Union, Optional, Callable, Dict, Any, Tuple
 
-from tqdm import tqdm
-
 from cinnamon_core.core.data import FieldDict, ValidationFailureException
-from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag,\
+from cinnamon_core.core.registry import RegistrationKey, Registry, Registration, Tag, \
     InvalidConfigurationTypeException, NotBoundException
 from cinnamon_core.utility import logging_utility
 from cinnamon_core.utility.json_utility import load_json, save_json
@@ -141,7 +139,7 @@ def serialize_registrations(
     if registration_directory.exists():
         shutil.rmtree(registration_directory)
 
-    for namespace in tqdm(namespaces):
+    for namespace in namespaces:
         namespace_registration_path = registration_directory.joinpath(namespace)
 
         if not namespace_registration_path.is_dir():
