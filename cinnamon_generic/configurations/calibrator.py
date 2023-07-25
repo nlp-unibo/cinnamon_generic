@@ -41,7 +41,7 @@ class TunableConfiguration(Configuration):
         config.add(name='calibration_config',
                    type_hint=RegistrationKey,
                    build_type_hint=Configuration,
-                   is_registration=True,
+                   is_child=True,
                    build_from_registration=False,
                    is_calibration=True,
                    description="Calibration configuration that specifies")
@@ -108,7 +108,7 @@ class CalibratorConfig(Configuration):
                    type_hint=RegistrationKey,
                    description='The component that is run with different hyper-parameter combinations for evaluation',
                    is_required=True,
-                   is_registration=True)
+                   is_child=True)
         config.add(name='validator_args',
                    value={},
                    type_hint=Dict,
