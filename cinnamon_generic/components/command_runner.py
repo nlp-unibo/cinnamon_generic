@@ -19,12 +19,12 @@ class ComponentRunner(Component):
     ):
         parser = ArgumentParser()
         parser.add_argument('--name', '-n', nargs='?', const=None, type=str)
-        parser.add_argument('--tags', '-t', nargs='?', const=None, type=Set[str])
+        parser.add_argument('--tags', '-t', nargs='+', const=None, type=str)
         parser.add_argument('--namespace', '-ns', nargs='?', const=None, type=str)
         args = parser.parse_args()
 
         replace_key = RegistrationKey(name=args.name,
-                                      tags=args.tags,
+                                      tags=set(args.tags) if args.tags is not None else args.tags,
                                       namespace=args.namespace)
         try:
             replace_config = Registry.build_configuration_from_key(registration_key=replace_key)
