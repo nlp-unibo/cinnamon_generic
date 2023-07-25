@@ -1,11 +1,11 @@
 from pathlib import Path
-from typing import Type, Optional, List, Dict
+from typing import Type, Optional, List, Dict, Union, Callable
 
 from cinnamon_core.core.configuration import Configuration, C
 from cinnamon_core.core.registry import Tag, Registration
 
 
-class ComponentRunConfig(Configuration):
+class ComponentRunnerConfig(Configuration):
 
     @classmethod
     def get_default(
@@ -26,7 +26,7 @@ class ComponentRunConfig(Configuration):
         return config
 
 
-class MultipleComponentRunConfig(Configuration):
+class MultipleComponentRunnerConfig(Configuration):
 
     @classmethod
     def get_default(
@@ -35,7 +35,7 @@ class MultipleComponentRunConfig(Configuration):
         config = super().get_default()
 
         config.add(name='registration_keys',
-                   type_hint=List[Registration],
+                   type_hint=Union[List[Registration], Callable[[], List[Registration]]],
                    is_required=True)
         config.add(name='runs_names',
                    type_hint=Optional[List[str]])
@@ -44,7 +44,7 @@ class MultipleComponentRunConfig(Configuration):
         return config
 
 
-class MultipleRoutineTrainConfig(Configuration):
+class MultipleRoutineTrainRunnerConfig(Configuration):
 
     @classmethod
     def get_default(
@@ -53,12 +53,12 @@ class MultipleRoutineTrainConfig(Configuration):
         config = super().get_default()
 
         config.add(name='routine_keys',
-                   type_hint=List[Registration],
+                   type_hint=Union[List[Registration], Callable[[], List[Registration]]],
                    is_required=True)
         return config
 
 
-class RoutineInferenceConfig(Configuration):
+class RoutineInferenceRunnerConfig(Configuration):
 
     @classmethod
     def get_default(
