@@ -165,11 +165,11 @@ class HyperoptCalibratorConfig(CalibratorConfig):
                    type_hint=int,
                    description="number of evaluations to perform for calibration."
                                " -1 allows search space grid search.")
-        config.add(name='mongo_directory',
+        config.add(name='mongo_directory_name',
                    value='mongodb',
                    description="directory name where mongoDB is located and running",
                    is_required=True)
-        config.add(name='mongo_workers_directory',
+        config.add(name='mongo_workers_directory_name',
                    value='mongo_workers',
                    description="directory name where mongo workers stored their execution metadata")
         config.add(name='hyperopt_additional_info',

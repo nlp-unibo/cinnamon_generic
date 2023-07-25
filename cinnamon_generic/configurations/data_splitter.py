@@ -105,7 +105,7 @@ class PrebuiltCVSplitterConfig(CVSplitterConfig):
                    type_hint=str,
                    description="Filename for storing/loading pre-built folds",
                    is_required=True)
-        config.add(name='prebuilt_folder',
+        config.add(name='prebuilt_folder_name',
                    value='prebuilt_folds',
                    type_hint=Union[AnyStr, Path],
                    description="Folder name where to store pre-built fold files",
