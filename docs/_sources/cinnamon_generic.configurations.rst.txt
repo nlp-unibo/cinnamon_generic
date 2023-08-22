@@ -12,13 +12,6 @@ cinnamon\_generic.configurations.calibrator module
    :undoc-members:
    :show-inheritance:
 
-cinnamon\_generic.configurations.callback module
-------------------------------------------------
-
-.. automodule:: cinnamon_generic.configurations.callback
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 cinnamon\_generic.configurations.data\_loader module
 ----------------------------------------------------
@@ -48,14 +41,6 @@ cinnamon\_generic.configurations.metrics module
 -----------------------------------------------
 
 .. automodule:: cinnamon_generic.configurations.metrics
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-cinnamon\_generic.configurations.processor module
--------------------------------------------------
-
-.. automodule:: cinnamon_generic.configurations.processor
    :members:
    :undoc-members:
    :show-inheritance:

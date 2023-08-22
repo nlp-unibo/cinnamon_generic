@@ -1,0 +1,1906 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>cinnamon_generic.components package &#8212; Cinnamon Generic</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cinnamon_generic.components';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cinnamon_generic.configurations package" href="cinnamon_generic.configurations.html" />
+    <link rel="prev" title="cinnamon_generic.api package" href="cinnamon_generic.api.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Cinnamon Generic</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                        Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_loader.html">
+                        Data Loader
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_splitter.html">
+                        Data Splitter
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
+                        File Manager
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                        Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="metrics.html">
+                        Metrics
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                        Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="pipeline.html">
+                        Pipeline
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="processor.html">
+                        Data Processor
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="routine.html">
+                        Routines
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="commands.html">
+                        Commands
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="cinnamon_generic.html">
+                        cinnamon-generic
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                        Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_loader.html">
+                        Data Loader
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_splitter.html">
+                        Data Splitter
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
+                        File Manager
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                        Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="metrics.html">
+                        Metrics
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                        Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="pipeline.html">
+                        Pipeline
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="processor.html">
+                        Data Processor
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="routine.html">
+                        Routines
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="commands.html">
+                        Commands
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="cinnamon_generic.html">
+                        cinnamon-generic
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.api.html">cinnamon_generic.api package</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">cinnamon_generic.components package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.configurations.html">cinnamon_generic.configurations package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cinnamon_generic.nlp.html">cinnamon_generic.nlp package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.components.html">cinnamon_generic.nlp.components package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html">cinnamon_generic.nlp.configurations package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="cinnamon_generic.html" class="nav-link">cinnamon_generic package</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">cinnamon_generic.components package</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="cinnamon-generic-components-package">
+<h1>cinnamon_generic.components package<a class="headerlink" href="#cinnamon-generic-components-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-cinnamon_generic.components.calibrator">
+<span id="cinnamon-generic-components-calibrator-module"></span><h2>cinnamon_generic.components.calibrator module<a class="headerlink" href="#module-cinnamon_generic.components.calibrator" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.Calibrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.calibrator.</span></span><span class="sig-name descname"><span class="pre">Calibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.Calibrator" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Calibrator</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized in hyper-parameters tuning.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.Calibrator.evaluate_combination">
+<span class="sig-name descname"><span class="pre">evaluate_combination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_combination</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.Calibrator.evaluate_combination" title="Permalink to this definition">#</a></dt>
+<dd><p>Evaluation method of each <code class="docutils literal notranslate"><span class="pre">validator</span></code> delta copy based on sampled hyper-parameter combinations.
+Given an input hyper-parameter combination (<code class="docutils literal notranslate"><span class="pre">parameter_combination</span></code>):
+- A <code class="docutils literal notranslate"><span class="pre">validator</span></code> delta copy is built
+- The <code class="docutils literal notranslate"><span class="pre">validator</span></code> delta copy is run
+- The <code class="docutils literal notranslate"><span class="pre">validator</span></code> result is inspected to get the value of specified calibration metric</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Calibrator</span></code> always executes my minimizing a certain metric. Thus, for metrics that have to maximized,
+their negative value is computed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>parameter_combination</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – a sampled hyper-parameter combination of <code class="docutils literal notranslate"><span class="pre">validator</span></code>’s <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The calibration metric value for current <code class="docutils literal notranslate"><span class="pre">validator</span></code>’s delta copy
+according to sampled hyper-parameter combination.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.GridSearchCalibrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.calibrator.</span></span><span class="sig-name descname"><span class="pre">GridSearchCalibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.GridSearchCalibrator" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.calibrator.Calibrator" title="cinnamon_generic.components.calibrator.Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Calibrator</span></code> extension that defines a grid-search calibration criteria.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.GridSearchCalibrator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.GridSearchCalibrator.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the calibration phase for the specified <code class="docutils literal notranslate"><span class="pre">validator</span></code> <code class="docutils literal notranslate"><span class="pre">Component</span></code>.
+The grid-search samples and evaluates all possible hyper-parameter combinations of the
+<code class="docutils literal notranslate"><span class="pre">validator</span></code>’s <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The best hyper-parameter combination along with the corresponding calibration metric value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.HyperOptCalibrator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.calibrator.</span></span><span class="sig-name descname"><span class="pre">HyperOptCalibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.HyperOptCalibrator" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.calibrator.Calibrator" title="cinnamon_generic.components.calibrator.Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Calibrator</span></code> extension that wraps a <code class="docutils literal notranslate"><span class="pre">HyperOpt</span></code> calibrator.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.HyperOptCalibrator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.HyperOptCalibrator.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the calibration phase for the specified <code class="docutils literal notranslate"><span class="pre">validator</span></code> <code class="docutils literal notranslate"><span class="pre">Component</span></code>.
+The HyperOpt calibration samples up to <code class="docutils literal notranslate"><span class="pre">max_evaluations</span></code> hyper-parameter combinations (i.e., trials).
+Note that the same trial might be sampled multiple times.
+The <code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator</span></code> can execute in two different modes:
+- MongoDB mode: if a MongoDB instance is running, the calibrator runs multiple workers to evaluate
+multiple trials in parallel. All results are stored in the MongoDB instance.
+- Sequential mode: trials are evaluated sequentially. All results are stored in a .csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The best hyper-parameter combination along with the corresponding calibration metric value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.RandomSearchCalibration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.calibrator.</span></span><span class="sig-name descname"><span class="pre">RandomSearchCalibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.RandomSearchCalibration" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.calibrator.Calibrator" title="cinnamon_generic.components.calibrator.Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Calibrator</span></code> extension that defines a random search calibration criteria.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.RandomSearchCalibration.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.RandomSearchCalibration.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the calibration phase for the specified <code class="docutils literal notranslate"><span class="pre">validator</span></code> <code class="docutils literal notranslate"><span class="pre">Component</span></code>.
+The grid-search samples and evaluates all possible hyper-parameter combinations of the
+<code class="docutils literal notranslate"><span class="pre">validator</span></code>’s <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The best hyper-parameter combination along with the corresponding calibration metric value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.ValidateCondition">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.calibrator.</span></span><span class="sig-name descname"><span class="pre">ValidateCondition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.calibrator.ValidateCondition" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.ValidateCondition.MAXIMIZATION">
+<span class="sig-name descname"><span class="pre">MAXIMIZATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'maximization'</span></em><a class="headerlink" href="#cinnamon_generic.components.calibrator.ValidateCondition.MAXIMIZATION" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cinnamon_generic.components.calibrator.ValidateCondition.MINIMIZATION">
+<span class="sig-name descname"><span class="pre">MINIMIZATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minimization'</span></em><a class="headerlink" href="#cinnamon_generic.components.calibrator.ValidateCondition.MINIMIZATION" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.callback">
+<span id="cinnamon-generic-components-callback-module"></span><h2>cinnamon_generic.components.callback module<a class="headerlink" href="#module-cinnamon_generic.components.callback" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.Callback">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.callback.</span></span><span class="sig-name descname"><span class="pre">Callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.Callback" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Generic <code class="docutils literal notranslate"><span class="pre">Callback</span></code> component.
+A <code class="docutils literal notranslate"><span class="pre">Callback</span></code> component defines execution flow hookpoints for flow customization and side effects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.Callback.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hookpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.Callback.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Runs the <code class="docutils literal notranslate"><span class="pre">Callback</span></code>’s specific hookpoint.
+If the <code class="docutils literal notranslate"><span class="pre">Callback</span></code> doesn’t have the specified hookpoint, nothing happens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hookpoint</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – name of the hookpoint method to invoke</p></li>
+<li><p><strong>logs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]) – optional arguments for the hookpoint</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.Callback.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.Callback.setup" title="Permalink to this definition">#</a></dt>
+<dd><p>Set-ups the <code class="docutils literal notranslate"><span class="pre">Callback</span></code> instance with a <code class="docutils literal notranslate"><span class="pre">Component</span></code> reference for quick attributes access and
+serialization save path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>component</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code>) – a <code class="docutils literal notranslate"><span class="pre">Component</span></code> instance that exposes hookpoints for this <code class="docutils literal notranslate"><span class="pre">Callback</span></code></p></li>
+<li><p><strong>save_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – path where to potentially save <code class="docutils literal notranslate"><span class="pre">Callback</span></code> side effects.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.CallbackPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.callback.</span></span><span class="sig-name descname"><span class="pre">CallbackPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.CallbackPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>, <a class="reference internal" href="#cinnamon_generic.components.callback.Callback" title="cinnamon_generic.components.callback.Callback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.CallbackPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hookpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.CallbackPipeline.run" title="Permalink to this definition">#</a></dt>
+<dd><p>General execution entry point of <code class="docutils literal notranslate"><span class="pre">Component</span></code>.
+The recommended way of subclassing <code class="docutils literal notranslate"><span class="pre">Component</span></code> is to define the <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s logic in this method.
+This general interface allows general-purpose <code class="docutils literal notranslate"><span class="pre">Component</span></code> stacking.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.CallbackPipeline.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.CallbackPipeline.setup" title="Permalink to this definition">#</a></dt>
+<dd><p>Set-ups the <code class="docutils literal notranslate"><span class="pre">Callback</span></code> instance with a <code class="docutils literal notranslate"><span class="pre">Component</span></code> reference for quick attributes access and
+serialization save path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>component</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code>) – a <code class="docutils literal notranslate"><span class="pre">Component</span></code> instance that exposes hookpoints for this <code class="docutils literal notranslate"><span class="pre">Callback</span></code></p></li>
+<li><p><strong>save_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – path where to potentially save <code class="docutils literal notranslate"><span class="pre">Callback</span></code> side effects.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.guard">
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.callback.</span></span><span class="sig-name descname"><span class="pre">guard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hookpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.guard" title="Permalink to this definition">#</a></dt>
+<dd><p>A decorator to mark a <code class="docutils literal notranslate"><span class="pre">Callback</span></code> hookpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hookpoint</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the <code class="docutils literal notranslate"><span class="pre">Callback</span></code>’s base hookpoint to be invoked. In particular, two different hookpoints</p></li>
+<li><p><strong>called</strong> (<em>will be</em>) – </p></li>
+<li><p><strong>*hookpoint*_begin</strong> (<em>-</em>) – </p></li>
+<li><p><strong>*hookpoint*_end</strong> (<em>-</em>) – </p></li>
+<li><p><strong>instance</strong> (<em>For</em>) – </p></li>
+<li><p><strong>'on_fit'</strong> (<em>if hookpoint =</em>) – </p></li>
+<li><p><strong>considered</strong> (<em>the following execution flow is</em>) – </p></li>
+<li><p><strong>``Callback.on_fit_begin</strong> (<em>-</em>) – </p></li>
+<li><p><strong>func</strong> (<em>-</em>) – </p></li>
+<li><p><strong>``Callback._on_fit_end</strong> (<em>-</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decorated method with specified <code class="docutils literal notranslate"><span class="pre">Callback</span></code>’s hookpoint.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.data_loader">
+<span id="cinnamon-generic-components-data-loader-module"></span><h2>cinnamon_generic.components.data_loader module<a class="headerlink" href="#module-cinnamon_generic.components.data_loader" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.DataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.data_loader.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.DataLoader" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>Generic <code class="docutils literal notranslate"><span class="pre">Component</span></code> for data loading.
+The <code class="docutils literal notranslate"><span class="pre">DataLoader</span></code> does the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Loads data to build a proper dataset</p></li>
+<li><p>Defines train, validation and test splits</p></li>
+<li><p>Parses each data split to define the desired set of input data to pass to other components.</p></li>
+</ul>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.DataLoader.get_splits">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_splits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.DataLoader.get_splits" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the train, validation and test splits of the loaded dataset.
+Depending on its usage, any combination of data splits may be optional (i.e., None)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of train, validation and test splits.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.DataLoader.load_data">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.DataLoader.load_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads data to build a proper dataset to work on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The built dataset in any desired format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.DataLoader.parse">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.DataLoader.parse" title="Permalink to this definition">#</a></dt>
+<dd><p>Parses a data split to define the desired inputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – input data split to parse</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> instance containing the desired inputs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.DataLoader.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.DataLoader.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Defines and parses the train, validation and test splits of the loaded dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> instance containing the parsed data splits, accessible via
+<code class="docutils literal notranslate"><span class="pre">.train</span></code>, <code class="docutils literal notranslate"><span class="pre">.val</span></code> and <code class="docutils literal notranslate"><span class="pre">.test</span></code> field names.</p>
+<p>For instance:
+``
+data_loader = DataLoader()
+data = data_loader.run()
+train_data = data.train
+val_data = data.val
+test_data = data.test
+``</p>
+<p>Note that each of the above data splits can be None</p>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cinnamon_generic.components.data_loader.UnspecifiedDataSplitException" title="cinnamon_generic.components.data_loader.UnspecifiedDataSplitException"><strong>UnspecifiedDataSplitException</strong></a> – if a data split is expected, but it is None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cinnamon_generic.components.data_loader.UnspecifiedDataSplitException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.data_loader.</span></span><span class="sig-name descname"><span class="pre">UnspecifiedDataSplitException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.data_loader.UnspecifiedDataSplitException" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.file_manager">
+<span id="cinnamon-generic-components-file-manager-module"></span><h2>cinnamon_generic.components.file_manager module<a class="headerlink" href="#module-cinnamon_generic.components.file_manager" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.file_manager.FileManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.file_manager.</span></span><span class="sig-name descname"><span class="pre">FileManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.file_manager.FileManager" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that handles file and folder paths.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.file_manager.FileManager.register_temporary_run_name">
+<span class="sig-name descname"><span class="pre">register_temporary_run_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.file_manager.FileManager.register_temporary_run_name" title="Permalink to this definition">#</a></dt>
+<dd><p>Internally stores a temporary run name, which can be optionally overriden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">RegistrationKey</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – configuration registration key</p></li>
+<li><p><strong>replacement_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – replacement name for temporary run name</p></li>
+<li><p><strong>create_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, a folder with temporary run name is created</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The temporary run path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.file_manager.FileManager.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_existence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.file_manager.FileManager.run" title="Permalink to this definition">#</a></dt>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> receives a filepath and updates it according to its initialized <code class="docutils literal notranslate"><span class="pre">base_directory</span></code>
+(see <code class="docutils literal notranslate"><span class="pre">setup()</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – path to file that has to be updated according to <code class="docutils literal notranslate"><span class="pre">base_directory</span></code></p></li>
+<li><p><strong>strict_existence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> expects that the updated filepath already exists.</p></li>
+<li><p><strong>create_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> checks if built path has to be created</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Updated <code class="docutils literal notranslate"><span class="pre">filepath</span></code> relative to <code class="docutils literal notranslate"><span class="pre">base_directory</span></code></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – if <code class="docutils literal notranslate"><span class="pre">strict_existence</span> <span class="pre">=</span> <span class="pre">True</span></code> and the update filepath does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.file_manager.FileManager.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_directory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.file_manager.FileManager.setup" title="Permalink to this definition">#</a></dt>
+<dd><p>Initializes the <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> with the base directory.
+All file and folder paths of the <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> will be paths relative to the base directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>base_directory</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path to base directory for <code class="docutils literal notranslate"><span class="pre">FileManager</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.file_manager.FileManager.track_run">
+<span class="sig-name descname"><span class="pre">track_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registration_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.file_manager.FileManager.track_run" title="Permalink to this definition">#</a></dt>
+<dd><p>Tracks a run by storing its metadata in a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>registration_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">RegistrationKey</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – configuration registration key</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) – path where run results are stored</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.helper">
+<span id="cinnamon-generic-components-helper-module"></span><h2>cinnamon_generic.components.helper module<a class="headerlink" href="#module-cinnamon_generic.components.helper" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.helper.</span></span><span class="sig-name descname"><span class="pre">Helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Helper</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized in handling seeding and backend-specific behaviours.
+This general <code class="docutils literal notranslate"><span class="pre">Helper</span></code> component expects an input seed to fix numpy and random packages stochasticity.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper.clear_status">
+<span class="sig-name descname"><span class="pre">clear_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper.clear_status" title="Permalink to this definition">#</a></dt>
+<dd><p>Clears any backed-specific status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper.run" title="Permalink to this definition">#</a></dt>
+<dd><p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">Helper</span></code> is to set the input random seed for reproducibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – seed to use to fix reproducibility.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper.set_seed">
+<span class="sig-name descname"><span class="pre">set_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper.set_seed" title="Permalink to this definition">#</a></dt>
+<dd><p>Sets the seed for reproducibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – seed to use to fix reproducibility.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.metrics">
+<span id="cinnamon-generic-components-metrics-module"></span><h2>cinnamon_generic.components.metrics module<a class="headerlink" href="#module-cinnamon_generic.components.metrics" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.LambdaMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.metrics.</span></span><span class="sig-name descname"><span class="pre">LambdaMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.LambdaMetric" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.metrics.Metric" title="cinnamon_generic.components.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a></p>
+<p>A special <code class="docutils literal notranslate"><span class="pre">Metric</span></code> component that acts as a wrapper for custom/external metric functions (e.g., scikit-learn).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.LambdaMetric.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_pred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.LambdaMetric.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes the metric specified by this component given input predictions (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>) and
+corresponding ground-truth (<code class="docutils literal notranslate"><span class="pre">y_true</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_pred</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – input predictions derived by other components or processes</p></li>
+<li><p><strong>y_true</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – ground-truth for evaluation</p></li>
+<li><p><strong>as_dict</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether metric results are reported in dict format or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metric result</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.Metric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.metrics.</span></span><span class="sig-name descname"><span class="pre">Metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.Metric" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Metric</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized in computing metrics.
+The <code class="docutils literal notranslate"><span class="pre">Metric</span></code> component generally accepts predicted and ground-truth inputs and returns
+the corresponding metric value.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.Metric.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_pred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.Metric.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes the metric specified by this component given input predictions (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>) and
+corresponding ground-truth (<code class="docutils literal notranslate"><span class="pre">y_true</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_pred</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – input predictions derived by other components or processes</p></li>
+<li><p><strong>y_true</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – ground-truth for evaluation</p></li>
+<li><p><strong>as_dict</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether metric results are reported in dict format or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The metric result</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.MetricPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.MetricPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code>, <a class="reference internal" href="#cinnamon_generic.components.metrics.Metric" title="cinnamon_generic.components.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.metrics.MetricPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_pred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_true</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.metrics.MetricPipeline.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Executes each child metric.run() in the pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_pred</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – input predictions derived by other components or processes</p></li>
+<li><p><strong>y_true</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – ground-truth for evaluation</p></li>
+<li><p><strong>as_dict</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether metric results are reported in dict format or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list or dict containing all metrics results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.model">
+<span id="cinnamon-generic-components-model-module"></span><h2>cinnamon_generic.components.model module<a class="headerlink" href="#module-cinnamon_generic.components.model" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.model.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Model</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized for wrapping a machine learning model.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.build">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">build</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">processor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.build" title="Permalink to this definition">#</a></dt>
+<dd><p>Builds the internal model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>processor</strong> (<a class="reference internal" href="#cinnamon_generic.components.processor.Processor" title="cinnamon_generic.components.processor.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Processor</span></code></a>) – a <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> storing all previous components’ relevant information for
+building the model.</p></li>
+<li><p><strong>callbacks</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cinnamon_generic.components.callback.Callback" title="cinnamon_generic.components.callback.Callback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></a>]) – an optional <code class="docutils literal notranslate"><span class="pre">Callback</span></code> component.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.check_after_loading">
+<span class="sig-name descname"><span class="pre">check_after_loading</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.check_after_loading" title="Permalink to this definition">#</a></dt>
+<dd><p>Entry point for validating the model after state loading.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.evaluate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.fit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.fit" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.load" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads the <code class="docutils literal notranslate"><span class="pre">Model</span></code>’s state from a serialized checkpoint stored in the filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – path where the model serialized checkpoint is stored.</p></li>
+<li><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – if the component is a child in another component configuration, <code class="docutils literal notranslate"><span class="pre">name</span></code> is the parameter key</p></li>
+<li><p><strong>Otherwise</strong> (<em>used by the parent to reference the child.</em>) – </p></li>
+<li><p><strong>class</strong> (<em>name is automatically set to the component</em>) – </p></li>
+<li><p><strong>name.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.load_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.load_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads internal model’s state from a serialized checkpoint stored in the filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path where the model serialized checkpoint is stored.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.predict">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.predict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.prepare_for_loading">
+<span class="sig-name descname"><span class="pre">prepare_for_loading</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.prepare_for_loading" title="Permalink to this definition">#</a></dt>
+<dd><p>Entry point for preparing the model before loading the internal model’s state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – a <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> representing data that can be used to set up the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.prepare_for_training">
+<span class="sig-name descname"><span class="pre">prepare_for_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.prepare_for_training" title="Permalink to this definition">#</a></dt>
+<dd><p>Entry point for preparing the model before training.
+For instance, computing class weights for regularizing an imbalanced classification setting
+can be computed here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>train_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – a <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> representing training data. Each key is a specific input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_processor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.run" title="Permalink to this definition">#</a></dt>
+<dd><p>The default <code class="docutils literal notranslate"><span class="pre">Model</span></code> behaviour is to execute <code class="docutils literal notranslate"><span class="pre">evaluate_and_predict</span></code> given input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data to evaluate the model on and compute predictions.</p></li>
+<li><p><strong>callbacks</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cinnamon_generic.components.callback.Callback" title="cinnamon_generic.components.callback.Callback"><code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></a>]) – callbacks for custom execution flow and side effects</p></li>
+<li><p><strong>metrics</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cinnamon_generic.components.metrics.Metric" title="cinnamon_generic.components.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">Metric</span></code></a>]) – metrics for quantitatively evaluate the training process</p></li>
+<li><p><strong>model_processor</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#cinnamon_generic.components.processor.Processor" title="cinnamon_generic.components.processor.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Processor</span></code></a>]) – a <code class="docutils literal notranslate"><span class="pre">Processor</span></code> component that parses model predictions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> storing evaluation and prediction information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.save" title="Permalink to this definition">#</a></dt>
+<dd><p>Serializes the <code class="docutils literal notranslate"><span class="pre">Model</span></code>’s state to filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to save the <code class="docutils literal notranslate"><span class="pre">Model</span></code> state and its internal model.</p></li>
+<li><p><strong>name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – if the component is a child in another component configuration, <code class="docutils literal notranslate"><span class="pre">name</span></code> is the parameter key</p></li>
+<li><p><strong>Otherwise</strong> (<em>used by the parent to reference the child.</em>) – </p></li>
+<li><p><strong>class</strong> (<em>name is automatically set to the component</em>) – </p></li>
+<li><p><strong>name.</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.save_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.save_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Serializes internal model’s state to filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path where to save model’s state.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.model.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.model.Model" title="cinnamon_generic.components.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Network</span></code> is a <code class="docutils literal notranslate"><span class="pre">Model</span></code> extension specialized for wrapping neural networks.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network.batch_evaluate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network.batch_evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes training loss for the given input batch without a issuing a gradient step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Training loss for the given input batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network.batch_fit">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network.batch_fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes a batch fitting step given input batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed training information for the current step (e.g., loss value, metadata, gradients)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network.batch_loss">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network.batch_loss" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes the training loss of the neural network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed training loss for the current step</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network.batch_predict">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network.batch_predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes model predictions for the given input batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Model predictions for the given input batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Network.batch_train">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Network.batch_train" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes a training step given input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed training information for the current step (e.g., loss value and gradients)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.processor">
+<span id="cinnamon-generic-components-processor-module"></span><h2>cinnamon_generic.components.processor module<a class="headerlink" href="#module-cinnamon_generic.components.processor" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.Processor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.processor.</span></span><span class="sig-name descname"><span class="pre">Processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.Processor" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Processor</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that is specialized in processing input data.
+It is mainly used to prepare input data for a model after having loaded it via a <code class="docutils literal notranslate"><span class="pre">DataLoader</span></code> component.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.Processor.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.Processor.finalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Finalizes the <code class="docutils literal notranslate"><span class="pre">Processor</span></code> internal state.
+This functions should be called when no other run() function calls are required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.Processor.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.Processor.process" title="Permalink to this definition">#</a></dt>
+<dd><p>Processes input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – data to process in <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> format.</p></li>
+<li><p><strong>is_training_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, input data comes from the training split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The processed version of input <code class="docutils literal notranslate"><span class="pre">data</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.Processor.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.Processor.run" title="Permalink to this definition">#</a></dt>
+<dd><p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">Processor</span></code> is to run <code class="docutils literal notranslate"><span class="pre">process()</span></code> for given input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data to process in <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> format.</p></li>
+<li><p><strong>is_training_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, input data comes from the training split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The processed version of input <code class="docutils literal notranslate"><span class="pre">data</span></code> if it is not None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.ProcessorPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.processor.</span></span><span class="sig-name descname"><span class="pre">ProcessorPipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.ProcessorPipeline" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">OrderedPipeline</span></code>, <a class="reference internal" href="#cinnamon_generic.components.processor.Processor" title="cinnamon_generic.components.processor.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Processor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.ProcessorPipeline.finalize">
+<span class="sig-name descname"><span class="pre">finalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.ProcessorPipeline.finalize" title="Permalink to this definition">#</a></dt>
+<dd><p>Finalizes the <code class="docutils literal notranslate"><span class="pre">Processor</span></code> internal state.
+This functions should be called when no other run() function calls are required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.processor.ProcessorPipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.processor.ProcessorPipeline.run" title="Permalink to this definition">#</a></dt>
+<dd><p>General execution entry point of <code class="docutils literal notranslate"><span class="pre">Component</span></code>.
+The recommended way of subclassing <code class="docutils literal notranslate"><span class="pre">Component</span></code> is to define the <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s logic in this method.
+This general interface allows general-purpose <code class="docutils literal notranslate"><span class="pre">Component</span></code> stacking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.routine">
+<span id="cinnamon-generic-components-routine-module"></span><h2>cinnamon_generic.components.routine module<a class="headerlink" href="#module-cinnamon_generic.components.routine" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.CVRoutine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine.</span></span><span class="sig-name descname"><span class="pre">CVRoutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.CVRoutine" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.routine.TrainAndTestRoutine" title="cinnamon_generic.components.routine.TrainAndTestRoutine"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code> extension that implements the ‘cross-validation’ evaluation routine.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.CVRoutine.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.CVRoutine.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Executes the <code class="docutils literal notranslate"><span class="pre">CVRoutine</span></code> component according to its evaluation criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">Routine</span></code> is executing in training mode</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to store any <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s serialization activity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">CVRoutine</span></code> output results in <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> format</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.Routine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine.</span></span><span class="sig-name descname"><span class="pre">Routine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.Routine" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Routine</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized in defining an evaluation routine.
+The <code class="docutils literal notranslate"><span class="pre">Routine</span></code> can be viewed as the highest-level <code class="docutils literal notranslate"><span class="pre">Component</span></code> since it wraps multiple
+components: from data loading to modeling.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.Routine.routine_step">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">routine_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.Routine.routine_step" title="Permalink to this definition">#</a></dt>
+<dd><p>A <code class="docutils literal notranslate"><span class="pre">Routine</span></code> may involve repeating the same execution flow with different input data.
+For instance:
+- Train and test: repeat train and test setting for different random seeds
+- Cross-validation: repeat train and test setting for different inputs and (potentially) different random seeds
+- Leave-one-out: as cross-validation since it is a special case of cross-validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>step_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – </p></li>
+<li><p><strong>train_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data training split</p></li>
+<li><p><strong>val_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data validation split</p></li>
+<li><p><strong>test_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data test split</p></li>
+<li><p><strong>is_training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">Routine</span></code> is executing in training mode</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to store any <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s serialization activity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The output of the current <code class="docutils literal notranslate"><span class="pre">Routine</span></code> execution flow.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.Routine.run">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.Routine.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Executes the <code class="docutils literal notranslate"><span class="pre">Routine</span></code> component according to its evaluation criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">Routine</span></code> is executing in training mode</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to store any <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s serialization activity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">Routine</span></code> output results in <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> format</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.TrainAndTestRoutine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine.</span></span><span class="sig-name descname"><span class="pre">TrainAndTestRoutine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.TrainAndTestRoutine" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.routine.Routine" title="cinnamon_generic.components.routine.Routine"><code class="xref py py-class docutils literal notranslate"><span class="pre">Routine</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Routine</span></code> extension that implements the ‘Train and Test’ evaluation routine.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.TrainAndTestRoutine.routine_step">
+<span class="sig-name descname"><span class="pre">routine_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.TrainAndTestRoutine.routine_step" title="Permalink to this definition">#</a></dt>
+<dd><p>A single train and test execution flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>step_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – </p></li>
+<li><p><strong>train_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data training split</p></li>
+<li><p><strong>val_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data validation split</p></li>
+<li><p><strong>test_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data test split</p></li>
+<li><p><strong>is_training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code> is executing in training mode</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to store any <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s serialization activity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The output of the current <code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code> execution flow.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine.TrainAndTestRoutine.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine.TrainAndTestRoutine.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Executes the <code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code> component according to its evaluation criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>is_training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, the <code class="docutils literal notranslate"><span class="pre">Routine</span></code> is executing in training mode</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Path where to store any <code class="docutils literal notranslate"><span class="pre">Component</span></code>’s serialization activity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The <code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code> output results in <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> format</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components.routine_processor">
+<span id="cinnamon-generic-components-routine-processor-module"></span><h2>cinnamon_generic.components.routine_processor module<a class="headerlink" href="#module-cinnamon_generic.components.routine_processor" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.AverageProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine_processor.</span></span><span class="sig-name descname"><span class="pre">AverageProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.AverageProcessor" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.routine_processor.RoutineProcessor" title="cinnamon_generic.components.routine_processor.RoutineProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">RoutineProcessor</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">RoutineProcessor</span></code> that computes average and std for each loss and metric.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.AverageProcessor.accumulate">
+<span class="sig-name descname"><span class="pre">accumulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accumulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.AverageProcessor.accumulate" title="Permalink to this definition">#</a></dt>
+<dd><p>Accumulates loss and metric information over fold steps.
+In particular, the following accumulation data structure is defined:
+_____________________________________________________________________________
+| metric_name | metric_value | info_key | suffix1 | suffix2 | … | suffixN |
+|   …             …          …       …       …      …     …   |
+|                                                                           |
+<a href="#id13"><span class="problematic" id="id14">|___________________________________________________________________________|</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accumulator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – a dictionary containing accumulated processed data</p></li>
+<li><p><strong>step</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – routine step information regarding a fold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Accumulated processed information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.AverageProcessor.aggregate">
+<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.AverageProcessor.aggregate" title="Permalink to this definition">#</a></dt>
+<dd><p>Aggregates loss and metric information by computing the average and std over steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – accumulated processed information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The average and std for each loss and metric</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.AverageProcessor.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_training_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.AverageProcessor.process" title="Permalink to this definition">#</a></dt>
+<dd><p>Processes <code class="docutils literal notranslate"><span class="pre">Routine</span></code> result to compute average and std for each loss and metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – <code class="docutils literal notranslate"><span class="pre">Routine</span></code> result</p></li>
+<li><p><strong>is_training_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, input data comes from the training split.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code></p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.FoldProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine_processor.</span></span><span class="sig-name descname"><span class="pre">FoldProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.FoldProcessor" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.routine_processor.AverageProcessor" title="cinnamon_generic.components.routine_processor.AverageProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">AverageProcessor</span></code></a></p>
+<p>A <code class="docutils literal notranslate"><span class="pre">AverageProcessor</span></code> that computes average and std for each loss and metric over cross-validation folds.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.FoldProcessor.aggregate">
+<span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.FoldProcessor.aggregate" title="Permalink to this definition">#</a></dt>
+<dd><p>Aggregates loss and metric information by computing the average and std over fold steps and suffixes.
+In addition, it computes average and std over each suffix individually (e.g., seeds, fold).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – accumulated processed information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The average and std for each loss and metric</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.RoutineProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_generic.components.routine_processor.</span></span><span class="sig-name descname"><span class="pre">RoutineProcessor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.RoutineProcessor" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cinnamon_generic.components.processor.Processor" title="cinnamon_generic.components.processor.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Processor</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.RoutineProcessor.accumulate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accumulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">accumulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.RoutineProcessor.accumulate" title="Permalink to this definition">#</a></dt>
+<dd><p>Accumulates processed information into <code class="docutils literal notranslate"><span class="pre">accumulator</span></code> given <code class="docutils literal notranslate"><span class="pre">step</span></code> input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>accumulator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – a dictionary containing accumulated processed data</p></li>
+<li><p><strong>step</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – routine step information regarding a fold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Accumulated processed information</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.routine_processor.RoutineProcessor.aggregate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aggregate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.routine_processor.RoutineProcessor.aggregate" title="Permalink to this definition">#</a></dt>
+<dd><p>Aggregates accumulated information for visualization and summary purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – accumulated processed information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Aggregated processed information</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_generic.components">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cinnamon_generic.components" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cinnamon_generic.api.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">cinnamon_generic.api package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cinnamon_generic.configurations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">cinnamon_generic.configurations package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.calibrator">cinnamon_generic.components.calibrator module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.Calibrator"><code class="docutils literal notranslate"><span class="pre">Calibrator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.Calibrator.evaluate_combination"><code class="docutils literal notranslate"><span class="pre">Calibrator.evaluate_combination()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.GridSearchCalibrator"><code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.GridSearchCalibrator.run"><code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.HyperOptCalibrator"><code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.HyperOptCalibrator.run"><code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.RandomSearchCalibration"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibration</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.RandomSearchCalibration.run"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibration.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.ValidateCondition"><code class="docutils literal notranslate"><span class="pre">ValidateCondition</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.ValidateCondition.MAXIMIZATION"><code class="docutils literal notranslate"><span class="pre">ValidateCondition.MAXIMIZATION</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.calibrator.ValidateCondition.MINIMIZATION"><code class="docutils literal notranslate"><span class="pre">ValidateCondition.MINIMIZATION</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.callback">cinnamon_generic.components.callback module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback"><code class="docutils literal notranslate"><span class="pre">Callback</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback.run"><code class="docutils literal notranslate"><span class="pre">Callback.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback.setup"><code class="docutils literal notranslate"><span class="pre">Callback.setup()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.CallbackPipeline"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.CallbackPipeline.run"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.CallbackPipeline.setup"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline.setup()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.guard"><code class="docutils literal notranslate"><span class="pre">guard()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.data_loader">cinnamon_generic.components.data_loader module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.DataLoader.get_splits"><code class="docutils literal notranslate"><span class="pre">DataLoader.get_splits()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.DataLoader.load_data"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_data()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.DataLoader.parse"><code class="docutils literal notranslate"><span class="pre">DataLoader.parse()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.DataLoader.run"><code class="docutils literal notranslate"><span class="pre">DataLoader.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.data_loader.UnspecifiedDataSplitException"><code class="docutils literal notranslate"><span class="pre">UnspecifiedDataSplitException</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.file_manager">cinnamon_generic.components.file_manager module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.file_manager.FileManager"><code class="docutils literal notranslate"><span class="pre">FileManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.file_manager.FileManager.register_temporary_run_name"><code class="docutils literal notranslate"><span class="pre">FileManager.register_temporary_run_name()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.file_manager.FileManager.run"><code class="docutils literal notranslate"><span class="pre">FileManager.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.file_manager.FileManager.setup"><code class="docutils literal notranslate"><span class="pre">FileManager.setup()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.file_manager.FileManager.track_run"><code class="docutils literal notranslate"><span class="pre">FileManager.track_run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.helper">cinnamon_generic.components.helper module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper"><code class="docutils literal notranslate"><span class="pre">Helper</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.clear_status"><code class="docutils literal notranslate"><span class="pre">Helper.clear_status()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.run"><code class="docutils literal notranslate"><span class="pre">Helper.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.set_seed"><code class="docutils literal notranslate"><span class="pre">Helper.set_seed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.metrics">cinnamon_generic.components.metrics module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.LambdaMetric"><code class="docutils literal notranslate"><span class="pre">LambdaMetric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.LambdaMetric.run"><code class="docutils literal notranslate"><span class="pre">LambdaMetric.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.Metric"><code class="docutils literal notranslate"><span class="pre">Metric</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.Metric.run"><code class="docutils literal notranslate"><span class="pre">Metric.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.MetricPipeline"><code class="docutils literal notranslate"><span class="pre">MetricPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.metrics.MetricPipeline.run"><code class="docutils literal notranslate"><span class="pre">MetricPipeline.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.model">cinnamon_generic.components.model module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.build"><code class="docutils literal notranslate"><span class="pre">Model.build()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.check_after_loading"><code class="docutils literal notranslate"><span class="pre">Model.check_after_loading()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.evaluate"><code class="docutils literal notranslate"><span class="pre">Model.evaluate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.fit"><code class="docutils literal notranslate"><span class="pre">Model.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.load"><code class="docutils literal notranslate"><span class="pre">Model.load()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.load_model"><code class="docutils literal notranslate"><span class="pre">Model.load_model()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.predict"><code class="docutils literal notranslate"><span class="pre">Model.predict()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.prepare_for_loading"><code class="docutils literal notranslate"><span class="pre">Model.prepare_for_loading()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.prepare_for_training"><code class="docutils literal notranslate"><span class="pre">Model.prepare_for_training()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.run"><code class="docutils literal notranslate"><span class="pre">Model.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.save"><code class="docutils literal notranslate"><span class="pre">Model.save()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.save_model"><code class="docutils literal notranslate"><span class="pre">Model.save_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network.batch_evaluate"><code class="docutils literal notranslate"><span class="pre">Network.batch_evaluate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network.batch_fit"><code class="docutils literal notranslate"><span class="pre">Network.batch_fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network.batch_loss"><code class="docutils literal notranslate"><span class="pre">Network.batch_loss()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network.batch_predict"><code class="docutils literal notranslate"><span class="pre">Network.batch_predict()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Network.batch_train"><code class="docutils literal notranslate"><span class="pre">Network.batch_train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.processor">cinnamon_generic.components.processor module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.Processor"><code class="docutils literal notranslate"><span class="pre">Processor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.Processor.finalize"><code class="docutils literal notranslate"><span class="pre">Processor.finalize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.Processor.process"><code class="docutils literal notranslate"><span class="pre">Processor.process()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.Processor.run"><code class="docutils literal notranslate"><span class="pre">Processor.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.ProcessorPipeline"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.ProcessorPipeline.finalize"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline.finalize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.processor.ProcessorPipeline.run"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.routine">cinnamon_generic.components.routine module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.CVRoutine"><code class="docutils literal notranslate"><span class="pre">CVRoutine</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.CVRoutine.run"><code class="docutils literal notranslate"><span class="pre">CVRoutine.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.Routine"><code class="docutils literal notranslate"><span class="pre">Routine</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.Routine.routine_step"><code class="docutils literal notranslate"><span class="pre">Routine.routine_step()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.Routine.run"><code class="docutils literal notranslate"><span class="pre">Routine.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.TrainAndTestRoutine"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.TrainAndTestRoutine.routine_step"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine.routine_step()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine.TrainAndTestRoutine.run"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.routine_processor">cinnamon_generic.components.routine_processor module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.AverageProcessor"><code class="docutils literal notranslate"><span class="pre">AverageProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.AverageProcessor.accumulate"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.accumulate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.AverageProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.aggregate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.AverageProcessor.process"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.process()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.FoldProcessor"><code class="docutils literal notranslate"><span class="pre">FoldProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.FoldProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">FoldProcessor.aggregate()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.RoutineProcessor"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.RoutineProcessor.accumulate"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor.accumulate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.routine_processor.RoutineProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor.aggregate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/cinnamon_generic.components.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Federico Ruggeri.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

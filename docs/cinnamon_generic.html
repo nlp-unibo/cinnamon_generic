@@ -1,0 +1,889 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>cinnamon_generic package &#8212; Cinnamon Generic</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cinnamon_generic';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cinnamon_generic.api package" href="cinnamon_generic.api.html" />
+    <link rel="prev" title="Commands" href="commands.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Cinnamon Generic</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                        Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_loader.html">
+                        Data Loader
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_splitter.html">
+                        Data Splitter
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
+                        File Manager
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                        Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="metrics.html">
+                        Metrics
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                        Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="pipeline.html">
+                        Pipeline
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="processor.html">
+                        Data Processor
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="routine.html">
+                        Routines
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="commands.html">
+                        Commands
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        cinnamon-generic
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                        Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_loader.html">
+                        Data Loader
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="data_splitter.html">
+                        Data Splitter
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
+                        File Manager
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                        Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="metrics.html">
+                        Metrics
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                        Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="pipeline.html">
+                        Pipeline
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="processor.html">
+                        Data Processor
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="routine.html">
+                        Routines
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="commands.html">
+                        Commands
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        cinnamon-generic
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.api.html">cinnamon_generic.api package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.components.html">cinnamon_generic.components package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.configurations.html">cinnamon_generic.configurations package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cinnamon_generic.nlp.html">cinnamon_generic.nlp package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.components.html">cinnamon_generic.nlp.components package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html">cinnamon_generic.nlp.configurations package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">cinnamon_generic package</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="cinnamon-generic-package">
+<h1>cinnamon_generic package<a class="headerlink" href="#cinnamon-generic-package" title="Permalink to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.api.html">cinnamon_generic.api package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.api.html#module-cinnamon_generic.api.commands">cinnamon_generic.api.commands module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.routine_inference"><code class="docutils literal notranslate"><span class="pre">routine_inference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.routine_multiple_inference"><code class="docutils literal notranslate"><span class="pre">routine_multiple_inference()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.routine_multiple_train"><code class="docutils literal notranslate"><span class="pre">routine_multiple_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.routine_train"><code class="docutils literal notranslate"><span class="pre">routine_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.run_calibration"><code class="docutils literal notranslate"><span class="pre">run_calibration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.run_component"><code class="docutils literal notranslate"><span class="pre">run_component()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.run_component_from_key"><code class="docutils literal notranslate"><span class="pre">run_component_from_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.run_components"><code class="docutils literal notranslate"><span class="pre">run_components()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.serialize_registrations"><code class="docutils literal notranslate"><span class="pre">serialize_registrations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.api.html#cinnamon_generic.api.commands.setup_registry"><code class="docutils literal notranslate"><span class="pre">setup_registry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.api.html#module-cinnamon_generic.api">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.components.html">cinnamon_generic.components package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.calibrator">cinnamon_generic.components.calibrator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.Calibrator"><code class="docutils literal notranslate"><span class="pre">Calibrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.Calibrator.evaluate_combination"><code class="docutils literal notranslate"><span class="pre">Calibrator.evaluate_combination()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.GridSearchCalibrator"><code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.GridSearchCalibrator.run"><code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.HyperOptCalibrator"><code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.HyperOptCalibrator.run"><code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.RandomSearchCalibration"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.RandomSearchCalibration.run"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibration.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.ValidateCondition"><code class="docutils literal notranslate"><span class="pre">ValidateCondition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.ValidateCondition.MAXIMIZATION"><code class="docutils literal notranslate"><span class="pre">ValidateCondition.MAXIMIZATION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.calibrator.ValidateCondition.MINIMIZATION"><code class="docutils literal notranslate"><span class="pre">ValidateCondition.MINIMIZATION</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.callback">cinnamon_generic.components.callback module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.Callback"><code class="docutils literal notranslate"><span class="pre">Callback</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.Callback.run"><code class="docutils literal notranslate"><span class="pre">Callback.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.Callback.setup"><code class="docutils literal notranslate"><span class="pre">Callback.setup()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.CallbackPipeline"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.CallbackPipeline.run"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.CallbackPipeline.setup"><code class="docutils literal notranslate"><span class="pre">CallbackPipeline.setup()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.callback.guard"><code class="docutils literal notranslate"><span class="pre">guard()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.data_loader">cinnamon_generic.components.data_loader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.DataLoader.get_splits"><code class="docutils literal notranslate"><span class="pre">DataLoader.get_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.DataLoader.load_data"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.DataLoader.parse"><code class="docutils literal notranslate"><span class="pre">DataLoader.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.DataLoader.run"><code class="docutils literal notranslate"><span class="pre">DataLoader.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.data_loader.UnspecifiedDataSplitException"><code class="docutils literal notranslate"><span class="pre">UnspecifiedDataSplitException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.file_manager">cinnamon_generic.components.file_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.file_manager.FileManager"><code class="docutils literal notranslate"><span class="pre">FileManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.file_manager.FileManager.register_temporary_run_name"><code class="docutils literal notranslate"><span class="pre">FileManager.register_temporary_run_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.file_manager.FileManager.run"><code class="docutils literal notranslate"><span class="pre">FileManager.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.file_manager.FileManager.setup"><code class="docutils literal notranslate"><span class="pre">FileManager.setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.file_manager.FileManager.track_run"><code class="docutils literal notranslate"><span class="pre">FileManager.track_run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.helper">cinnamon_generic.components.helper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.helper.Helper"><code class="docutils literal notranslate"><span class="pre">Helper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.helper.Helper.clear_status"><code class="docutils literal notranslate"><span class="pre">Helper.clear_status()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.helper.Helper.run"><code class="docutils literal notranslate"><span class="pre">Helper.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.helper.Helper.set_seed"><code class="docutils literal notranslate"><span class="pre">Helper.set_seed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.metrics">cinnamon_generic.components.metrics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.LambdaMetric"><code class="docutils literal notranslate"><span class="pre">LambdaMetric</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.LambdaMetric.run"><code class="docutils literal notranslate"><span class="pre">LambdaMetric.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.Metric"><code class="docutils literal notranslate"><span class="pre">Metric</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.Metric.run"><code class="docutils literal notranslate"><span class="pre">Metric.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.MetricPipeline"><code class="docutils literal notranslate"><span class="pre">MetricPipeline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.metrics.MetricPipeline.run"><code class="docutils literal notranslate"><span class="pre">MetricPipeline.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.model">cinnamon_generic.components.model module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.build"><code class="docutils literal notranslate"><span class="pre">Model.build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.check_after_loading"><code class="docutils literal notranslate"><span class="pre">Model.check_after_loading()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.evaluate"><code class="docutils literal notranslate"><span class="pre">Model.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.fit"><code class="docutils literal notranslate"><span class="pre">Model.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.load"><code class="docutils literal notranslate"><span class="pre">Model.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.load_model"><code class="docutils literal notranslate"><span class="pre">Model.load_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.predict"><code class="docutils literal notranslate"><span class="pre">Model.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.prepare_for_loading"><code class="docutils literal notranslate"><span class="pre">Model.prepare_for_loading()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.prepare_for_training"><code class="docutils literal notranslate"><span class="pre">Model.prepare_for_training()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.run"><code class="docutils literal notranslate"><span class="pre">Model.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.save"><code class="docutils literal notranslate"><span class="pre">Model.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Model.save_model"><code class="docutils literal notranslate"><span class="pre">Model.save_model()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network.batch_evaluate"><code class="docutils literal notranslate"><span class="pre">Network.batch_evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network.batch_fit"><code class="docutils literal notranslate"><span class="pre">Network.batch_fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network.batch_loss"><code class="docutils literal notranslate"><span class="pre">Network.batch_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network.batch_predict"><code class="docutils literal notranslate"><span class="pre">Network.batch_predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.model.Network.batch_train"><code class="docutils literal notranslate"><span class="pre">Network.batch_train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.processor">cinnamon_generic.components.processor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.Processor"><code class="docutils literal notranslate"><span class="pre">Processor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.Processor.finalize"><code class="docutils literal notranslate"><span class="pre">Processor.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.Processor.process"><code class="docutils literal notranslate"><span class="pre">Processor.process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.Processor.run"><code class="docutils literal notranslate"><span class="pre">Processor.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.ProcessorPipeline"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.ProcessorPipeline.finalize"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline.finalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.processor.ProcessorPipeline.run"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.routine">cinnamon_generic.components.routine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.CVRoutine"><code class="docutils literal notranslate"><span class="pre">CVRoutine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.CVRoutine.run"><code class="docutils literal notranslate"><span class="pre">CVRoutine.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.Routine"><code class="docutils literal notranslate"><span class="pre">Routine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.Routine.routine_step"><code class="docutils literal notranslate"><span class="pre">Routine.routine_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.Routine.run"><code class="docutils literal notranslate"><span class="pre">Routine.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.TrainAndTestRoutine"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.TrainAndTestRoutine.routine_step"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine.routine_step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine.TrainAndTestRoutine.run"><code class="docutils literal notranslate"><span class="pre">TrainAndTestRoutine.run()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components.routine_processor">cinnamon_generic.components.routine_processor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.AverageProcessor"><code class="docutils literal notranslate"><span class="pre">AverageProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.AverageProcessor.accumulate"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.accumulate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.AverageProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.aggregate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.AverageProcessor.process"><code class="docutils literal notranslate"><span class="pre">AverageProcessor.process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.FoldProcessor"><code class="docutils literal notranslate"><span class="pre">FoldProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.FoldProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">FoldProcessor.aggregate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.RoutineProcessor"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.RoutineProcessor.accumulate"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor.accumulate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.components.html#cinnamon_generic.components.routine_processor.RoutineProcessor.aggregate"><code class="docutils literal notranslate"><span class="pre">RoutineProcessor.aggregate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.components.html#module-cinnamon_generic.components">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.configurations.html">cinnamon_generic.configurations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.calibrator">cinnamon_generic.configurations.calibrator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.CalibratorConfig"><code class="docutils literal notranslate"><span class="pre">CalibratorConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.CalibratorConfig.get_default"><code class="docutils literal notranslate"><span class="pre">CalibratorConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.HyperoptCalibratorConfig"><code class="docutils literal notranslate"><span class="pre">HyperoptCalibratorConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.HyperoptCalibratorConfig.get_default"><code class="docutils literal notranslate"><span class="pre">HyperoptCalibratorConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.NonTunableConfigurationException"><code class="docutils literal notranslate"><span class="pre">NonTunableConfigurationException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.RandomSearchCalibratorConfig"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibratorConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.RandomSearchCalibratorConfig.get_default"><code class="docutils literal notranslate"><span class="pre">RandomSearchCalibratorConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.TunableConfiguration"><code class="docutils literal notranslate"><span class="pre">TunableConfiguration</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.TunableConfiguration.get_default"><code class="docutils literal notranslate"><span class="pre">TunableConfiguration.get_default()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.TunableConfiguration.get_search_space"><code class="docutils literal notranslate"><span class="pre">TunableConfiguration.get_search_space()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.UnsetCalibrationConfigurationException"><code class="docutils literal notranslate"><span class="pre">UnsetCalibrationConfigurationException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.calibrator.register_calibrators"><code class="docutils literal notranslate"><span class="pre">register_calibrators()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.data_loader">cinnamon_generic.configurations.data_loader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.data_loader.DataLoaderConfig"><code class="docutils literal notranslate"><span class="pre">DataLoaderConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.data_loader.DataLoaderConfig.get_default"><code class="docutils literal notranslate"><span class="pre">DataLoaderConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.file_manager">cinnamon_generic.configurations.file_manager module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.file_manager.FileManagerConfig"><code class="docutils literal notranslate"><span class="pre">FileManagerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.file_manager.FileManagerConfig.get_default"><code class="docutils literal notranslate"><span class="pre">FileManagerConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.file_manager.register_file_managers"><code class="docutils literal notranslate"><span class="pre">register_file_managers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.helper">cinnamon_generic.configurations.helper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.helper.register_helper_configurations"><code class="docutils literal notranslate"><span class="pre">register_helper_configurations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.metrics">cinnamon_generic.configurations.metrics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.metrics.LambdaMetricConfig"><code class="docutils literal notranslate"><span class="pre">LambdaMetricConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.metrics.LambdaMetricConfig.get_default"><code class="docutils literal notranslate"><span class="pre">LambdaMetricConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.metrics.MetricConfig"><code class="docutils literal notranslate"><span class="pre">MetricConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.metrics.MetricConfig.get_default"><code class="docutils literal notranslate"><span class="pre">MetricConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.routine">cinnamon_generic.configurations.routine module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.routine.RoutineConfig"><code class="docutils literal notranslate"><span class="pre">RoutineConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.routine.RoutineConfig.get_default"><code class="docutils literal notranslate"><span class="pre">RoutineConfig.get_default()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations.routine_processor">cinnamon_generic.configurations.routine_processor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.configurations.html#cinnamon_generic.configurations.routine_processor.register_routine_processor"><code class="docutils literal notranslate"><span class="pre">register_routine_processor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.configurations.html#module-cinnamon_generic.configurations">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.nlp.html">cinnamon_generic.nlp package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.nlp.components.html">cinnamon_generic.nlp.components package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.components.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.components.html#module-cinnamon_generic.nlp.components.processor">cinnamon_generic.nlp.components.processor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.components.html#module-cinnamon_generic.nlp.components">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html">cinnamon_generic.nlp.configurations package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html#module-cinnamon_generic.nlp.configurations.processor">cinnamon_generic.nlp.configurations.processor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html#module-cinnamon_generic.nlp.configurations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.html#module-cinnamon_generic.nlp">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-cinnamon_generic">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cinnamon_generic" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="commands.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Commands</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cinnamon_generic.api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">cinnamon_generic.api package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/cinnamon_generic.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Federico Ruggeri.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

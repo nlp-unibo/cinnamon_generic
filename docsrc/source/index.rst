@@ -1,11 +1,16 @@
-# Cinnamon Generic 
+.. cinnamon-generic
+
+Cinnamon Generic Package
+================================================
 
 The generic package offers several ``Component`` and related ``Configuration`` for machine-learning.
 
 Additionally, it provides the first set of **commands**: high-level APIs for speeding up cinnamon registration.
 
-## Components and Configurations
 
+===============================================
+Components and Configurations
+===============================================
 
 The generic package defines ``Component`` and ``Configuration`` for
 
@@ -21,7 +26,9 @@ The generic package defines ``Component`` and ``Configuration`` for
 - Data processors
 - Model validation routines: train and test, cross-validation
 
-## Commands
+===============================================
+Commands
+===============================================
 
 Commands are syntactic sugar for several cinnamon operations.
 
@@ -36,20 +43,37 @@ Other commands are more specific to the generic package:
 - Running multiple ``Routine`` components in sequential fashion.
 - Running a ``Calibrator`` component.
 
-## Install
+===============================================
+Install
+===============================================
 
 pip
+   .. code-block:: bash
 
       pip install cinnamon-generic
 
 git
+   .. code-block:: bash
 
       git clone https://github.com/federicoruggeri/cinnamon_generic
 
 
-## Contact
+.. toctree::
+   :maxdepth: 4
+   :hidden:
+   :caption: Contents:
+   :titlesonly:
 
-Don't hesitate to contact:
-- Federico Ruggeri @ [federico.ruggeri6@unibo.it](mailto:federico.ruggeri6@unibo.it)
-
-for questions/doubts/issues!
+   Calibration <calibration.rst>
+   Callback <callback.rst>
+   Data Loader <data_loader.rst>
+   Data Splitter <data_splitter.rst>
+   File Manager <file_manager.rst>
+   Helper   <helper.rst>
+   Metrics <metrics.rst>
+   Model <model.rst>
+   Pipeline <pipeline.rst>
+   Data Processor <processor.rst>
+   Routines <routine.rst>
+   Commands <commands.rst>
+   cinnamon-generic <cinnamon_generic.rst>
