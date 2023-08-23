@@ -63,3 +63,126 @@ Cinnamon provides the following implementations:
 
 - ``AverageProcessor``: computes average and std for each loss and metric.
 - ``FoldProcessor``: computes average and std for each loss and metric over cross-validation folds.
+
+
+*************************************
+NLP Text Processors
+*************************************
+
+The ``cinnamon-generic`` package also provides NLP-specific ``Processor``.
+
+Cinnamon provides the following implementations:
+
+- ``TextProcessor``: A ``Processor`` for processing general-purpose text.
+- ``TokenizerProcessor``: A ``Processor`` specialized in processing text data via a tokenizer.
+
+
+-----------------------------
+``TextProcessor``
+-----------------------------
+
+The ``TextProcessor`` is a general-purpose text processor that can support multiple input texts.
+
+Input texts are retrieved from input ``FieldDict`` by search ``Field`` with ``text`` tag.
+Subsequently, each text input is processed and the updated ``FieldDict`` is returned.
+
+.. warning::
+    The ``TextProcessor`` performs updates input data text fields in place.
+
+The ``TextProcessor`` uses ``TextProcessorConfig`` as default configuration template.
+
+.. code-block:: python
+
+    class TextProcessorConfig(TunableConfiguration):
+
+        @classmethod
+        def get_default(
+                cls
+        ):
+            config = super().get_default()
+
+            config.add(name='filters',
+                       affects_serialization=True,
+                       type_hint=Optional[List[Callable]],
+                       description='List of filter functions that accept a text as input')
+
+            return config
+
+Filters are applied in sequence to each text sample of each text field in input data.
+
+-----------------------------
+``TokenizerProcessor``
+-----------------------------
+
+The ``TokenizerProcessor`` processes input data via an internal tokenizer.
+If ``is_training_data = True``, input data is used to first fit the tokenizer.
+
+Similarly to ``TextProcessor``, ``TokenizerProcessor`` retrieves all text fields via ``text`` tag and feeds them to its internal tokenizer.
+
+Moreover, ``TokenizerProcessor`` supports pre-trained embedding models loading to build the corresponding embedding matrix.
+In particular, the embedding matrix is computed after ``finalize()`` is invoked.
+
+.. note::
+    This is done since the ``TokenizerProcessor`` may fit on multiple data sources. It is the user's responsibility to notify ``TokenizerProcessor`` when the embedding matrix can be computed by invoking ``finalize()``.
+
+The ``TokenizerProcessor`` uses ``TokenizerProcessorConfig`` as default configuration template.
+
+.. code-block:: python
+
+    class TokenizerProcessorConfig(TunableConfiguration):
+
+        @classmethod
+        def get_default(
+                cls
+        ):
+            config = super().get_default()
+
+            config.add(name='fit_on_train_only',
+                       value=True,
+                       affects_serialization=True,
+                       type_hint=bool,
+                       description='If disabled, the tokenizer builds its vocabulary on all available data')
+
+            config.add(name='merge_vocabularies',
+                       value=False,
+                       affects_serialization=True,
+                       type_hint=bool,
+                       description="If enabled, the pre-trained embedding model and input "
+                                   "data vocabularies are merged.")
+
+            config.add(name='embedding_dimension',
+                       value=50,
+                       affects_serialization=True,
+                       type_hint=int,
+                       description='Embedding dimension for text conversion')
+
+            config.add(name='embedding_type',
+                       affects_serialization=True,
+                       type_hint=Optional[str],
+                       description='Pre-trained embedding model type (if any)',
+                       allowed_range=lambda emb_type: emb_type in {
+                           "word2vec-google-news-300",
+                           "glove-wiki-gigaword-50",
+                           "glove-wiki-gigaword-100",
+                           "glove-wiki-gigaword-200",
+                           "glove-wiki-gigaword-300",
+                           "fasttext-wiki-news-subwords-300"
+                       })
+
+            config.add_condition(name='valid_embedding_model',
+                                 condition=lambda parameters: parameters.embedding_type is None
+                                                              or (parameters.embedding_type is not None
+                                                                  and str(parameters.embedding_dimension)
+                                                                  in parameters.embedding_type))
+
+            return config
+
+
+***************************
+Registered configurations
+***************************
+
+The ``cinnamon-generic`` package provides the following registered configurations:
+
+- ``name='processor', tags={'text'}, namespace='generic'``: the default ``TextProcessor``.
+- ``name='processor', tags={'text', 'tokenizer'}, namespace='generic'``: the default ``TokenizerProcessor``.

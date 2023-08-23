@@ -31,3 +31,11 @@ Helper
 --------------------
 
 - ``name='helper', tags={'default'}, namespace='generic'``: the default ``Helper``.
+
+
+--------------------
+Processor
+--------------------
+
+- ``name='processor', tags={'text'}, namespace='generic'``: the default ``TextProcessor``.
+- ``name='processor', tags={'text', 'tokenizer'}, namespace='generic'``: the default ``TokenizerProcessor``.

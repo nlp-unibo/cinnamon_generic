@@ -217,6 +217,13 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -392,6 +399,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -522,6 +536,113 @@ Nonetheless, a <code class="docutils literal notranslate"><span class="pre">Proc
 <li><p><code class="docutils literal notranslate"><span class="pre">FoldProcessor</span></code>: computes average and std for each loss and metric over cross-validation folds.</p></li>
 </ul>
 </section>
+<section id="nlp-text-processors">
+<h3>NLP Text Processors<a class="headerlink" href="#nlp-text-processors" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> package also provides NLP-specific <code class="docutils literal notranslate"><span class="pre">Processor</span></code>.</p>
+<p>Cinnamon provides the following implementations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code>: A <code class="docutils literal notranslate"><span class="pre">Processor</span></code> for processing general-purpose text.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code>: A <code class="docutils literal notranslate"><span class="pre">Processor</span></code> specialized in processing text data via a tokenizer.</p></li>
+</ul>
+</section>
+</section>
+<section id="textprocessor">
+<h2><code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code><a class="headerlink" href="#textprocessor" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code> is a general-purpose text processor that can support multiple input texts.</p>
+<p>Input texts are retrieved from input <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> by search <code class="docutils literal notranslate"><span class="pre">Field</span></code> with <code class="docutils literal notranslate"><span class="pre">text</span></code> tag.
+Subsequently, each text input is processed and the updated <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> is returned.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code> performs updates input data text fields in place.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code> uses <code class="docutils literal notranslate"><span class="pre">TextProcessorConfig</span></code> as default configuration template.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TextProcessorConfig</span><span class="p">(</span><span class="n">TunableConfiguration</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span>
+            <span class="bp">cls</span>
+    <span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;filters&#39;</span><span class="p">,</span>
+                   <span class="n">affects_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Callable</span><span class="p">]],</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;List of filter functions that accept a text as input&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">config</span>
+</pre></div>
+</div>
+<p>Filters are applied in sequence to each text sample of each text field in input data.</p>
+</section>
+<section id="tokenizerprocessor">
+<h2><code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code><a class="headerlink" href="#tokenizerprocessor" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> processes input data via an internal tokenizer.
+If <code class="docutils literal notranslate"><span class="pre">is_training_data</span> <span class="pre">=</span> <span class="pre">True</span></code>, input data is used to first fit the tokenizer.</p>
+<p>Similarly to <code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code>, <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> retrieves all text fields via <code class="docutils literal notranslate"><span class="pre">text</span></code> tag and feeds them to its internal tokenizer.</p>
+<p>Moreover, <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> supports pre-trained embedding models loading to build the corresponding embedding matrix.
+In particular, the embedding matrix is computed after <code class="docutils literal notranslate"><span class="pre">finalize()</span></code> is invoked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is done since the <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> may fit on multiple data sources. It is the user’s responsibility to notify <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> when the embedding matrix can be computed by invoking <code class="docutils literal notranslate"><span class="pre">finalize()</span></code>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code> uses <code class="docutils literal notranslate"><span class="pre">TokenizerProcessorConfig</span></code> as default configuration template.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TokenizerProcessorConfig</span><span class="p">(</span><span class="n">TunableConfiguration</span><span class="p">):</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span>
+            <span class="bp">cls</span>
+    <span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;fit_on_train_only&#39;</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">affects_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;If disabled, the tokenizer builds its vocabulary on all available data&#39;</span><span class="p">)</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;merge_vocabularies&#39;</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">affects_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;If enabled, the pre-trained embedding model and input &quot;</span>
+                               <span class="s2">&quot;data vocabularies are merged.&quot;</span><span class="p">)</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;embedding_dimension&#39;</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                   <span class="n">affects_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Embedding dimension for text conversion&#39;</span><span class="p">)</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;embedding_type&#39;</span><span class="p">,</span>
+                   <span class="n">affects_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+                   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Pre-trained embedding model type (if any)&#39;</span><span class="p">,</span>
+                   <span class="n">allowed_range</span><span class="o">=</span><span class="k">lambda</span> <span class="n">emb_type</span><span class="p">:</span> <span class="n">emb_type</span> <span class="ow">in</span> <span class="p">{</span>
+                       <span class="s2">&quot;word2vec-google-news-300&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;glove-wiki-gigaword-50&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;glove-wiki-gigaword-100&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;glove-wiki-gigaword-200&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;glove-wiki-gigaword-300&quot;</span><span class="p">,</span>
+                       <span class="s2">&quot;fasttext-wiki-news-subwords-300&quot;</span>
+                   <span class="p">})</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">add_condition</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;valid_embedding_model&#39;</span><span class="p">,</span>
+                             <span class="n">condition</span><span class="o">=</span><span class="k">lambda</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="o">.</span><span class="n">embedding_type</span> <span class="ow">is</span> <span class="kc">None</span>
+                                                          <span class="ow">or</span> <span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">embedding_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                                                              <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">embedding_dimension</span><span class="p">)</span>
+                                                              <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">embedding_type</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">config</span>
+</pre></div>
+</div>
+<section id="registered-configurations">
+<h3>Registered configurations<a class="headerlink" href="#registered-configurations" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> package provides the following registered configurations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name='processor',</span> <span class="pre">tags={'text'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name='processor',</span> <span class="pre">tags={'text',</span> <span class="pre">'tokenizer'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code>.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -574,6 +695,12 @@ Nonetheless, a <code class="docutils literal notranslate"><span class="pre">Proc
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#processorpipeline"><code class="docutils literal notranslate"><span class="pre">ProcessorPipeline</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#routine-processors">Routine Processors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nlp-text-processors">NLP Text Processors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#textprocessor"><code class="docutils literal notranslate"><span class="pre">TextProcessor</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenizerprocessor"><code class="docutils literal notranslate"><span class="pre">TokenizerProcessor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registered-configurations">Registered configurations</a></li>
 </ul>
 </li>
 </ul>
