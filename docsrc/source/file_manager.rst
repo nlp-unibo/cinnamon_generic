@@ -94,3 +94,12 @@ The ``FileManager`` uses the ``FileManagerConfig`` as the default configuration 
                                    "run folders and registration keys.")
 
             return config
+
+
+***************************
+Registered configurations
+***************************
+
+The ``cinnamon-generic`` package provides the following registered configurations:
+
+- ``name='file_manager', tags={'default'}, namespace='generic'``: the default ``FileManager``.

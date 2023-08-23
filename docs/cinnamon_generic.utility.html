@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>File Manager &#8212; Cinnamon Generic</title>
+    <title>cinnamon_generic.utility package &#8212; Cinnamon Generic</title>
   
   
   
@@ -41,11 +41,9 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'file_manager';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cinnamon_generic.utility';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Framework Helper" href="helper.html" />
-    <link rel="prev" title="Data Splitter" href="data_splitter.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -155,8 +153,8 @@
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
                         File Manager
                       </a>
                     </li>
@@ -212,13 +210,6 @@
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="commands.html">
                         Commands
-                      </a>
-                    </li>
-                
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="catalog.html">
-                        Catalog
                       </a>
                     </li>
                 
@@ -337,8 +328,8 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
                         File Manager
                       </a>
                     </li>
@@ -394,13 +385,6 @@ document.write(`
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="commands.html">
                         Commands
-                      </a>
-                    </li>
-                
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="catalog.html">
-                        Catalog
                       </a>
                     </li>
                 
@@ -470,7 +454,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">File Manager</li>
+    <li class="breadcrumb-item active" aria-current="page">cinnamon_generic.utility package</li>
   </ul>
 </nav>
 </div>
@@ -487,99 +471,45 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="file-manager">
-<span id="id1"></span><h1>File Manager<a class="headerlink" href="#file-manager" title="Permalink to this heading">#</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that handles file and folder paths.</p>
-<p>Given the cinnamon recommended <a class="reference external" href="https://federicoruggeri.github.io/cinnamon_core/dependencies.html">Code Organization</a>, a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that allows quick file retrieval and management in the project comes at hand.
-This <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">``FileManager</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> receives a filepath and updates it according to its initialized <code class="docutils literal notranslate"><span class="pre">base_directory</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_folder</span> <span class="o">=</span> <span class="s1">&#39;my_folder&#39;</span>
-<span class="n">my_folder</span> <span class="o">=</span> <span class="n">file_manager</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">my_folder</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">my_folder</span><span class="p">)</span>        <span class="c1"># path/to/base_directory/my_folder/</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> uses the <code class="docutils literal notranslate"><span class="pre">FileManagerConfig</span></code> as the default configuration template:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FileManagerConfig</span><span class="p">(</span><span class="n">Configuration</span><span class="p">):</span>
+  <section id="cinnamon-generic-utility-package">
+<h1>cinnamon_generic.utility package<a class="headerlink" href="#cinnamon-generic-utility-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-cinnamon_generic.utility.printing_utility">
+<span id="cinnamon-generic-utility-printing-utility-module"></span><h2>cinnamon_generic.utility.printing_utility module<a class="headerlink" href="#module-cinnamon_generic.utility.printing_utility" title="Permalink to this heading">#</a></h2>
+<p>Mainly inspired from how ParlAI shows results</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="cinnamon_generic.utility.printing_utility.float_formatter">
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.utility.printing_utility.</span></span><span class="sig-name descname"><span class="pre">float_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.utility.printing_utility.float_formatter" title="Permalink to this definition">#</a></dt>
+<dd><p>Format a float as a pretty string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span>
-            <span class="bp">cls</span>
-    <span class="p">):</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+<dl class="py function">
+<dt class="sig sig-object py" id="cinnamon_generic.utility.printing_utility.general_formatter">
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.utility.printing_utility.</span></span><span class="sig-name descname"><span class="pre">general_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.utility.printing_utility.general_formatter" title="Permalink to this definition">#</a></dt>
+<dd><p>Formatter for non-hashable types like list and dict</p>
+</dd></dl>
 
-        <span class="c1"># Directories</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;logging_directory&#39;</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;logging&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for library logger&quot;</span><span class="p">)</span>
+<dl class="py function">
+<dt class="sig sig-object py" id="cinnamon_generic.utility.printing_utility.prettify_statistics">
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.utility.printing_utility.</span></span><span class="sig-name descname"><span class="pre">prettify_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">statistics</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_non_floats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.utility.printing_utility.prettify_statistics" title="Permalink to this definition">#</a></dt>
+<dd><p>Prettifies input statistics (in dict format) for visualization purposes.</p>
+</dd></dl>
 
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;dataset_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;datasets&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing datasets&quot;</span><span class="p">)</span>
+<dl class="py function">
+<dt class="sig sig-object py" id="cinnamon_generic.utility.printing_utility.prettify_value">
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.utility.printing_utility.</span></span><span class="sig-name descname"><span class="pre">prettify_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.utility.printing_utility.prettify_value" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;registrations_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;registrations&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing components and configurations registrations&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibrations_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibrations&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing calibrated configurations&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibration_runs_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibration_runs&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing calibration tasks&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;routine_data_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;routine_data&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name where pre-computed routine data &quot;</span>
-                               <span class="s2">&quot;(e.g., pre-built cv folds) is stored&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;runs_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;runs&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name where Component results are stored&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Filenames</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;logging_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;daily_log.log&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename for logging&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibration_results_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibration_results.json&#39;</span><span class="p">,</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename of summary file storing calibrated model configurations.&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;run_tracker_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;runs_info.csv&#39;</span><span class="p">,</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename of summary file storing mapping between &quot;</span>
-                               <span class="s2">&quot;run folders and registration keys.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">config</span>
-</pre></div>
-</div>
-<section id="registered-configurations">
-<h2>Registered configurations<a class="headerlink" href="#registered-configurations" title="Permalink to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> package provides the following registered configurations:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">name='file_manager',</span> <span class="pre">tags={'default'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">FileManager</span></code>.</p></li>
-</ul>
+</section>
+<section id="module-cinnamon_generic.utility">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cinnamon_generic.utility" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -594,24 +524,6 @@ This <code class="docutils literal notranslate"><span class="pre">Component</spa
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="data_splitter.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Splitter</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="helper.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Framework Helper</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div></div>
   
 </div>
@@ -630,13 +542,21 @@ This <code class="docutils literal notranslate"><span class="pre">Component</spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registered-configurations">Registered configurations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.utility.printing_utility">cinnamon_generic.utility.printing_utility module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.utility.printing_utility.float_formatter"><code class="docutils literal notranslate"><span class="pre">float_formatter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.utility.printing_utility.general_formatter"><code class="docutils literal notranslate"><span class="pre">general_formatter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.utility.printing_utility.prettify_statistics"><code class="docutils literal notranslate"><span class="pre">prettify_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.utility.printing_utility.prettify_value"><code class="docutils literal notranslate"><span class="pre">prettify_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.utility">Module contents</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="_sources/file_manager.rst.txt">
+    <a href="_sources/cinnamon_generic.utility.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

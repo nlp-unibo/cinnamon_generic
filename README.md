@@ -46,6 +46,13 @@ git
 
       git clone https://github.com/federicoruggeri/cinnamon_generic
 
+## Contribute
+
+Want to contribute with new ``Component`` and ``Configuration``?
+
+Feel free to submit a merge request! 
+
+Cinnamon is meant to be a community project :)
 
 ## Contact
 

@@ -217,6 +217,13 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -392,6 +399,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -543,29 +557,29 @@ document.write(`
 <p>The <code class="docutils literal notranslate"><span class="pre">search_space</span></code> parameter is the <strong>one</strong> and <strong>only</strong> parameter needed.</p>
 </div>
 <p>Subsequently, we define our component’s <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>, inheriting from <code class="docutils literal notranslate"><span class="pre">TunableConfiguration</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   class MyConfig(TunableConfiguration):
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyConfig</span><span class="p">(</span><span class="n">TunableConfiguration</span><span class="p">):</span>
 
-       @classmethod
-       def get_default(
-               cls
-       ):
-           config = super().get_default()
-           config.add(name=&#39;param1&#39;,
-                      value=1,
-                      type_hint=int)
-           config.add(name=&#39;param2&#39;,
-                      value=True,
-                      type_hint=bool)
-           config.calibration_config = RegistrationKey(name=&#39;calibration&#39;,
-                                                       tags={&#39;config_a&#39;},
-                                                       namespace=&#39;testing&#39;)
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span>
+            <span class="bp">cls</span>
+    <span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;param1&#39;</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;param2&#39;</span><span class="p">,</span>
+                   <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">calibration_config</span> <span class="o">=</span> <span class="n">RegistrationKey</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibration&#39;</span><span class="p">,</span>
+                                                    <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;config_a&#39;</span><span class="p">},</span>
+                                                    <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;testing&#39;</span><span class="p">)</span>
 
-           return config
-
-
-.. note::
-   We have to set the ``calibration_config`` parameter  to point to our **registered** calibration configuration.
+        <span class="k">return</span> <span class="n">config</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have to set the <code class="docutils literal notranslate"><span class="pre">calibration_config</span></code> parameter  to point to our <strong>registered</strong> calibration configuration.</p>
 </div>
 <p>We can quickly retrieve the search space of <code class="docutils literal notranslate"><span class="pre">MyConfig</span></code> by invoking the <code class="docutils literal notranslate"><span class="pre">get_search_space()</span></code> instance method</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="n">MyConfig</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
@@ -786,6 +800,15 @@ The <code class="docutils literal notranslate"><span class="pre">Calibrator</spa
         <span class="k">return</span> <span class="n">config</span>
 </pre></div>
 </div>
+<section id="registered-configurations">
+<h3>Registered configurations<a class="headerlink" href="#registered-configurations" title="Permalink to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> package provides the following registered configurations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'grid'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'random'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">RandomSearchCalibrator</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'hyperopt'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator</span></code>.</p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -839,7 +862,10 @@ The <code class="docutils literal notranslate"><span class="pre">Calibrator</spa
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-a-hyper-parameter-search-space">Defining a hyper-parameter search space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcalibrator">GridSearchCalibrator</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#randomsearchcalibrator">RandomSearchCalibrator</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperoptcalibrator">HyperOptCalibrator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperoptcalibrator">HyperOptCalibrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registered-configurations">Registered configurations</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

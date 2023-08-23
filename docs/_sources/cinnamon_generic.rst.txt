@@ -11,6 +11,7 @@ Subpackages
    cinnamon_generic.components
    cinnamon_generic.configurations
    cinnamon_generic.nlp
+   cinnamon_generic.utility
 
 Module contents
 ---------------

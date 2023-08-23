@@ -10,3 +10,12 @@ This general ``Helper`` component expects an input seed to fix numpy and random 
 .. code-block:: python
 
     helper.run(seed=42)
+
+
+***************************
+Registered configurations
+***************************
+
+The ``cinnamon-generic`` package provides the following registered configurations:
+
+- ``name='helper', tags={'default'}, namespace='generic'``: the default ``Helper``.

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>File Manager &#8212; Cinnamon Generic</title>
+    <title>Available Configuration &#8212; Cinnamon Generic</title>
   
   
   
@@ -41,11 +41,11 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'file_manager';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'catalog';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Framework Helper" href="helper.html" />
-    <link rel="prev" title="Data Splitter" href="data_splitter.html" />
+    <link rel="next" title="cinnamon_generic package" href="cinnamon_generic.html" />
+    <link rel="prev" title="Commands" href="commands.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -155,8 +155,8 @@
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
                         File Manager
                       </a>
                     </li>
@@ -216,8 +216,8 @@
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="catalog.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Catalog
                       </a>
                     </li>
@@ -337,8 +337,8 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="file_manager.html">
                         File Manager
                       </a>
                     </li>
@@ -398,8 +398,8 @@ document.write(`
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="catalog.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Catalog
                       </a>
                     </li>
@@ -470,7 +470,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">File Manager</li>
+    <li class="breadcrumb-item active" aria-current="page">Available <code class="docutils literal notranslate"><span class="pre">Configuration</span></code></li>
   </ul>
 </nav>
 </div>
@@ -487,98 +487,33 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="file-manager">
-<span id="id1"></span><h1>File Manager<a class="headerlink" href="#file-manager" title="Permalink to this heading">#</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that handles file and folder paths.</p>
-<p>Given the cinnamon recommended <a class="reference external" href="https://federicoruggeri.github.io/cinnamon_core/dependencies.html">Code Organization</a>, a <code class="docutils literal notranslate"><span class="pre">Component</span></code> that allows quick file retrieval and management in the project comes at hand.
-This <code class="docutils literal notranslate"><span class="pre">Component</span> <span class="pre">is</span> <span class="pre">the</span> <span class="pre">``FileManager</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> receives a filepath and updates it according to its initialized <code class="docutils literal notranslate"><span class="pre">base_directory</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_folder</span> <span class="o">=</span> <span class="s1">&#39;my_folder&#39;</span>
-<span class="n">my_folder</span> <span class="o">=</span> <span class="n">file_manager</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">my_folder</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">my_folder</span><span class="p">)</span>        <span class="c1"># path/to/base_directory/my_folder/</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">FileManager</span></code> uses the <code class="docutils literal notranslate"><span class="pre">FileManagerConfig</span></code> as the default configuration template:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FileManagerConfig</span><span class="p">(</span><span class="n">Configuration</span><span class="p">):</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span>
-            <span class="bp">cls</span>
-    <span class="p">):</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
-
-        <span class="c1"># Directories</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;logging_directory&#39;</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;logging&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for library logger&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;dataset_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;datasets&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing datasets&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;registrations_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;registrations&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing components and configurations registrations&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibrations_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibrations&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing calibrated configurations&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibration_runs_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibration_runs&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name for storing calibration tasks&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;routine_data_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;routine_data&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name where pre-computed routine data &quot;</span>
-                               <span class="s2">&quot;(e.g., pre-built cv folds) is stored&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;runs_directory&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;runs&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;directory&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;directory name where Component results are stored&quot;</span><span class="p">)</span>
-
-        <span class="c1"># Filenames</span>
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;logging_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;daily_log.log&#39;</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename for logging&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;calibration_results_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;calibration_results.json&#39;</span><span class="p">,</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename of summary file storing calibrated model configurations.&quot;</span><span class="p">)</span>
-
-        <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;run_tracker_filename&#39;</span><span class="p">,</span>
-                   <span class="n">type_hint</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
-                   <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">},</span>
-                   <span class="n">value</span><span class="o">=</span><span class="s1">&#39;runs_info.csv&#39;</span><span class="p">,</span>
-                   <span class="n">description</span><span class="o">=</span><span class="s2">&quot;filename of summary file storing mapping between &quot;</span>
-                               <span class="s2">&quot;run folders and registration keys.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">config</span>
-</pre></div>
-</div>
-<section id="registered-configurations">
-<h2>Registered configurations<a class="headerlink" href="#registered-configurations" title="Permalink to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> package provides the following registered configurations:</p>
+  <section id="available-configuration">
+<span id="catalog"></span><h1>Available <code class="docutils literal notranslate"><span class="pre">Configuration</span></code><a class="headerlink" href="#available-configuration" title="Permalink to this heading">#</a></h1>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">cinnamon-generic</span></code> provides the following registered <code class="docutils literal notranslate"><span class="pre">Configuration</span></code>.</p>
+<section id="calibrator">
+<h2>Calibrator<a class="headerlink" href="#calibrator" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'grid'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">GridSearchCalibrator</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'random'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">RandomSearchCalibrator</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name='calibrator',</span> <span class="pre">tags={'hyperopt'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">HyperOptCalibrator</span></code>.</p></li>
+</ul>
+</section>
+<section id="data-splitter">
+<h2>Data Splitter<a class="headerlink" href="#data-splitter" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name='data_splitter',</span> <span class="pre">tags={'tt',</span> <span class="pre">'sklearn'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">TTSplitter</span></code>.</p></li>
+</ul>
+</section>
+<section id="file-manager">
+<h2>File Manager<a class="headerlink" href="#file-manager" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">name='file_manager',</span> <span class="pre">tags={'default'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">FileManager</span></code>.</p></li>
+</ul>
+</section>
+<section id="helper">
+<h2>Helper<a class="headerlink" href="#helper" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name='helper',</span> <span class="pre">tags={'default'},</span> <span class="pre">namespace='generic'</span></code>: the default <code class="docutils literal notranslate"><span class="pre">Helper</span></code>.</p></li>
 </ul>
 </section>
 </section>
@@ -595,20 +530,20 @@ This <code class="docutils literal notranslate"><span class="pre">Component</spa
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="data_splitter.html"
+       href="commands.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Splitter</p>
+        <p class="prev-next-title">Commands</p>
       </div>
     </a>
     <a class="right-next"
-       href="helper.html"
+       href="cinnamon_generic.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Framework Helper</p>
+        <p class="prev-next-title">cinnamon_generic package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -630,13 +565,16 @@ This <code class="docutils literal notranslate"><span class="pre">Component</spa
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#registered-configurations">Registered configurations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrator">Calibrator</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-splitter">Data Splitter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#file-manager">File Manager</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#helper">Helper</a></li>
 </ul>
   </nav></div>
 
   <div class="sidebar-secondary-item">
   <div class="tocsection sourcelink">
-    <a href="_sources/file_manager.rst.txt">
+    <a href="_sources/catalog.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

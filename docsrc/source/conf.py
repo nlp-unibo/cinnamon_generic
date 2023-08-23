@@ -19,7 +19,7 @@ sys.path.insert(0, Path(__file__).absolute().parent.parent.as_posix())
 
 # -- Project information -----------------------------------------------------
 
-project = 'deasy_learning_generic'
+project = 'cinnamon_generic'
 copyright = '2023, Federico Ruggeri'
 author = 'Federico Ruggeri'
 

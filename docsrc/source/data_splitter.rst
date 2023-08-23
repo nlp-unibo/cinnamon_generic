@@ -209,3 +209,12 @@ The ``SklearnTTSplitter`` simply wraps the ``train_test_split`` function of `skl
 
 .. note::
     The ``SklearnTTSplitter is not a ``Component``! It is just an ordinary python class.
+
+
+***************************
+Registered configurations
+***************************
+
+The ``cinnamon-generic`` package provides the following registered configurations:
+
+- ``name='data_splitter', tags={'tt', 'sklearn'}, namespace='generic'``: the default ``TTSplitter``.

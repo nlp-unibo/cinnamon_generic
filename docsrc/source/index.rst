@@ -57,6 +57,25 @@ git
 
       git clone https://github.com/federicoruggeri/cinnamon_generic
 
+===============================================
+Contribute
+===============================================
+
+Want to contribute with new ``Component`` and ``Configuration``?
+
+Feel free to submit a merge request!
+
+Cinnamon is meant to be a community project :)
+
+===============================================
+Contact
+===============================================
+
+Don't hesitate to contact:
+- `Federico Ruggeri <federico.ruggeri6@unibo.it>`_
+
+for questions/doubts/issues!
+
 
 .. toctree::
    :maxdepth: 4
@@ -76,4 +95,5 @@ git
    Data Processor <processor.rst>
    Routines <routine.rst>
    Commands <commands.rst>
+   Catalog <catalog.rst>
    cinnamon-generic <cinnamon_generic.rst>

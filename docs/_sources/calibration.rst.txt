@@ -103,7 +103,7 @@ Subsequently, we define our component's ``Configuration``, inheriting from ``Tun
             return config
 
 
- .. note::
+.. note::
     We have to set the ``calibration_config`` parameter  to point to our **registered** calibration configuration.
 
 We can quickly retrieve the search space of ``MyConfig`` by invoking the ``get_search_space()`` instance method
@@ -347,3 +347,14 @@ The ``HyperOptCalibrator`` uses the ``HyperOptCalibratorConfig`` as default conf
                                  condition=lambda parameters: parameters.max_evaluations > 0)
 
             return config
+
+
+***************************
+Registered configurations
+***************************
+
+The ``cinnamon-generic`` package provides the following registered configurations:
+
+- ``name='calibrator', tags={'grid'}, namespace='generic'``: the default ``GridSearchCalibrator``.
+- ``name='calibrator', tags={'random'}, namespace='generic'``: the default ``RandomSearchCalibrator``.
+- ``name='calibrator', tags={'hyperopt'}, namespace='generic'``: the default ``HyperOptCalibrator``.
