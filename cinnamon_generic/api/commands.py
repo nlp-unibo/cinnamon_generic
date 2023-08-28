@@ -121,9 +121,9 @@ def serialize_registrations(
         namespaces: if provided, only the registrations under specified namespaces are serialized
         (useful for debugging purposes).
     """
-    file_manager = FileManager.retrieve_built_component(name='file_manager',
-                                                        namespace='generic',
-                                                        is_default=True)
+    file_manager = FileManager.retrieve_component_instance(name='file_manager',
+                                                           namespace='generic',
+                                                           is_default=True)
 
     logging_utility.logger.info(f'Saving registration info to folder: {file_manager.registrations_directory}')
 
@@ -175,9 +175,9 @@ def run_component_from_key(
 
     component = Registry.build_component_from_key(registration_key=registration_key)
 
-    file_manager = FileManager.retrieve_built_component(name='file_manager',
-                                                        namespace='generic',
-                                                        is_default=True)
+    file_manager = FileManager.retrieve_component_instance(name='file_manager',
+                                                           namespace='generic',
+                                                           is_default=True)
 
     if serialize:
         serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,

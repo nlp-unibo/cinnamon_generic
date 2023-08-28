@@ -87,3 +87,19 @@ class RoutineConfig(TunableConfiguration):
                    is_child=True)
 
         return config
+
+
+class CVRoutineConfig(RoutineConfig):
+
+    @classmethod
+    def get_default(
+            cls
+    ):
+        config = super().get_default()
+
+        config.add(name='max_folds',
+                   value=-1,
+                   type_hint=int,
+                   description='Number of folds to consider. '
+                               'If -1, all folds provided by the data splitter will be considered.')
+        return config

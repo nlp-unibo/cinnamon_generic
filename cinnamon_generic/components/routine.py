@@ -1,4 +1,5 @@
 import abc
+import os
 from pathlib import Path
 from typing import AnyStr, List, Union, Optional
 
@@ -368,7 +369,14 @@ class CVRoutine(TrainAndTestRoutine):
                      step_test_data) in enumerate(self.data_splitter.run(train_data=train_data,
                                                                          val_data=val_data,
                                                                          test_data=test_data)):
+                if fold_idx == self.max_folds:
+                    break
+
                 logging_utility.logger.info(f'Fold {fold_idx + 1}')
+
+                logging_utility.logger.info(f'Train size: {len(step_train_data)}{os.linesep}'
+                                            f'Validation size: {len(step_val_data)}{os.linesep}'
+                                            f'Test size: {len(step_test_data)}{os.linesep}')
 
                 if self.callbacks is not None:
                     self.callbacks.run(hookpoint='on_routine_step_begin',
