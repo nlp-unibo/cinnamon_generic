@@ -116,6 +116,7 @@ class AverageProcessor(RoutineProcessor):
         average = df_view['metric_value'].mean()
         average.name = 'average'
         std = df_view['metric_value'].std()
+        std = std.fillna(0.0)
         std.name = 'std'
 
         merged = pd.merge(average, std, left_index=True, right_index=True)

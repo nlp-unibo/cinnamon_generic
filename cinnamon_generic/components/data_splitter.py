@@ -117,8 +117,10 @@ class TTSplitter(Component):
                                                        size=self.validation_size)
             return train_data, val_data, test_data
 
-        train_data, test_data = self.splitter.split(train_data,
-                                                    size=self.test_size)
+        if test_data is None:
+            train_data, test_data = self.splitter.split(train_data,
+                                                        size=self.test_size)
+
         return train_data, val_data, test_data
 
 

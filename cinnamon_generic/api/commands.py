@@ -155,7 +155,8 @@ def run_component_from_key(
         registration_key: Registration,
         serialize: bool = False,
         run_name: Optional[str] = None,
-        run_args: Optional[Dict] = None
+        run_args: Optional[Dict] = None,
+        serialization_path: Optional[Path] = None
 ) -> Tuple[Any, Optional[Path]]:
     """
     Builds and runs a ``Component`` given its registration key in explicit format.
@@ -165,6 +166,7 @@ def run_component_from_key(
         serialize: if True, it enables the serialization process of ``Component`` component during execution.
         run_name: the name of the folder containing run results
         run_args: optional run arguments
+        serialization_path: the path where the results are stored
 
     Returns:
         run_result: the output of ``Component.run()``
@@ -180,23 +182,31 @@ def run_component_from_key(
                                                            is_default=True)
 
     if serialize:
-        serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
-                                                                      create_path=serialize,
-                                                                      key=registration_key)
-        logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
-    else:
-        serialization_path = None
+        if serialization_path is None:
+            serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
+                                                                          create_path=serialize,
+                                                                          key=registration_key)
+            logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
+        else:
+            logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
+            if run_name is not None:
+                file_manager.runs_registry[serialization_path] = serialization_path.with_name(run_name)
 
     run_args = run_args if run_args is not None else {}
     if 'serialization_path' in get_function_signature(component.run) and 'serialization_path' not in run_args:
         run_args['serialization_path'] = serialization_path
+    if 'serialize' in get_function_signature(component.run) and 'serialize' not in run_args:
+        run_args['serialize'] = serialize
     run_result = component.run(**run_args)
 
     if serialize:
         logging_utility.logger.info(f'Serializing Component state to: {serialization_path}')
         component.save(serialization_path=serialization_path)
 
-    if run_name is not None and serialization_path is not None and serialization_path.exists():
+    if run_name is not None \
+            and serialization_path is not None \
+            and serialization_path.exists() \
+            and serialization_path in file_manager.runs_registry:
         replacement_path: Path = file_manager.runs_registry[serialization_path]
         if replacement_path.exists():
             logging_utility.logger.warning(
@@ -204,6 +214,7 @@ def run_component_from_key(
         else:
             serialization_path.rename(replacement_path)
             serialization_path = replacement_path
+            logging_utility.update_logger(replacement_path.joinpath(file_manager.logging_filename))
             logging_utility.logger.info(f'Renaming {serialization_path} to {replacement_path}')
 
     if serialization_path is not None and serialization_path.exists():
@@ -225,7 +236,8 @@ def run_component(
         namespace: str = 'generic',
         serialize: bool = False,
         run_name: Optional[str] = None,
-        run_args: Optional[Dict] = None
+        run_args: Optional[Dict] = None,
+        serialization_path: Optional[Path] = None
 ) -> Tuple[Any, Optional[Path]]:
     """
     Builds and runs a ``Component`` given its registration key in implicit format.
@@ -237,6 +249,7 @@ def run_component(
         serialize: if True, it enables the serialization process of ``Component`` component during execution.
         run_name: the name of the folder containing run results
         run_args: optional run arguments
+        serialization_path: the path where run results are stored
 
     Returns:
         run_result: the output of ``Component.run()``
@@ -249,7 +262,8 @@ def run_component(
     return run_component_from_key(registration_key=key,
                                   serialize=serialize,
                                   run_name=run_name,
-                                  run_args=run_args)
+                                  run_args=run_args,
+                                  serialization_path=serialization_path)
 
 
 def run_components(
@@ -292,8 +306,9 @@ def routine_train(
         namespace: str = 'generic',
         serialize: bool = False,
         run_name: Optional[str] = None,
-        run_args: Optional[Dict] = None
-) -> FieldDict:
+        run_args: Optional[Dict] = None,
+        serialization_path: Optional[Path] = None
+) -> Tuple[FieldDict, Optional[Path]]:
     """
     Builds a ``Routine`` component and runs it in training mode given its registration key in implicit format.
 
@@ -304,6 +319,7 @@ def routine_train(
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
         run_name: the name of the folder containing run results
         run_args: optional run arguments
+        serialization_path: the path where run results are stored
 
     Returns:
         routine_result: the ``Routine`` run results
@@ -312,15 +328,17 @@ def routine_train(
     return routine_train_from_key(routine_key=routine_key,
                                   serialize=serialize,
                                   run_name=run_name,
-                                  run_args=run_args)
+                                  run_args=run_args,
+                                  serialization_path=serialization_path)
 
 
 def routine_train_from_key(
         routine_key: Registration,
         serialize: bool = False,
         run_name: Optional[str] = None,
-        run_args: Optional[Dict] = None
-) -> FieldDict:
+        run_args: Optional[Dict] = None,
+        serialization_path: Optional[Path] = None
+) -> Tuple[FieldDict, Optional[Path]]:
     """
     Builds a ``Routine`` component and runs it in training mode given its registration key in explicit format.
 
@@ -329,6 +347,7 @@ def routine_train_from_key(
         serialize: if True, it enables the serialization process of ``Routine`` component during execution.
         run_name: the name of the folder containing run results
         run_args: optional run arguments
+        serialization_path: the path where run results are stored
 
     Returns:
         routine_result: the ``Routine`` run results
@@ -341,18 +360,19 @@ def routine_train_from_key(
     routine_result, serialization_path = run_component_from_key(registration_key=routine_key,
                                                                 run_name=run_name,
                                                                 serialize=serialize,
-                                                                run_args=run_args)
+                                                                run_args=run_args,
+                                                                serialization_path=serialization_path)
 
     if serialization_path is not None:
         save_json(serialization_path.joinpath('result.json'), routine_result.to_value_dict())
 
-    return routine_result
+    return routine_result, serialization_path
 
 
 def routine_multiple_train(
         routine_keys: List[Registration],
         serialize: bool = False
-) -> List[FieldDict]:
+) -> List[Tuple[FieldDict, Optional[Path]]]:
     """
     Sequentially executes the ``train`` command for each specified ``Routine`` ``RegistrationKey``.
 

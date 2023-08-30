@@ -273,6 +273,10 @@ class TrainAndTestRoutine(Routine):
                                                                                     val_data=val_data,
                                                                                     test_data=test_data)
 
+            logging_utility.logger.info(f'Train size: {len(step_train_data)}{os.linesep}'
+                                        f'Validation size: {len(step_val_data)}{os.linesep}'
+                                        f'Test size: {len(step_test_data)}{os.linesep}')
+
             step_train_data = self.data_loader.parse(data=step_train_data)
             step_val_data = self.data_loader.parse(data=step_val_data)
             step_test_data = self.data_loader.parse(data=step_test_data)
