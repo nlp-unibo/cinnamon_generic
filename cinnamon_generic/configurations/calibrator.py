@@ -82,11 +82,9 @@ class TunableConfiguration(Configuration):
 
         # Merge search space
         if self.calibration_config is not None:
-            calibration_config_class = Registry.retrieve_configurations_from_key(
-                registration_key=self.calibration_config,
-                exact_match=True).class_type
+            config = Registry.build_configuration_from_key(registration_key=self.calibration_config)
             search_space = {f'{parent_key}.{key}' if parent_key is not None else key: value
-                            for key, value in calibration_config_class.get_default().search_space.items()}
+                            for key, value in config.search_space.items()}
         else:
             search_space = {}
 

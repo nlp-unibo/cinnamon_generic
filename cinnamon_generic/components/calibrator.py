@@ -162,10 +162,13 @@ class RandomSearchCalibration(Calibrator):
 
         search_space = self.validator.config.get_search_space()
 
-        if search_space is None:
+        if search_space is None or not len(search_space):
             raise MissingSearchSpaceException(search_space=search_space)
 
         combinations = get_dict_values_combinations(search_space)
+
+        if not len(combinations):
+            raise RuntimeError(f'Expected to find at least one hyper-parameter combination. Got {len(combinations)}')
 
         self.tries = min(self.tries, len(combinations))
 
