@@ -79,6 +79,8 @@ class Calibrator(Component):
 
         # Run validator
         validator_results = validator.run(**self.validator_args)
+        if self.validator_parser is not None:
+            validator_results = self.validator_parser(validator_results)
 
         # Get validation results
         validation_on_value: float = validator_results[self.validate_on]

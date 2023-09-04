@@ -112,14 +112,24 @@ class AverageProcessor(RoutineProcessor):
         """
 
         df_view = pd.DataFrame.from_dict(info)
-        df_view = df_view.groupby(['metric_name', 'info_key'])
+        df_view = df_view.groupby(['info_key', 'metric_name'])
+
         average = df_view['metric_value'].mean()
         average.name = 'average'
+        average = average.reset_index(level=[0, 1])
+        average['name'] = average['info_key'].str.replace('_info', '') + '_' + average['metric_name']
+        average = average[['name', 'average']]
+
         std = df_view['metric_value'].std()
         std = std.fillna(0.0)
         std.name = 'std'
+        std = std.reset_index(level=[0, 1])
+        std['name'] = std['info_key'].str.replace('_info', '') + '_' + std['metric_name']
+        std = std[['name', 'std']]
 
-        merged = pd.merge(average, std, left_index=True, right_index=True)
+        merged = pd.merge(average, std, on='name')
+        merged = merged.set_index(merged['name'])
+        merged = merged[['average', 'std']]
         return merged.to_dict()
 
     def process(
@@ -176,13 +186,24 @@ class FoldProcessor(AverageProcessor):
 
         aggregate_data = {}
         for routine_suffix in routine_suffixes:
-            suffix_view = df_view.groupby(['metric_name', 'info_key', routine_suffix])
+            suffix_view = df_view.groupby(['info_key', routine_suffix, 'metric_name'])
+
             average = suffix_view['metric_value'].mean()
             average.name = 'average'
-            std = suffix_view['metric_value'].std()
-            std.name = 'std'
+            average = average.reset_index(level=[0, 1, 2])
+            average['name'] = average['info_key'].str.replace('_info', '') + '_' + average[routine_suffix].astype(str) + '_' + average['metric_name']
+            average = average[['name', 'average']]
 
-            merged = pd.merge(average, std, left_index=True, right_index=True)
+            std = suffix_view['metric_value'].std()
+            std = std.fillna(0.0)
+            std.name = 'std'
+            std = std.reset_index(level=[0, 1, 2])
+            std['name'] = std['info_key'].str.replace('_info', '') + '_' + std[routine_suffix].astype(str) + '_' + std['metric_name']
+            std = std[['name', 'std']]
+
+            merged = pd.merge(average, std, on='name')
+            merged = merged.set_index(merged['name'])
+            merged = merged[['average', 'std']]
             aggregate_data.setdefault(routine_suffix, merged.to_dict())
 
         aggregate_data.setdefault('all', super().aggregate(info))

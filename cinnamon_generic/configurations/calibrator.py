@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import multiprocessing as mp
-from typing import Dict, Any, Optional, Type
+from typing import Dict, Any, Optional, Type, Callable
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.configuration import Configuration, C
@@ -111,6 +111,9 @@ class CalibratorConfig(Configuration):
                    value={},
                    type_hint=Dict,
                    description='Validator additional run arguments')
+        config.add(name='validator_parser',
+                   type_hint=Callable,
+                   description='Function that parses validator output to extract `validate_on` metric.')
         config.add(name='validate_on',
                    value='loss_val_info',
                    type_hint=str,
