@@ -134,6 +134,7 @@ class TrainAndTestRoutine(Routine):
         model = Model.build_component_from_key(registration_key=self.model)
         model.build(processor=pre_processor,
                     callbacks=self.callbacks)
+        model.config.show()
 
         if self.callbacks is not None:
             self.callbacks.setup(component=model,
