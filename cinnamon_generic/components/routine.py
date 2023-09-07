@@ -113,114 +113,113 @@ class TrainAndTestRoutine(Routine):
         self.helper.run(seed=step_info.seed)
 
         # Pre-Processor
-        pre_processor = Processor.build_component_from_key(registration_key=self.pre_processor)
+
         if not is_training:
-            pre_processor.load(serialization_path=routine_path)
+            self.pre_processor.load(serialization_path=routine_path)
 
         logging_utility.logger.info('Pre-processing train data...')
-        train_data = pre_processor.run(data=train_data,
-                                       is_training_data=is_training)
+        train_data = self.pre_processor.run(data=train_data,
+                                            is_training_data=is_training)
 
         logging_utility.logger.info('Pre-processing val data...')
-        val_data = pre_processor.run(data=val_data)
+        val_data = self.pre_processor.run(data=val_data)
 
         logging_utility.logger.info('Pre-processing test data...')
-        test_data = pre_processor.run(data=test_data)
+        test_data = self.pre_processor.run(data=test_data)
 
-        pre_processor.finalize()
+        self.pre_processor.finalize()
 
         # Model
         logging_utility.logger.info('Building model...')
-        model = Model.build_component_from_key(registration_key=self.model)
-        model.build(processor=pre_processor,
-                    callbacks=self.callbacks)
-        model.config.show()
+        self.model.build(processor=self.pre_processor,
+                         callbacks=self.callbacks)
+        self.model.config.show()
 
         if self.callbacks is not None:
-            self.callbacks.setup(component=model,
+            self.callbacks.setup(component=self.model,
                                  save_path=serialization_path)
 
         # Training
-        if self.metrics is not None:
-            metrics = Metric.build_component_from_key(registration_key=self.metrics)
-        else:
-            metrics = None
 
         # Model Processor
-        model_processor: Optional[Processor] = None
-        if self.model_processor is not None:
-            model_processor = Processor.build_component_from_key(registration_key=self.model_processor)
-
         if is_training:
-            model.prepare_for_training(train_data=train_data)
+            self.model.prepare_for_training(train_data=train_data)
 
             # Model building might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
-            fit_info = model.fit(train_data=train_data,
-                                 val_data=val_data,
-                                 metrics=metrics,
-                                 callbacks=self.callbacks,
-                                 model_processor=model_processor)
+            fit_info = self.model.fit(train_data=train_data,
+                                      val_data=val_data,
+                                      metrics=self.metrics,
+                                      callbacks=self.callbacks,
+                                      model_processor=self.model_processor)
             step_info.add(name='fit_info',
                           value=fit_info,
                           tags={'training'})
         else:
-            model.prepare_for_loading(data=test_data if test_data is not None else val_data)
+            self.model.prepare_for_loading(data=test_data if test_data is not None else val_data)
 
-            model.load(serialization_path=routine_path)
+            self.model.load(serialization_path=routine_path)
 
-            model.check_after_loading()
+            self.model.check_after_loading()
 
             # Model loading might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
         routine_suffixes = step_info.search_by_tag('routine_suffix')
-        train_info = model.evaluate(data=train_data,
-                                    metrics=metrics,
-                                    callbacks=self.callbacks,
-                                    model_processor=model_processor,
-                                    suffixes={**routine_suffixes, **{'split': 'train', 'status': 'inference'}})
+        train_info = self.model.evaluate(data=train_data,
+                                         metrics=self.metrics,
+                                         callbacks=self.callbacks,
+                                         model_processor=self.model_processor,
+                                         suffixes={**routine_suffixes, **{'split': 'train', 'status': 'inference'}})
         step_info.add(name='train_info',
                       value=train_info,
                       tags={'info'})
 
         # Evaluator
         if val_data is not None:
-            val_info = model.evaluate(data=val_data,
-                                      metrics=metrics,
-                                      callbacks=self.callbacks,
-                                      model_processor=model_processor,
-                                      suffixes={**routine_suffixes, **{'split': 'val', 'status': 'inference'}})
+            val_info = self.model.evaluate(data=val_data,
+                                           metrics=self.metrics,
+                                           callbacks=self.callbacks,
+                                           model_processor=self.model_processor,
+                                           suffixes={**routine_suffixes, **{'split': 'val', 'status': 'inference'}})
             step_info.add(name='val_info',
                           value=val_info,
                           tags={'info'})
 
         if test_data is not None:
-            test_info = model.evaluate(data=test_data,
-                                       metrics=metrics,
-                                       callbacks=self.callbacks,
-                                       model_processor=model_processor,
-                                       suffixes={**routine_suffixes, **{'split': 'test', 'status': 'inference'}})
+            test_info = self.model.evaluate(data=test_data,
+                                            metrics=self.metrics,
+                                            callbacks=self.callbacks,
+                                            model_processor=self.model_processor,
+                                            suffixes={**routine_suffixes, **{'split': 'test', 'status': 'inference'}})
             step_info.add(name='test_info',
                           value=test_info,
                           tags={'info'})
 
-        if model_processor is not None:
-            model_processor.finalize()
+        if self.model_processor is not None:
+            self.model_processor.finalize()
 
         # Post-Processor
         if self.post_processor is not None:
-            post_processor = Processor.build_component_from_key(registration_key=self.post_processor)
-            step_info = post_processor.run(data=step_info)
-            post_processor.finalize()
+            step_info = self.post_processor.run(data=step_info)
+            self.post_processor.finalize()
 
         # Save
         if serialization_path is not None:
-            pre_processor.save(serialization_path=routine_path)
-            model.save(serialization_path=routine_path)
+            self.pre_processor.save(serialization_path=routine_path)
+            self.model.save(serialization_path=routine_path)
 
-        self.helper.clear_status()
+        # Clear
+        self.pre_processor.clear()
+        self.model.clear()
+        self.metrics.clear()
+        if self.model_processor is not None:
+            self.model_processor.clear()
+        if self.post_processor is not None:
+            self.post_processor.clear()
+
+        self.helper.clear()
 
         return step_info
 
@@ -239,9 +238,6 @@ class TrainAndTestRoutine(Routine):
         Returns:
             The ``TrainAndTestRoutine`` output results in ``FieldDict`` format
         """
-
-        if self.callbacks is not None:
-            self.callbacks = Callback.build_component_from_key(registration_key=self.callbacks)
 
         routine_info = FieldDict()
         routine_info.add(name='steps',

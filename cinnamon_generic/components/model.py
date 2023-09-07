@@ -123,6 +123,12 @@ class Model(Component):
 
         pass
 
+    def clear(
+            self
+    ):
+        super().clear()
+        self.model = None
+
     @abc.abstractmethod
     def build(
             self,

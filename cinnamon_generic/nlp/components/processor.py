@@ -113,6 +113,15 @@ class TokenizerProcessor(Processor):
                                          embedding_model=self.embedding_model,
                                          embedding_dimension=self.embedding_dimension)
 
+    def clear(
+            self
+    ):
+        super().clear()
+        self.embedding_model = None
+        self.embedding_matrix = None
+        self.vocabulary = None
+        self.vocab_size = None
+
     def load_embedding_model(
             self,
     ):

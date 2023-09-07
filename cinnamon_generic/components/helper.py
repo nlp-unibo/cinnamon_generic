@@ -24,13 +24,9 @@ class Helper(Component):
         np.random.seed(seed)
         random.seed(seed)
 
-    def clear_status(
+    def clear(
             self
     ):
-        """
-        Clears any backed-specific status.
-        """
-
         pass
 
     def run(
