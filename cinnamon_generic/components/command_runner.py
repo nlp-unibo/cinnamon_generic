@@ -1,9 +1,10 @@
 from argparse import ArgumentParser
-from typing import Set, List, Callable
+from typing import Callable
 
 from cinnamon_core.core.component import Component
 from cinnamon_core.core.configuration import C
-from cinnamon_core.core.registry import Registry, RegistrationKey, Registration, NotRegisteredException
+from cinnamon_core.core.registry import Registry, RegistrationKey, NotRegisteredException
+from cinnamon_core.utility import logging_utility
 
 
 class ComponentRunner(Component):
@@ -30,6 +31,8 @@ class ComponentRunner(Component):
             replace_config = Registry.build_configuration_from_key(registration_key=replace_key)
             return self.parse_config(replace_config)
         except NotRegisteredException:
+            logging_utility.logger.warning(f'Could not find registration key {replace_key}. '
+                                           f'The runner will ignore the submitted registration key.')
             return self.parse_config(self.config)
 
 
