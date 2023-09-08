@@ -38,6 +38,12 @@ class Callback(Component):
         self.component = component
         self.save_path = save_path
 
+    def clear(
+            self
+    ):
+        self.component = None
+        self.save_path = None
+
     def run(
             self,
             hookpoint: Optional[str] = None,

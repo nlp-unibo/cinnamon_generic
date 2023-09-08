@@ -113,113 +113,125 @@ class TrainAndTestRoutine(Routine):
         self.helper.run(seed=step_info.seed)
 
         # Pre-Processor
+        pre_processor = self.pre_processor.get_delta_copy({})
 
         if not is_training:
-            self.pre_processor.load(serialization_path=routine_path)
+            pre_processor.load(serialization_path=routine_path)
 
         logging_utility.logger.info('Pre-processing train data...')
-        train_data = self.pre_processor.run(data=train_data,
-                                            is_training_data=is_training)
+        train_data = pre_processor.run(data=train_data,
+                                       is_training_data=is_training)
 
         logging_utility.logger.info('Pre-processing val data...')
-        val_data = self.pre_processor.run(data=val_data)
+        val_data = pre_processor.run(data=val_data)
 
         logging_utility.logger.info('Pre-processing test data...')
-        test_data = self.pre_processor.run(data=test_data)
+        test_data = pre_processor.run(data=test_data)
 
-        self.pre_processor.finalize()
+        pre_processor.finalize()
 
         # Model
         logging_utility.logger.info('Building model...')
-        self.model.build(processor=self.pre_processor,
-                         callbacks=self.callbacks)
-        self.model.config.show()
+        model = self.model.get_delta_copy({})
+        model.build(processor=pre_processor,
+                    callbacks=self.callbacks)
+        model.config.show()
 
         if self.callbacks is not None:
-            self.callbacks.setup(component=self.model,
+            self.callbacks.setup(component=model,
                                  save_path=serialization_path)
 
         # Training
 
         # Model Processor
+        model_processor = self.model_processor.get_delta_copy({}) if self.model_processor is not None else None
+
         if is_training:
-            self.model.prepare_for_training(train_data=train_data)
+            model.prepare_for_training(train_data=train_data)
 
             # Model building might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
-            fit_info = self.model.fit(train_data=train_data,
-                                      val_data=val_data,
-                                      metrics=self.metrics,
-                                      callbacks=self.callbacks,
-                                      model_processor=self.model_processor)
+            fit_info = model.fit(train_data=train_data,
+                                 val_data=val_data,
+                                 metrics=self.metrics,
+                                 callbacks=self.callbacks,
+                                 model_processor=model_processor)
             step_info.add(name='fit_info',
                           value=fit_info,
                           tags={'training'})
         else:
-            self.model.prepare_for_loading(data=test_data if test_data is not None else val_data)
+            model.prepare_for_loading(data=test_data if test_data is not None else val_data)
 
-            self.model.load(serialization_path=routine_path)
+            model.load(serialization_path=routine_path)
 
-            self.model.check_after_loading()
+            model.check_after_loading()
 
             # Model loading might require seed re-fixing
             self.helper.run(seed=step_info.seed)
 
         routine_suffixes = step_info.search_by_tag('routine_suffix')
-        train_info = self.model.evaluate(data=train_data,
-                                         metrics=self.metrics,
-                                         callbacks=self.callbacks,
-                                         model_processor=self.model_processor,
-                                         suffixes={**routine_suffixes, **{'split': 'train', 'status': 'inference'}})
+        train_info = model.evaluate(data=train_data,
+                                    metrics=self.metrics,
+                                    callbacks=self.callbacks,
+                                    model_processor=model_processor,
+                                    suffixes={**routine_suffixes, **{'split': 'train', 'status': 'inference'}})
         step_info.add(name='train_info',
                       value=train_info,
                       tags={'info'})
 
         # Evaluator
         if val_data is not None:
-            val_info = self.model.evaluate(data=val_data,
-                                           metrics=self.metrics,
-                                           callbacks=self.callbacks,
-                                           model_processor=self.model_processor,
-                                           suffixes={**routine_suffixes, **{'split': 'val', 'status': 'inference'}})
+            val_info = model.evaluate(data=val_data,
+                                      metrics=self.metrics,
+                                      callbacks=self.callbacks,
+                                      model_processor=model_processor,
+                                      suffixes={**routine_suffixes, **{'split': 'val', 'status': 'inference'}})
             step_info.add(name='val_info',
                           value=val_info,
                           tags={'info'})
 
         if test_data is not None:
-            test_info = self.model.evaluate(data=test_data,
-                                            metrics=self.metrics,
-                                            callbacks=self.callbacks,
-                                            model_processor=self.model_processor,
-                                            suffixes={**routine_suffixes, **{'split': 'test', 'status': 'inference'}})
+            test_info = model.evaluate(data=test_data,
+                                       metrics=self.metrics,
+                                       callbacks=self.callbacks,
+                                       model_processor=model_processor,
+                                       suffixes={**routine_suffixes, **{'split': 'test', 'status': 'inference'}})
             step_info.add(name='test_info',
                           value=test_info,
                           tags={'info'})
 
-        if self.model_processor is not None:
-            self.model_processor.finalize()
+        if model_processor is not None:
+            model_processor.finalize()
 
         # Post-Processor
-        if self.post_processor is not None:
-            step_info = self.post_processor.run(data=step_info)
-            self.post_processor.finalize()
+        post_processor = self.post_processor.get_delta_copy({}) if self.post_processor is not None else None
+
+        if post_processor is not None:
+            step_info = post_processor.run(data=step_info)
+            post_processor.finalize()
 
         # Save
         if serialization_path is not None:
-            self.pre_processor.save(serialization_path=routine_path)
-            self.model.save(serialization_path=routine_path)
+            pre_processor.save(serialization_path=routine_path)
+            model.save(serialization_path=routine_path)
 
         # Clear
-        self.pre_processor.clear()
-        self.metrics.clear()
-        if self.model_processor is not None:
-            self.model_processor.clear()
-        if self.post_processor is not None:
-            self.post_processor.clear()
+        pre_processor.clear()
+        del pre_processor
 
+        self.metrics.clear()
+
+        if model_processor is not None:
+            model_processor.clear()
+            del model_processor
+        if post_processor is not None:
+            post_processor.clear()
+            del post_processor
+
+        model.clear()
+        del model
         self.helper.clear()
-        self.model.clear()
 
         return step_info
 
