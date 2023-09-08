@@ -212,7 +212,6 @@ class TrainAndTestRoutine(Routine):
 
         # Clear
         self.pre_processor.clear()
-        self.model.clear()
         self.metrics.clear()
         if self.model_processor is not None:
             self.model_processor.clear()
@@ -220,6 +219,7 @@ class TrainAndTestRoutine(Routine):
             self.post_processor.clear()
 
         self.helper.clear()
+        self.model.clear()
 
         return step_info
 

@@ -127,6 +127,7 @@ class Model(Component):
             self
     ):
         super().clear()
+        del self.model
         self.model = None
 
     @abc.abstractmethod
