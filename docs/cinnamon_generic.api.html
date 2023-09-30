@@ -216,6 +216,13 @@
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
@@ -391,6 +398,13 @@ document.write(`
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
@@ -437,6 +451,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html">cinnamon_generic.nlp.configurations package</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.utility.html">cinnamon_generic.utility package</a></li>
 </ul>
 </div>
 </nav></div>
@@ -579,7 +594,7 @@ document.write(`
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cinnamon_generic.api.commands.routine_train">
-<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">routine_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.routine_train" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">routine_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.routine_train" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds a <code class="docutils literal notranslate"><span class="pre">Routine</span></code> component and runs it in training mode given its registration key in implicit format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -590,6 +605,7 @@ document.write(`
 <li><p><strong>serialize</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, it enables the serialization process of <code class="docutils literal notranslate"><span class="pre">Routine</span></code> component during execution.</p></li>
 <li><p><strong>run_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the name of the folder containing run results</p></li>
 <li><p><strong>run_args</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – optional run arguments</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – the path where run results are stored</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -627,7 +643,7 @@ document.write(`
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cinnamon_generic.api.commands.run_component">
-<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">run_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.run_component" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">run_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">namespace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generic'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.run_component" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds and runs a <code class="docutils literal notranslate"><span class="pre">Component</span></code> given its registration key in implicit format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -638,6 +654,7 @@ document.write(`
 <li><p><strong>serialize</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, it enables the serialization process of <code class="docutils literal notranslate"><span class="pre">Component</span></code> component during execution.</p></li>
 <li><p><strong>run_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the name of the folder containing run results</p></li>
 <li><p><strong>run_args</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – optional run arguments</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – the path where run results are stored</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -652,7 +669,7 @@ serialization_path: the path where run results are stored</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="cinnamon_generic.api.commands.run_component_from_key">
-<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">run_component_from_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registration_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.run_component_from_key" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">cinnamon_generic.api.commands.</span></span><span class="sig-name descname"><span class="pre">run_component_from_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registration_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serialization_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.api.commands.run_component_from_key" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds and runs a <code class="docutils literal notranslate"><span class="pre">Component</span></code> given its registration key in explicit format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -661,6 +678,7 @@ serialization_path: the path where run results are stored</p>
 <li><p><strong>serialize</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – if True, it enables the serialization process of <code class="docutils literal notranslate"><span class="pre">Component</span></code> component during execution.</p></li>
 <li><p><strong>run_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – the name of the folder containing run results</p></li>
 <li><p><strong>run_args</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – optional run arguments</p></li>
+<li><p><strong>serialization_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – the path where the results are stored</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

@@ -216,6 +216,13 @@
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
@@ -391,6 +398,13 @@ document.write(`
                     </li>
                 
 
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
@@ -437,6 +451,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="cinnamon_generic.nlp.configurations.html">cinnamon_generic.nlp.configurations package</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_generic.utility.html">cinnamon_generic.utility package</a></li>
 </ul>
 </div>
 </nav></div>
@@ -625,6 +640,13 @@ The grid-search samples and evaluates all possible hyper-parameter combinations 
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Component</span></code></p>
 <p>Generic <code class="docutils literal notranslate"><span class="pre">Callback</span></code> component.
 A <code class="docutils literal notranslate"><span class="pre">Callback</span></code> component defines execution flow hookpoints for flow customization and side effects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.callback.Callback.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.Callback.clear" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<p>Returns:</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_generic.components.callback.Callback.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hookpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.callback.Callback.run" title="Permalink to this definition">#</a></dt>
@@ -901,9 +923,10 @@ All file and folder paths of the <code class="docutils literal notranslate"><spa
 <p>A <code class="docutils literal notranslate"><span class="pre">Helper</span></code> is a <code class="docutils literal notranslate"><span class="pre">Component</span></code> specialized in handling seeding and backend-specific behaviours.
 This general <code class="docutils literal notranslate"><span class="pre">Helper</span></code> component expects an input seed to fix numpy and random packages stochasticity.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper.clear_status">
-<span class="sig-name descname"><span class="pre">clear_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper.clear_status" title="Permalink to this definition">#</a></dt>
-<dd><p>Clears any backed-specific status.</p>
+<dt class="sig sig-object py" id="cinnamon_generic.components.helper.Helper.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.helper.Helper.clear" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1050,6 +1073,13 @@ building the model.</p></li>
 <dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.check_after_loading">
 <span class="sig-name descname"><span class="pre">check_after_loading</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.check_after_loading" title="Permalink to this definition">#</a></dt>
 <dd><p>Entry point for validating the model after state loading.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_generic.components.model.Model.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_generic.components.model.Model.clear" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1452,7 +1482,7 @@ For instance:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>step_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – </p></li>
+<li><p><strong>step_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – TODO</p></li>
 <li><p><strong>train_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data training split</p></li>
 <li><p><strong>val_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data validation split</p></li>
 <li><p><strong>test_data</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>]) – data test split</p></li>
@@ -1707,6 +1737,7 @@ In addition, it computes average and std over each suffix individually (e.g., se
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.callback">cinnamon_generic.components.callback module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback"><code class="docutils literal notranslate"><span class="pre">Callback</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback.clear"><code class="docutils literal notranslate"><span class="pre">Callback.clear()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback.run"><code class="docutils literal notranslate"><span class="pre">Callback.run()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.callback.Callback.setup"><code class="docutils literal notranslate"><span class="pre">Callback.setup()</span></code></a></li>
 </ul>
@@ -1742,7 +1773,7 @@ In addition, it computes average and std over each suffix individually (e.g., se
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_generic.components.helper">cinnamon_generic.components.helper module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper"><code class="docutils literal notranslate"><span class="pre">Helper</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.clear_status"><code class="docutils literal notranslate"><span class="pre">Helper.clear_status()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.clear"><code class="docutils literal notranslate"><span class="pre">Helper.clear()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.run"><code class="docutils literal notranslate"><span class="pre">Helper.run()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.helper.Helper.set_seed"><code class="docutils literal notranslate"><span class="pre">Helper.set_seed()</span></code></a></li>
 </ul>
@@ -1768,6 +1799,7 @@ In addition, it computes average and std over each suffix individually (e.g., se
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.build"><code class="docutils literal notranslate"><span class="pre">Model.build()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.check_after_loading"><code class="docutils literal notranslate"><span class="pre">Model.check_after_loading()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.clear"><code class="docutils literal notranslate"><span class="pre">Model.clear()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.evaluate"><code class="docutils literal notranslate"><span class="pre">Model.evaluate()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.fit"><code class="docutils literal notranslate"><span class="pre">Model.fit()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_generic.components.model.Model.load"><code class="docutils literal notranslate"><span class="pre">Model.load()</span></code></a></li>

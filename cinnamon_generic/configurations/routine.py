@@ -46,7 +46,7 @@ class RoutineConfig(TunableConfiguration):
                    type_hint=Optional[RegistrationKey],
                    build_type_hint=Optional[Processor],
                    description="Processor component used to for data post-processing",
-                   is_child=True,)
+                   is_child=True)
         config.add(name='model_processor',
                    type_hint=Optional[RegistrationKey],
                    build_type_hint=Optional[Processor],

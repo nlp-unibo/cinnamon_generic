@@ -52,51 +52,44 @@ The ``Routine`` uses ``RoutineConfig`` as the default configuration template.
                        build_type_hint=Processor,
                        description="Processor component used to for data pre-processing",
                        is_required=True,
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='post_processor',
                        type_hint=Optional[RegistrationKey],
                        build_type_hint=Optional[Processor],
                        description="Processor component used to for data post-processing",
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='model_processor',
                        type_hint=Optional[RegistrationKey],
                        build_type_hint=Optional[Processor],
                        description="Processor component used to for model output post-processing",
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='routine_processor',
                        type_hint=Optional[RegistrationKey],
                        build_type_hint=Optional[Processor],
                        description="Processor component used to for routine results processing",
-                       is_child=True,
-                       build_from_registration=True)
+                       is_child=True)
 
             config.add(name='model',
                        type_hint=RegistrationKey,
                        build_type_hint=Model,
                        description="Model component used to wrap a machine learning model ",
                        is_required=True,
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='callbacks',
                        type_hint=Optional[RegistrationKey],
                        build_type_hint=Callback,
                        description="Callback component for customized control flow and side effects",
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='metrics',
                        type_hint=Optional[RegistrationKey],
                        build_type_hint=Metric,
                        description="Metric component for routine evaluation",
-                       is_child=True,
-                       build_from_registration=False)
+                       is_child=True)
 
             config.add(name='helper',
                        type_hint=Optional[RegistrationKey],

@@ -217,6 +217,13 @@
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -392,6 +399,13 @@ document.write(`
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                        Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="cinnamon_generic.html">
                         cinnamon-generic
                       </a>
@@ -520,51 +534,44 @@ For instance:</p>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Processor</span><span class="p">,</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Processor component used to for data pre-processing&quot;</span><span class="p">,</span>
                    <span class="n">is_required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;post_processor&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">Processor</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Processor component used to for data post-processing&quot;</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;model_processor&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">Processor</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Processor component used to for model output post-processing&quot;</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;routine_processor&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">Processor</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Processor component used to for routine results processing&quot;</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">RegistrationKey</span><span class="p">,</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Model</span><span class="p">,</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Model component used to wrap a machine learning model &quot;</span><span class="p">,</span>
                    <span class="n">is_required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;callbacks&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Callback</span><span class="p">,</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Callback component for customized control flow and side effects&quot;</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;metrics&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
                    <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Metric</span><span class="p">,</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Metric component for routine evaluation&quot;</span><span class="p">,</span>
-                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                   <span class="n">build_from_registration</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                   <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;helper&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
