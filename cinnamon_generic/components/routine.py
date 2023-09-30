@@ -87,7 +87,7 @@ class TrainAndTestRoutine(Routine):
         A single train and test execution flow.
 
         Args:
-            step_info:
+            step_info: TODO
             train_data: data training split
             val_data: data validation split
             test_data: data test split
@@ -263,7 +263,9 @@ class TrainAndTestRoutine(Routine):
         if self.callbacks is not None:
             self.callbacks.run(hookpoint='on_routine_begin',
                                logs={
-                                   'seeds': seeds
+                                   'seeds': seeds,
+                                   'serialization_path': serialization_path,
+                                   'is_training': is_training
                                })
 
         for seed_idx, seed in enumerate(seeds):
@@ -395,7 +397,9 @@ class CVRoutine(TrainAndTestRoutine):
                     self.callbacks.run(hookpoint='on_routine_step_begin',
                                        logs={
                                            'seed': seed,
-                                           'fold': fold_idx
+                                           'fold': fold_idx,
+                                           'serialization_path': serialization_path,
+                                           'is_training': is_training
                                        })
 
                 step_train_data = self.data_loader.parse(data=step_train_data)
