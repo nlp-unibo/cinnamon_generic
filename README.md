@@ -4,6 +4,13 @@ The generic package offers several ``Component`` and related ``Configuration`` f
 
 Additionally, it provides the first set of **commands**: high-level APIs for speeding up cinnamon registration.
 
+## Documentation
+
+Check the online documentation of [cinnamon-generic](https://nlp-unibo.github.io/cinnamon_generic/) for more information.
+
+Check also the central [cinnamon](https://nlp-unibo.github.io/cinnamon/) documentation to overview all cinnamon packages!
+
+
 ## Components and Configurations
 
 
