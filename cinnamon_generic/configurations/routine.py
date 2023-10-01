@@ -32,7 +32,7 @@ class RoutineConfig(TunableConfiguration):
                    is_child=True)
         config.add(name='data_splitter',
                    type_hint=Optional[RegistrationKey],
-                   build_type_hint=TTSplitter,
+                   build_type_hint=Optional[TTSplitter],
                    description="Data splitter component for creating train/val/test splits",
                    is_required=True,
                    is_child=True)
@@ -65,12 +65,12 @@ class RoutineConfig(TunableConfiguration):
                    is_child=True)
         config.add(name='callbacks',
                    type_hint=Optional[RegistrationKey],
-                   build_type_hint=Callback,
+                   build_type_hint=Optional[Callback],
                    description="Callback component for customized control flow and side effects",
                    is_child=True)
         config.add(name='metrics',
                    type_hint=Optional[RegistrationKey],
-                   build_type_hint=Metric,
+                   build_type_hint=Optional[Metric],
                    description="Metric component for routine evaluation",
                    is_child=True)
         config.add(name='helper',

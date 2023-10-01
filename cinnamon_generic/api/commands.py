@@ -425,9 +425,9 @@ def routine_inference(
         raise AttributeError('At least routine_path or run_name have to be specified.'
                              f'Got routine_path={routine_path} and run_name={run_name}')
 
-    file_manager = FileManager.retrieve_built_component(name='file_manager',
-                                                        namespace='generic',
-                                                        is_default=True)
+    file_manager = FileManager.retrieve_component_instance(name='file_manager',
+                                                           namespace='generic',
+                                                           is_default=True)
 
     if routine_path is None:
         routine_path = file_manager.run(filepath=file_manager.runs_directory)

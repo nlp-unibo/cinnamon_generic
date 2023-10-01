@@ -524,7 +524,7 @@ For instance:</p>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_splitter&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
-                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">TTSplitter</span><span class="p">,</span>
+                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">TTSplitter</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Data splitter component for creating train/val/test splits&quot;</span><span class="p">,</span>
                    <span class="n">is_required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                    <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -563,13 +563,13 @@ For instance:</p>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;callbacks&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
-                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Callback</span><span class="p">,</span>
+                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">Callback</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Callback component for customized control flow and side effects&quot;</span><span class="p">,</span>
                    <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="n">config</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;metrics&#39;</span><span class="p">,</span>
                    <span class="n">type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">RegistrationKey</span><span class="p">],</span>
-                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Metric</span><span class="p">,</span>
+                   <span class="n">build_type_hint</span><span class="o">=</span><span class="n">Optional</span><span class="p">[</span><span class="n">Metric</span><span class="p">],</span>
                    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Metric component for routine evaluation&quot;</span><span class="p">,</span>
                    <span class="n">is_child</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
