@@ -34,7 +34,6 @@ class RoutineConfig(TunableConfiguration):
                    type_hint=Optional[RegistrationKey],
                    build_type_hint=Optional[TTSplitter],
                    description="Data splitter component for creating train/val/test splits",
-                   is_required=True,
                    is_child=True)
         config.add(name='pre_processor',
                    type_hint=RegistrationKey,
@@ -90,6 +89,7 @@ class CVRoutineConfig(RoutineConfig):
     ):
         config = super().get_default()
 
+        config.get('data_splitter').is_required = True
         config.add(name='max_folds',
                    value=-1,
                    type_hint=int,

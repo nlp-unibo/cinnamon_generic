@@ -280,9 +280,15 @@ class TrainAndTestRoutine(Routine):
                                    })
 
             train_data, val_data, test_data = self.data_loader.get_splits()
-            step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
-                                                                                    val_data=val_data,
-                                                                                    test_data=test_data)
+
+            if self.data_splitter is not None:
+                step_train_data, step_val_data, step_test_data = self.data_splitter.run(train_data=train_data,
+                                                                                        val_data=val_data,
+                                                                                        test_data=test_data)
+            else:
+                step_train_data = train_data[:]
+                step_val_data = val_data[:]
+                step_test_data = test_data[:]
 
             logging_utility.logger.info(f'Train size: {len(step_train_data)}{os.linesep}'
                                         f'Validation size: {len(step_val_data)}{os.linesep}'
