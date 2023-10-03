@@ -16,7 +16,7 @@ with requirements_path.open('r') as f:
 
 setup(
     name='cinnamon_generic',
-    version='0.2',
+    version='0.2.2',
     author='Federico Ruggeri',
     author_email='federico.ruggeri6@unibo.it',
     description='[Generic Package] A simple high-level framework for research',
