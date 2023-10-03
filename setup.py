@@ -35,7 +35,8 @@ setup(
               'cinnamon_generic.api',
               'cinnamon_generic.components',
               'cinnamon_generic.configurations',
-              'cinnamon_generic.nlp'
+              'cinnamon_generic.nlp',
+              'cinnamon_generic.utility'
               ],
     install_requires=requirements,
     python_requires=">=3.6"
