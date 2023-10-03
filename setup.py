@@ -16,7 +16,7 @@ with requirements_path.open('r') as f:
 
 setup(
     name='cinnamon_generic',
-    version='0.2.2',
+    version='0.2.3',
     author='Federico Ruggeri',
     author_email='federico.ruggeri6@unibo.it',
     description='[Generic Package] A simple high-level framework for research',
@@ -36,6 +36,8 @@ setup(
               'cinnamon_generic.components',
               'cinnamon_generic.configurations',
               'cinnamon_generic.nlp',
+              'cinnamon_generic.nlp.components',
+              'cinnamon_generic.nlp.configurations',
               'cinnamon_generic.utility'
               ],
     install_requires=requirements,
