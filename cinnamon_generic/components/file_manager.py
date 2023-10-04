@@ -60,7 +60,7 @@ class FileManager(Component):
 
         run_path = self.runs_directory.joinpath(key.namespace, key.name, run_name)
 
-        if run_name is None or (run_name is None and run_path.exists()):
+        if run_name is None or (run_name is not None and run_path.exists()):
             run_path = self.runs_directory.joinpath(key.namespace, key.name, current_date)
 
         if create_path and not run_path.is_dir():

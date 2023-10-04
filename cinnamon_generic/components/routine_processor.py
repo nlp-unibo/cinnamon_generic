@@ -78,7 +78,7 @@ class AverageProcessor(RoutineProcessor):
                                                  exact_match=True).items():
 
             for key, value in info.to_value_dict().items():
-                if type(value) == float:
+                if key not in ['metrics', 'predictions']:
                     accumulator.setdefault('metric_name', []).append(key)
                     accumulator.setdefault('metric_value', []).append(value)
                     accumulator.setdefault('info_key', []).append(info_key)
