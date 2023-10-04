@@ -183,14 +183,11 @@ def run_component_from_key(
 
     if serialize:
         if serialization_path is None:
-            serialization_path = file_manager.register_temporary_run_name(replacement_name=run_name,
+            serialization_path = file_manager.register_temporary_run_name(run_name=run_name,
                                                                           create_path=serialize,
                                                                           key=registration_key)
-            logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
-        else:
-            logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
-            if run_name is not None:
-                file_manager.runs_registry[serialization_path] = serialization_path.with_name(run_name)
+
+        logging_utility.update_logger(serialization_path.joinpath(file_manager.logging_filename))
 
     run_args = run_args if run_args is not None else {}
     if 'serialization_path' in get_function_signature(component.run) and 'serialization_path' not in run_args:
@@ -202,20 +199,6 @@ def run_component_from_key(
     if serialize:
         logging_utility.logger.info(f'Serializing Component state to: {serialization_path}')
         component.save(serialization_path=serialization_path)
-
-    if run_name is not None \
-            and serialization_path is not None \
-            and serialization_path.exists() \
-            and serialization_path in file_manager.runs_registry:
-        replacement_path: Path = file_manager.runs_registry[serialization_path]
-        if replacement_path.exists():
-            logging_utility.logger.warning(
-                f'Replacement path {replacement_path} already exists! Skipping replacement...')
-        else:
-            serialization_path.rename(replacement_path)
-            serialization_path = replacement_path
-            logging_utility.update_logger(replacement_path.joinpath(file_manager.logging_filename))
-            logging_utility.logger.info(f'Renaming {serialization_path} to {replacement_path}')
 
     if serialization_path is not None and serialization_path.exists():
         save_json(serialization_path.joinpath('metadata.json'),

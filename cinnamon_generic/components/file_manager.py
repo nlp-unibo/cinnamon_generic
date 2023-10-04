@@ -19,7 +19,6 @@ class FileManager(Component):
     ):
         super().__init__(**kwargs)
         self.base_directory: Optional[Union[AnyStr, Path]] = None
-        self.runs_registry = {}
 
     def setup(
             self,
@@ -42,7 +41,7 @@ class FileManager(Component):
     def register_temporary_run_name(
             self,
             key: Registration,
-            replacement_name: Optional[str] = None,
+            run_name: Optional[str] = None,
             create_path: bool = False
     ) -> Path:
         """
@@ -50,7 +49,7 @@ class FileManager(Component):
 
         Args:
             key: configuration registration key
-            replacement_name: replacement name for temporary run name
+            run_name: replacement name for temporary run name
             create_path: if True, a folder with temporary run name is created
 
         Returns:
@@ -58,10 +57,11 @@ class FileManager(Component):
         """
 
         current_date = datetime.today().strftime('%d-%m-%Y-%H-%M-%S')
-        run_path = self.runs_directory.joinpath(key.namespace, key.name, current_date)
 
-        if replacement_name is not None:
-            self.runs_registry[run_path] = run_path.with_name(replacement_name)
+        run_path = self.runs_directory.joinpath(key.namespace, key.name, run_name)
+
+        if run_name is None or (run_name is None and run_path.exists()):
+            run_path = self.runs_directory.joinpath(key.namespace, key.name, current_date)
 
         if create_path and not run_path.is_dir():
             run_path.mkdir(parents=True)
