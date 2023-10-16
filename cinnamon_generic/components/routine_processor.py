@@ -78,7 +78,7 @@ class AverageProcessor(RoutineProcessor):
                                                  exact_match=True).items():
 
             for key, value in info.to_value_dict().items():
-                if key not in ['metrics', 'predictions']:
+                if key not in ['metrics', 'predictions', 'suffixes']:
                     accumulator.setdefault('metric_name', []).append(key)
                     accumulator.setdefault('metric_value', []).append(value)
                     accumulator.setdefault('info_key', []).append(info_key)
@@ -112,6 +112,10 @@ class AverageProcessor(RoutineProcessor):
         """
 
         df_view = pd.DataFrame.from_dict(info)
+
+        if df_view.empty:
+            return info
+
         df_view = df_view.groupby(['info_key', 'metric_name'])
 
         average = df_view['metric_value'].mean()
@@ -154,10 +158,11 @@ class AverageProcessor(RoutineProcessor):
                                            step=step)
 
         average_data = self.aggregate(info=average_data)
-        data.add(name='average',
-                 value=average_data,
-                 description=f'Processed routine results via {self.__class__.__name__}.'
-                             f'Each metric is averaged across routine suffixes.')
+        if len(average_data):
+            data.add(name='average',
+                     value=average_data,
+                     description=f'Processed routine results via {self.__class__.__name__}.'
+                                 f'Each metric is averaged across routine suffixes.')
         return data
 
 

@@ -220,7 +220,8 @@ class TrainAndTestRoutine(Routine):
         pre_processor.clear()
         del pre_processor
 
-        self.metrics.clear()
+        if self.metrics is not None:
+            self.metrics.clear()
 
         if model_processor is not None:
             model_processor.clear()
