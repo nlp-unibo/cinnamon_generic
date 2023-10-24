@@ -29,7 +29,8 @@ def retrieve_and_save(
         try:
             Registry.build_component_from_key(registration_key=key)
             valid_keys.append(str(key))
-        except (InvalidConfigurationTypeException, ValidationFailureException, NotBoundException):
+        except (InvalidConfigurationTypeException, ValidationFailureException, NotBoundException) as e:
+            logging_utility.logger.info(f'Skipping {key}. Reason: {e}')
             invalid_keys.append(str(key))
 
     if valid_keys:
