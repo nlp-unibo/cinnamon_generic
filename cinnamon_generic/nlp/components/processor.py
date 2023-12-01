@@ -149,11 +149,14 @@ class TokenizerProcessor(Processor):
         Returns:
             The built embedding matrix and the updated vocabulary
         """
+        added_tokens = []
+
         if self.merge_vocabularies:
             vocab_size = len(set(list(vocabulary.keys()) + list(embedding_model.vocab.keys()))) + 1
             for key in tqdm(embedding_model.vocab.keys()):
                 if key not in vocabulary:
                     vocabulary[key] = max(list(vocabulary.values())) + 1
+                    added_tokens.append(key)
         else:
             vocab_size = self.vocab_size
 
@@ -170,7 +173,7 @@ class TokenizerProcessor(Processor):
             embedding_matrix[i] = embedding_vector
 
         self.embedding_matrix = embedding_matrix
-        self.vocabulary = vocabulary
+        return vocabulary, added_tokens
 
     @abc.abstractmethod
     def tokenize(
