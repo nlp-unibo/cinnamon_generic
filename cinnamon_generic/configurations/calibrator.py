@@ -112,7 +112,7 @@ class CalibratorConfig(Configuration):
                    type_hint=Dict,
                    description='Validator additional run arguments')
         config.add(name='validator_parser',
-                   type_hint=Callable,
+                   type_hint=Optional[Callable],
                    description='Function that parses validator output to extract `validate_on` metric.')
         config.add(name='validate_on',
                    value='loss_val_info',

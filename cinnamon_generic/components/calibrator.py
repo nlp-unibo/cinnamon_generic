@@ -52,7 +52,8 @@ class Calibrator(Component):
 
     def evaluate_combination(
             self,
-            parameter_combination: Dict[str, Any]
+            parameter_combination: Dict[str, Any],
+            validator_args: Dict[str, Any] = None
     ):
         """
         Evaluation method of each ``validator`` delta copy based on sampled hyper-parameter combinations.
@@ -66,6 +67,7 @@ class Calibrator(Component):
 
         Args:
             parameter_combination: a sampled hyper-parameter combination of ``validator``'s ``Configuration``.
+            validator_args: TODO
 
         Returns:
             The calibration metric value for current ``validator``'s delta copy
@@ -78,17 +80,19 @@ class Calibrator(Component):
         validator = self.validator.get_delta_copy(params_dict=parameter_combination)
 
         # Run validator
-        validator_results = validator.run(**self.validator_args)
+        validator_args = {} if validator_args is None else validator_args
+        validator_args = {**validator_args, **self.validator_args}
+        validator_results = validator.run(**validator_args)
         if self.validator_parser is not None:
             validator_results = self.validator_parser(validator_results)
 
         # Get validation results
         validation_on_value: float = validator_results[self.validate_on]
-        if validation_on_value is None or type(validation_on_value) != float:
+        if validation_on_value is None:
             raise RuntimeError(
                 f'Expected a float validation value for {self.validate_on} '
                 f'but got {validation_on_value} (type={type(validation_on_value)}).'
-                f'Are you sure you {self.validate_on} is correct?')
+                f'Are you sure {self.validate_on} is correct?')
 
         if self.validate_condition == ValidateCondition.MAXIMIZATION:
             return -validation_on_value
@@ -105,6 +109,7 @@ class GridSearchCalibrator(Calibrator):
 
     def run(
             self,
+            validator_args: Dict[str, Any] = None
     ) -> Any:
         """
         Runs the calibration phase for the specified ``validator`` ``Component``.
@@ -130,7 +135,8 @@ class GridSearchCalibrator(Calibrator):
 
         calibration_results = []
         for combination in tqdm(combinations):
-            combination_result = self.evaluate_combination(parameter_combination=combination)
+            combination_result = self.evaluate_combination(parameter_combination=combination,
+                                                           validator_args=validator_args)
             calibration_results.append((combination_result, combination))
 
         calibration_results = sorted(calibration_results, key=lambda pair: pair[0])
@@ -149,6 +155,7 @@ class RandomSearchCalibration(Calibrator):
 
     def run(
             self,
+            validator_args: Dict[str, Any] = None
     ) -> Any:
         """
         Runs the calibration phase for the specified ``validator`` ``Component``.
@@ -181,7 +188,8 @@ class RandomSearchCalibration(Calibrator):
         calibration_results = []
         sampled_combinations = np.random.choice(combinations, size=self.tries, replace=False)
         for combination in tqdm(sampled_combinations):
-            combination_result = self.evaluate_combination(parameter_combination=combination)
+            combination_result = self.evaluate_combination(parameter_combination=combination,
+                                                           validator_args=validator_args)
             calibration_results.append((combination_result, combination))
 
         calibration_results = list(sorted(calibration_results, key=lambda pair: pair[0]))
