@@ -310,7 +310,7 @@ class PrebuiltCVSplitter(CVSplitter):
             Train, validation and test data fold splits
         """
 
-        file_manager = FileManager.retrieve_built_component_from_key(self.file_manager_key)
+        file_manager = FileManager.build_component_from_key(self.file_manager_key)
 
         self.folds_path = file_manager.run(filepath=Path(self.prebuilt_folder_name))
         self.folds_path = self.folds_path.joinpath(self.prebuilt_filename)

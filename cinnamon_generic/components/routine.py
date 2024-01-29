@@ -355,9 +355,6 @@ class CVRoutine(TrainAndTestRoutine):
             The ``CVRoutine`` output results in ``FieldDict`` format
         """
 
-        if self.callbacks is not None:
-            self.callbacks = Callback.build_component_from_key(registration_key=self.callbacks)
-
         routine_info = FieldDict()
         routine_info.add(name='steps',
                          value=[],
