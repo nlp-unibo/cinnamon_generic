@@ -177,6 +177,7 @@ def run_component_from_key(
     logging_utility.logger.info(f'Retrieving Component from key:{os.linesep}{registration_key}')
 
     component = Registry.build_component_from_key(registration_key=registration_key)
+    run_name = component.get_serialization_name() if run_name is None else run_name
 
     file_manager = FileManager.retrieve_component_instance(name='file_manager',
                                                            namespace='generic',
